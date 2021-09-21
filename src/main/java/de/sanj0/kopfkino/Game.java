@@ -30,11 +30,11 @@ public class Game {
 
     private static Game instance = null;
 
-    private int resolutionW;
-    private int resolutionH;
+    private final int resolutionW;
+    private final int resolutionH;
     private long fixedUpdatePeriod;
-    private String name;
-    private Color backgroundColor;
+    private final String name;
+    private final Color backgroundColor;
 
     private KopfkinoWindow window;
     private ScheduledExecutorService executorService;
