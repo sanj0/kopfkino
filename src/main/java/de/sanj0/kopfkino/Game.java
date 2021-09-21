@@ -52,6 +52,9 @@ public class Game {
             System.err.println("game already initialised");
             System.exit(1);
         }
+        System.setProperty("sun.java2d.opengl", "True");
+        System.setProperty("sun.java2d.accthreshold", "0");
+        System.setProperty("java.awt.headless", "false");
         instance = new Game(resolutionW, resolutionH, name, Color.BLACK);
     }
 
