@@ -25,7 +25,7 @@ import java.awt.*;
  */
 public class KopfkinoWindow extends JFrame {
 
-    private KopfkinoCanvas canvas;
+    private final KopfkinoCanvas canvas;
 
     public KopfkinoWindow(final int w, final int h, final String gameName) throws HeadlessException {
         super(gameName + " (kopfkino engine)");
