@@ -18,6 +18,7 @@
 package de.sanj0.kopfkino.ui;
 
 import de.sanj0.kopfkino.Game;
+import de.sanj0.kopfkino.graphics.DefaultRenderingHints;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,5 +36,6 @@ public class KopfkinoCanvas extends JPanel {
         g.setColor(Game.getInstance().getBackgroundColor());
         g.clearRect(0, 0, getWidth(), getHeight());
         final Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHints(DefaultRenderingHints.getHints());
     }
 }
