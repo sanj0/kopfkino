@@ -49,10 +49,10 @@ public class BoundingBox {
     }
 
     /**
-     * Returns true if the given bounding box and this
-     * intersect.
+     * Returns true if the given bounding box and this intersect.
      *
      * @param b another bounding box
+     *
      * @return do this and the given bounding box intersect?
      */
     public boolean intersects(final BoundingBox b) {
@@ -68,6 +68,7 @@ public class BoundingBox {
      * Does this bounding box fully contain the given one?
      *
      * @param b another bounding box
+     *
      * @return does this bounding box fully contain the given one?
      */
     public boolean contains(final BoundingBox b) {
@@ -153,10 +154,6 @@ public class BoundingBox {
         return position.getX();
     }
 
-    public float getMaxX() {
-        return getX() + getWidth();
-    }
-
     /**
      * Sets x.
      *
@@ -164,6 +161,10 @@ public class BoundingBox {
      */
     public void setX(final float x) {
         position.setX(x);
+    }
+
+    public float getMaxX() {
+        return getX() + getWidth();
     }
 
     /**
@@ -175,10 +176,6 @@ public class BoundingBox {
         return position.getY();
     }
 
-    public float getMaxY() {
-        return getY() + getHeight();
-    }
-
     /**
      * Sets y.
      *
@@ -186,6 +183,10 @@ public class BoundingBox {
      */
     public void setY(final float y) {
         position.setY(y);
+    }
+
+    public float getMaxY() {
+        return getY() + getHeight();
     }
 
     /**

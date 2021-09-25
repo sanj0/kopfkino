@@ -29,19 +29,6 @@ public class Dimensions extends BiFloatTuple<Dimensions> {
         this(d.a, d.b);
     }
 
-    @Override
-    public Dimensions createInstance(final float a, final float b) {
-        return new Dimensions(a, b);
-    }
-
-    @Override
-    public String toString() {
-        return "Dimensions{" +
-                "width=" + a +
-                ", height=" + b +
-                '}';
-    }
-
     /**
      * Returns a new instance with x and y equal to the given float.
      *
@@ -87,6 +74,19 @@ public class Dimensions extends BiFloatTuple<Dimensions> {
      */
     public static Dimensions negOne() {
         return new Dimensions(-1, -1);
+    }
+
+    @Override
+    public Dimensions createInstance(final float a, final float b) {
+        return new Dimensions(a, b);
+    }
+
+    @Override
+    public String toString() {
+        return "Dimensions{" +
+                "width=" + a +
+                ", height=" + b +
+                '}';
     }
 
     public Vector2f toVector2f() {

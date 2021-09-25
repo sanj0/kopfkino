@@ -17,8 +17,6 @@
 
 package de.sanj0.kopfkino;
 
-import java.util.Objects;
-
 /**
  * A vector defined by two float: x and y.
  * <p>Most math operations are defined by {@link BiFloatTuple}.

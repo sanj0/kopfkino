@@ -57,6 +57,7 @@ public class DefaultRenderingHints {
      * <br>May be edited using {@link #put(Key, Object)}
      */
     private static RenderingHints hints = new RenderingHints(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
+
     private DefaultRenderingHints() {
     }
 

@@ -70,9 +70,8 @@ public class RenderConfig {
     }
 
     /**
-     * Applies this render configuration with all it's values
-     * to the given graphics instance for subsequent rendering
-     * according to this config.
+     * Applies this render configuration with all it's values to the given
+     * graphics instance for subsequent rendering according to this config.
      *
      * @param g a graphics instance to be configured accordingly
      */

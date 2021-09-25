@@ -18,7 +18,6 @@
 package de.sanj0.kopfkino.ui;
 
 import de.sanj0.kopfkino.Game;
-import de.sanj0.kopfkino.graphics.DefaultRenderingHints;
 import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
 
 import javax.swing.*;
