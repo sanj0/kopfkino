@@ -32,10 +32,9 @@ public class Game {
 
     private final int resolutionW;
     private final int resolutionH;
-    private long fixedUpdatePeriod;
     private final String name;
     private final Color backgroundColor;
-
+    private long fixedUpdatePeriod;
     private KopfkinoWindow window;
     private ScheduledExecutorService executorService;
 

@@ -195,6 +195,7 @@ public class KopfkinoGraphics {
 
     /**
      * Delegate of {@link Graphics2D#setClip(int, int, int, int)}
+     *
      * @param box the new clip
      */
     public void setClip(final BoundingBox box) {

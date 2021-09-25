@@ -18,7 +18,6 @@
 package de.***REMOVED***.kopfkino.ui;
 
 import de.***REMOVED***.kopfkino.Game;
-import de.***REMOVED***.kopfkino.graphics.DefaultRenderingHints;
 import de.***REMOVED***.kopfkino.graphics.KopfkinoGraphics;
 
 import javax.swing.*;
