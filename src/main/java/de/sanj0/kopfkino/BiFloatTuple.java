@@ -17,6 +17,8 @@
 
 package de.sanj0.kopfkino;
 
+import java.util.Objects;
+
 /**
  * Super class of {@link Vector2f} to encapsulate math functionality.
  * <p>All operations are supported in two ways:
@@ -178,5 +180,18 @@ public abstract class BiFloatTuple<T> {
      */
     public T absed() {
         return createInstance(Math.abs(a), Math.abs(b));
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BiFloatTuple<?> that = (BiFloatTuple<?>) o;
+        return Float.compare(that.a, a) == 0 && Float.compare(that.b, b) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(a, b);
     }
 }

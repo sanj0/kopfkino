@@ -21,13 +21,25 @@ package de.sanj0.kopfkino;
  * Width and height.
  */
 public class Dimensions extends BiFloatTuple<Dimensions> {
-    public Dimensions(final float a, final float b) {
-        super(a, b);
+    public Dimensions(final float width, final float height) {
+        super(width, height);
+    }
+
+    public Dimensions(final Dimensions d) {
+        this(d.a, d.b);
     }
 
     @Override
     public Dimensions createInstance(final float a, final float b) {
         return new Dimensions(a, b);
+    }
+
+    @Override
+    public String toString() {
+        return "Dimensions{" +
+                "width=" + a +
+                ", height=" + b +
+                '}';
     }
 
     /**
