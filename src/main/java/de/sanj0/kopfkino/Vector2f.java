@@ -164,19 +164,6 @@ public class Vector2f extends BiFloatTuple<Vector2f> {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Vector2f vector2f = (Vector2f) o;
-        return Float.compare(vector2f.a, a) == 0 && Float.compare(vector2f.b, b) == 0;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(a, b);
-    }
-
-    @Override
     public String toString() {
         return "Vector2f{" +
                 "x=" + a +
