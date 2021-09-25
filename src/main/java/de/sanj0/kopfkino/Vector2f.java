@@ -21,32 +21,20 @@ import java.util.Objects;
 
 /**
  * A vector defined by two float: x and y.
- * <p>All operations are supported in two ways:
- * <ol>
- *     <li>
- *         functions that change the state of <code>this</code>
- *         <br>for example {@link #add(Vector2f)}, {@link #multiply(Vector2f)}
- *     </li>
- *     <li>
- *         functions that create a new instance and don't change the state of <code>this</code>
- *         <br>for example {@link #plus(Vector2f)}, {@link #divBy(Vector2f)}
- *     </li>
- * </ol>
- * Where a speaking name (e.g. {@link #times(Vector2f)}) for the non-state-change
- * function isn't possible, the past version of the normal function is used (e.g. {@link #absed()})
+ * <p>Most math operations are defined by {@link BiFloatTuple}.
  */
-public class Vector2f {
-
-    private float x;
-    private float y;
-
+public class Vector2f extends BiFloatTuple<Vector2f> {
     public Vector2f(final float x, final float y) {
-        this.x = x;
-        this.y = y;
+        super(x, y);
+    }
+
+    @Override
+    public Vector2f createInstance(final float a, final float b) {
+        return new Vector2f(a, b);
     }
 
     public Vector2f(final Vector2f v) {
-        this(v.x, v.y);
+        this(v.getX(), v.getY());
     }
 
     /**
@@ -96,134 +84,8 @@ public class Vector2f {
         return new Vector2f(-1, -1);
     }
 
-    /**
-     * Multiplies b.x with this.x and b.y with this.y and returns {@code this}.
-     *
-     * @param b another vector
-     *
-     * @return {@code this}
-     */
-    public Vector2f multiply(final Vector2f b) {
-        x *= b.x;
-        y *= b.y;
-        return this;
-    }
-
-    /**
-     * Returns a new vector with x and y being the product of the xs and ys of
-     * this and the given vector, respectively.
-     * <p>Doesn't change this, nor the given Vector.
-     *
-     * @param b another Vector
-     *
-     * @return a vector2f whose components are the product of the respective
-     * components of {@link this} and {@code b}.
-     */
-    public Vector2f times(final Vector2f b) {
-        return new Vector2f(x + b.x, y * b.y);
-    }
-
-    /**
-     * Divides this.x by b.x and this.y by b.y and returns {@code this}.
-     *
-     * @param b another vector
-     *
-     * @return {@code this}
-     */
-    public Vector2f divide(final Vector2f b) {
-        x /= b.x;
-        y /= b.y;
-        return this;
-    }
-
-    /**
-     * Returns a new vector with x and y being the quotient of the xs and ys of
-     * this and the given vector, respectively.
-     * <p>Doesn't change this, nor the given Vector.
-     *
-     * @param b another Vector
-     *
-     * @return a vector2f whose components are the quotient of the respective
-     * components of {@link this} and {@code b}.
-     */
-    public Vector2f divBy(final Vector2f b) {
-        return new Vector2f(x / b.x, y / b.y);
-    }
-
-    /**
-     * Adds b.x to this.x and b.y to this.y and returns {@code this}.
-     *
-     * @param b another vector
-     *
-     * @return {@code this}
-     */
-    public Vector2f add(final Vector2f b) {
-        x += b.x;
-        y += b.y;
-        return this;
-    }
-
-    /**
-     * Returns a new vector with x and y being the sum of the xs and ys of this
-     * and the given vector, respectively.
-     * <p>Doesn't change this, nor the given Vector.
-     *
-     * @param b another Vector
-     *
-     * @return a vector2f whose components are the sum of the respective
-     * components of {@link this} and {@code b}.
-     */
-    public Vector2f plus(final Vector2f b) {
-        return new Vector2f(x + b.x, y + b.y);
-    }
-
-    /**
-     * Subtracts b.x from this.x and b.y from this.y and returns {@code this}.
-     *
-     * @param b another vector
-     *
-     * @return {@code this}
-     */
-    public Vector2f subtract(final Vector2f b) {
-        x -= b.x;
-        y -= b.y;
-        return this;
-    }
-
-    /**
-     * Returns a new vector with x and y being the difference between the xs and
-     * ys of this and the given vector, respectively.
-     * <p>Doesn't change this, nor the given Vector.
-     *
-     * @param b another Vector
-     *
-     * @return a vector2f whose components are the difference between the
-     * respective components of {@link this} and {@code b}.
-     */
-    public Vector2f minus(final Vector2f b) {
-        return new Vector2f(x - b.x, y - b.y);
-    }
-
-    /**
-     * Absolutes the values of this.x and this.y and return {@code this}.
-     *
-     * @return {@code this}
-     */
-    public Vector2f abs() {
-        x = Math.abs(x);
-        y = Math.abs(y);
-        return this;
-    }
-
-    /**
-     * Creates a new vector with the absolute values of this.x and this.y as x
-     * and y, respectively.
-     * <p>Doesn't change {@code this}
-     *
-     * @return a new vector which is the absolute version of {@link this}
-     */
-    public Vector2f absed() {
-        return new Vector2f(Math.abs(x), Math.abs(y));
+    public Dimensions toDimensions() {
+        return new Dimensions(a, b);
     }
 
     /**
@@ -235,8 +97,8 @@ public class Vector2f {
      *
      * @return the dot product of this and the given vector
      */
-    public float dotProduct(final Vector2f b) {
-        return x * b.x + y * b.y;
+    public float dotProduct(final Vector2f o) {
+        return a * o.a + b * o.b;
     }
 
     /**
@@ -246,7 +108,7 @@ public class Vector2f {
      * @return the magnitude of this vector
      */
     public float magnitude() {
-        return (float) Math.hypot(x, y);
+        return (float) Math.hypot(a, b);
     }
 
     /**
@@ -260,7 +122,7 @@ public class Vector2f {
      */
     public Vector2f normalise() {
         final float mag = magnitude();
-        return new Vector2f(x / mag, y / mag);
+        return new Vector2f(a / mag, b / mag);
     }
 
     /**
@@ -286,7 +148,7 @@ public class Vector2f {
      */
     public Vector2f withMagnitude(final float newMag) {
         final float ratio = newMag / magnitude();
-        return new Vector2f(x / ratio, y / ratio);
+        return new Vector2f(a * ratio, b * ratio);
     }
 
     /**
@@ -308,38 +170,38 @@ public class Vector2f {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vector2f vector2f = (Vector2f) o;
-        return Float.compare(vector2f.x, x) == 0 && Float.compare(vector2f.y, y) == 0;
+        return Float.compare(vector2f.a, a) == 0 && Float.compare(vector2f.b, b) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y);
+        return Objects.hash(a, b);
     }
 
     @Override
     public String toString() {
         return "Vector2f{" +
-                "x=" + x +
-                ", y=" + y +
+                "x=" + a +
+                ", y=" + b +
                 '}';
     }
 
     /**
-     * Gets {@link #x}.
+     * Gets x.
      *
-     * @return the value of {@link #x}
+     * @return the value of x
      */
     public float getX() {
-        return x;
+        return a;
     }
 
     /**
-     * Sets {@link #x}.
+     * Sets x.
      *
-     * @param x the new value of {@link #x}
+     * @param x the new value of x
      */
     public void setX(final float x) {
-        this.x = x;
+        a = x;
     }
 
     /**
@@ -348,25 +210,25 @@ public class Vector2f {
      * @param v a vector
      */
     public void set(final Vector2f v) {
-        x = v.x;
-        y = v.y;
+        a = v.a;
+        b = v.b;
     }
 
     /**
-     * Gets {@link #y}.
+     * Gets y.
      *
-     * @return the value of {@link #y}
+     * @return the value of y
      */
     public float getY() {
-        return y;
+        return b;
     }
 
     /**
-     * Sets {@link #y}.
+     * Sets y.
      *
-     * @param y the new value of {@link #y}
+     * @param y the new value of y
      */
     public void setY(final float y) {
-        this.y = y;
+        b = y;
     }
 }
