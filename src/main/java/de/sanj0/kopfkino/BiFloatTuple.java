@@ -33,7 +33,7 @@ package de.sanj0.kopfkino;
  * Where a speaking name (e.g. {@link #times(BiFloatTuple)}) for the non-state-change
  * function isn't possible, the past version of the normal function is used (e.g. {@link #absed()})
  */
-public abstract class BiFloatTuple< T > {
+public abstract class BiFloatTuple<T> {
     protected float a;
     protected float b;
 
@@ -42,7 +42,13 @@ public abstract class BiFloatTuple< T > {
         this.b = b;
     }
 
-    public abstract T createInstance(final float a, final float b);
+    protected abstract T createInstance(final float a, final float b);
+
+    public T set(final BiFloatTuple v) {
+        a = v.a;
+        b = v.b;
+        return (T) this;
+    }
 
     /**
      * Multiplies b.x with this.x and b.y with this.y and returns {@code this}.
@@ -88,11 +94,11 @@ public abstract class BiFloatTuple< T > {
      * Returns a new tuple with a and b being the quotient of the xs and ys of
      * this and the given tuple, respectively.
      * <p>Doesn't change this, nor the given tuple.
-     *
+     * <p>
      * param o another tuple
      *
-     * @return a BiFloatTuple whose components are the quotient of the respective
-     * components of {@link this} and {@code b}.
+     * @return a BiFloatTuple whose components are the quotient of the
+     * respective components of {@link this} and {@code b}.
      */
     public T divBy(final BiFloatTuple o) {
         return createInstance(a / o.a, b / o.b);
@@ -100,7 +106,7 @@ public abstract class BiFloatTuple< T > {
 
     /**
      * Adds b.x to this.x and b.y to this.y and returns {@code this}.
-     *
+     * <p>
      * param o another tuple
      *
      * @return {@code this}
@@ -115,7 +121,7 @@ public abstract class BiFloatTuple< T > {
      * Returns a new tuple with a and b being the sum of the xs and ys of this
      * and the given tuple, respectively.
      * <p>Doesn't change this, nor the given tuple.
-     *
+     * <p>
      * param o another tuple
      *
      * @return a BiFloatTuple whose components are the sum of the respective
@@ -127,7 +133,7 @@ public abstract class BiFloatTuple< T > {
 
     /**
      * Subtracts b.x from this.x and b.y from this.y and returns {@code this}.
-     *
+     * <p>
      * param o another tuple
      *
      * @return {@code this}
@@ -142,7 +148,7 @@ public abstract class BiFloatTuple< T > {
      * Returns a new tuple with a and b being the difference between the xs and
      * ys of this and the given tuple, respectively.
      * <p>Doesn't change this, nor the given tuple.
-     *
+     * <p>
      * param o another tuple
      *
      * @return a BiFloatTuple whose components are the difference between the
