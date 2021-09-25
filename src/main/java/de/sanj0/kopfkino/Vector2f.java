@@ -28,11 +28,6 @@ public class Vector2f extends BiFloatTuple<Vector2f> {
         super(x, y);
     }
 
-    @Override
-    public Vector2f createInstance(final float a, final float b) {
-        return new Vector2f(a, b);
-    }
-
     public Vector2f(final Vector2f v) {
         this(v.getX(), v.getY());
     }
@@ -84,13 +79,17 @@ public class Vector2f extends BiFloatTuple<Vector2f> {
         return new Vector2f(-1, -1);
     }
 
+    @Override
+    protected Vector2f createInstance(final float a, final float b) {
+        return new Vector2f(a, b);
+    }
+
     public Dimensions toDimensions() {
         return new Dimensions(a, b);
     }
 
     /**
-     * Returns the dot product of this and the
-     * given vector.
+     * Returns the dot product of this and the given vector.
      * <p>With this = (x1, y1) and b = (x2, y2),
      * this function returns the following:
      * <br>{@code x1 * x2 + y1 + y2}
@@ -102,8 +101,8 @@ public class Vector2f extends BiFloatTuple<Vector2f> {
     }
 
     /**
-     * Returns the magnitude of this
-     * vector using {@link Math#hypot(double, double)}.
+     * Returns the magnitude of this vector using {@link Math#hypot(double,
+     * double)}.
      *
      * @return the magnitude of this vector
      */
@@ -112,10 +111,9 @@ public class Vector2f extends BiFloatTuple<Vector2f> {
     }
 
     /**
-     * Returns a new vector that is the unit vector
-     * of this vector. That is, a vector with the same
-     * ratio between x and y components but with a magnitude
-     * of 1.
+     * Returns a new vector that is the unit vector of this vector. That is, a
+     * vector with the same ratio between x and y components but with a
+     * magnitude of 1.
      * <p>Doesn't change this vector
      *
      * @return a new vector, that is the normalised unit vector of {@code this}
@@ -126,9 +124,8 @@ public class Vector2f extends BiFloatTuple<Vector2f> {
     }
 
     /**
-     * Normalises this vector by copying the components of
-     * its unit vector retrieved using {@link #normalise()}
-     * and returns {@code this}.
+     * Normalises this vector by copying the components of its unit vector
+     * retrieved using {@link #normalise()} and returns {@code this}.
      *
      * @return {@code this}
      */
@@ -138,13 +135,14 @@ public class Vector2f extends BiFloatTuple<Vector2f> {
     }
 
     /**
-     * Returns a new vector where x / y is equal to
-     * x / y of the current vector, but the magnitude
-     * is equal to the given one.
+     * Returns a new vector where x / y is equal to x / y of the current vector,
+     * but the magnitude is equal to the given one.
      * <p>Doesn't change this vector.
      *
      * @param newMag a new magnitude for a new vector
-     * @return a new vector with the given magnitude but the x / y ratio of {@code this}
+     *
+     * @return a new vector with the given magnitude but the x / y ratio of
+     * {@code this}
      */
     public Vector2f withMagnitude(final float newMag) {
         final float ratio = newMag / magnitude();
@@ -152,12 +150,12 @@ public class Vector2f extends BiFloatTuple<Vector2f> {
     }
 
     /**
-     * Copyes the components of the vector retrieved by
-     * calling {@link #withMagnitude(float)} in order to
-     * set the current vector's magnitude to the given one
-     * and returns {@code this}.
+     * Copyes the components of the vector retrieved by calling {@link
+     * #withMagnitude(float)} in order to set the current vector's magnitude to
+     * the given one and returns {@code this}.
      *
      * @param newMag a new magnitude for this vector
+     *
      * @return {@code this}
      */
     public Vector2f setMagnitude(final float newMag) {
@@ -202,16 +200,6 @@ public class Vector2f extends BiFloatTuple<Vector2f> {
      */
     public void setX(final float x) {
         a = x;
-    }
-
-    /**
-     * Sets x and y to be equal to x and y of the given vector, respectively.
-     *
-     * @param v a vector
-     */
-    public void set(final Vector2f v) {
-        a = v.a;
-        b = v.b;
     }
 
     /**
