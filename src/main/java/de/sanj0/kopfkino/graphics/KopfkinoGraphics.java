@@ -30,9 +30,13 @@ import java.util.Map;
 public class KopfkinoGraphics {
     private final Graphics2D g2d;
 
-    public KopfkinoGraphics(final Graphics2D g2d) {
+    public KopfkinoGraphics(final Graphics2D g2d, final RenderConfig initialRenderConfig) {
         this.g2d = g2d;
-        applyConfig(RenderConfig.builder().build());
+        applyConfig(initialRenderConfig);
+    }
+
+    public KopfkinoGraphics(final Graphics2D g2d) {
+        this(g2d, RenderConfig.createDefault());
     }
 
     public KopfkinoGraphics copy() {
