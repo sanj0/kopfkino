@@ -70,6 +70,15 @@ public class RenderConfig {
     }
 
     /**
+     * Convenience-method for {@code RenderConfig.builder().build()}.
+     *
+     * @return a new default RenderConfig
+     */
+    public static RenderConfig createDefault() {
+        return RenderConfig.builder().build();
+    }
+
+    /**
      * Applies this render configuration with all it's values to the given
      * graphics instance for subsequent rendering according to this config.
      *
