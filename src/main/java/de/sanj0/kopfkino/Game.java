@@ -33,7 +33,7 @@ public class Game {
     private final int resolutionW;
     private final int resolutionH;
     private final String name;
-    private final Color backgroundColor;
+    private Color backgroundColor;
     private long fixedUpdatePeriod;
     private KopfkinoWindow window;
     private ScheduledExecutorService executorService;
@@ -119,6 +119,15 @@ public class Game {
      */
     public Color getBackgroundColor() {
         return backgroundColor;
+    }
+
+    /**
+     * Sets {@link #backgroundColor}.
+     *
+     * @param backgroundColor the new value of {@link #backgroundColor}
+     */
+    public void setBackgroundColor(final Color backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 
     /**
