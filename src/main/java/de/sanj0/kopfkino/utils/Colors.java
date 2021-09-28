@@ -15,15 +15,10 @@
  *
  */
 
-import de.***REMOVED***.kopfkino.Game;
+package de.***REMOVED***.kopfkino.utils;
 
 import java.awt.*;
 
-public class TestMain {
-
-    public static void main(String[] args) {
-        Game.init(1920, 1080, "Kopfkino Test");
-        Game.getInstance().setBackgroundColor(Color.WHITE);
-        Game.start(5, 60);
-    }
+public class Colors {
+    public static final Color TRANSPARENT = new Color(0, 0, 0, 0);
 }
