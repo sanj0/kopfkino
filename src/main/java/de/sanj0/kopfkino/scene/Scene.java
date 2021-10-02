@@ -42,8 +42,8 @@ public class Scene implements Renderable {
 
     /**
      * Returns the number of elements in this scene.  If this scene contains
-     * more than {@code Integer.MAX_VALUE} elements, returns
-     * {@code Integer.MAX_VALUE}.
+     * more than {@code Integer.MAX_VALUE} elements, returns {@code
+     * Integer.MAX_VALUE}.
      *
      * @return the number of elements in this scene
      */
@@ -61,12 +61,12 @@ public class Scene implements Renderable {
     }
 
     /**
-     * Returns {@code true} if this scene contains the specified element.
-     * More formally, returns {@code true} if and only if this scene contains
-     * at least one element {@code e} such that
-     * {@code Objects.equals(o, e)}.
+     * Returns {@code true} if this scene contains the specified element. More
+     * formally, returns {@code true} if and only if this scene contains at
+     * least one element {@code e} such that {@code Objects.equals(o, e)}.
      *
      * @param o element whose presence in this scene is to be tested
+     *
      * @return {@code true} if this scene contains the specified element
      */
     public boolean contains(final Object o) {
@@ -78,13 +78,13 @@ public class Scene implements Renderable {
      * operation).
      *
      * <p>Lists that support this operation may place limitations on what
-     * elements may be added to this scene.  In particular, some
-     * scenes will refuse to add null elements, and others will impose
-     * restrictions on the type of elements that may be added.  List
-     * classes should clearly specify in their documentation any restrictions
-     * on what elements may be added.
+     * elements may be added to this scene.  In particular, some scenes will
+     * refuse to add null elements, and others will impose restrictions on the
+     * type of elements that may be added.  List classes should clearly specify
+     * in their documentation any restrictions on what elements may be added.
      *
      * @param entity element to be appended to this scene
+     *
      * @return {@code true} (as specified by {@link Collection#add})
      */
     public boolean add(final Entity entity) {
@@ -92,16 +92,16 @@ public class Scene implements Renderable {
     }
 
     /**
-     * Removes the first occurrence of the specified element from this scene,
-     * if it is present (optional operation).  If this scene does not contain
-     * the element, it is unchanged.  More formally, removes the element with
-     * the lowest index {@code i} such that
-     * {@code Objects.equals(o, get(i))}
-     * (if such an element exists).  Returns {@code true} if this scene
-     * contained the specified element (or equivalently, if this scene changed
-     * as a result of the call).
+     * Removes the first occurrence of the specified element from this scene, if
+     * it is present (optional operation).  If this scene does not contain the
+     * element, it is unchanged.  More formally, removes the element with the
+     * lowest index {@code i} such that {@code Objects.equals(o, get(i))} (if
+     * such an element exists).  Returns {@code true} if this scene contained
+     * the specified element (or equivalently, if this scene changed as a result
+     * of the call).
      *
      * @param o element to be removed from this scene, if present
+     *
      * @return {@code true} if this scene contained the specified element
      */
     public boolean remove(final Object o) {
@@ -112,11 +112,12 @@ public class Scene implements Renderable {
      * Appends all of the elements in the specified collection to the end of
      * this scene, in the order that they are returned by the specified
      * collection's iterator (optional operation).  The behavior of this
-     * operation is undefined if the specified collection is modified while
-     * the operation is in progress.  (Note that this will occur if the
-     * specified collection is this scene, and it's nonempty.)
+     * operation is undefined if the specified collection is modified while the
+     * operation is in progress.  (Note that this will occur if the specified
+     * collection is this scene, and it's nonempty.)
      *
      * @param c collection containing elements to be added to this scene
+     *
      * @return {@code true} if this scene changed as a result of the call
      */
     public boolean addAll(final Collection<? extends Entity> c) {
@@ -124,19 +125,20 @@ public class Scene implements Renderable {
     }
 
     /**
-     * Inserts all of the elements in the specified collection into this
-     * scene at the specified position (optional operation).  Shifts the
-     * element currently at that position (if any) and any subsequent
-     * elements to the right (increases their indices).  The new elements
-     * will appear in this scene in the order that they are returned by the
-     * specified collection's iterator.  The behavior of this operation is
-     * undefined if the specified collection is modified while the
-     * operation is in progress.  (Note that this will occur if the specified
-     * collection is this scene, and it's nonempty.)
+     * Inserts all of the elements in the specified collection into this scene
+     * at the specified position (optional operation).  Shifts the element
+     * currently at that position (if any) and any subsequent elements to the
+     * right (increases their indices).  The new elements will appear in this
+     * scene in the order that they are returned by the specified collection's
+     * iterator.  The behavior of this operation is undefined if the specified
+     * collection is modified while the operation is in progress.  (Note that
+     * this will occur if the specified collection is this scene, and it's
+     * nonempty.)
      *
      * @param index index at which to insert the first element from the
      *              specified collection
-     * @param c collection containing elements to be added to this scene
+     * @param c     collection containing elements to be added to this scene
+     *
      * @return {@code true} if this scene changed as a result of the call
      */
     public boolean addAll(final int index, final Collection<? extends Entity> c) {
@@ -144,22 +146,24 @@ public class Scene implements Renderable {
     }
 
     /**
-     * Sorts this scene according to the order induced by the specified
-     * {@link Comparator}.  The sort is <i>stable</i>: this method must not
-     * reorder equal elements.
+     * Sorts this scene according to the order induced by the specified {@link
+     * Comparator}.  The sort is <i>stable</i>: this method must not reorder
+     * equal elements.
      *
-     * <p>All elements in this scene must be <i>mutually comparable</i> using the
-     * specified comparator (that is, {@code c.compare(e1, e2)} must not throw
-     * a {@code ClassCastException} for any elements {@code e1} and {@code e2}
-     * in the scene).
+     * <p>All elements in this scene must be <i>mutually comparable</i> using
+     * the
+     * specified comparator (that is, {@code c.compare(e1, e2)} must not throw a
+     * {@code ClassCastException} for any elements {@code e1} and {@code e2} in
+     * the scene).
      *
      * <p>If the specified comparator is {@code null} then all elements in this
      * scene must implement the {@link Comparable} interface and the elements'
      * {@linkplain Comparable natural ordering} should be used.
      *
-     * @param c the {@code Comparator} used to compare scene elements.
-     *          A {@code null} value indicates that the elements'
-     *          {@linkplain Comparable natural ordering} should be used
+     * @param c the {@code Comparator} used to compare scene elements. A {@code
+     *          null} value indicates that the elements' {@linkplain Comparable
+     *          natural ordering} should be used
+     *
      * @since 1.8
      */
     public void sort(final Comparator<? super Entity> c) {
@@ -167,8 +171,8 @@ public class Scene implements Renderable {
     }
 
     /**
-     * Removes all of the elements from this scene (optional operation).
-     * The scene will be empty after this call returns.
+     * Removes all of the elements from this scene (optional operation). The
+     * scene will be empty after this call returns.
      */
     public void clear() {
         entities.clear();
@@ -178,9 +182,10 @@ public class Scene implements Renderable {
      * Returns the element at the specified position in this scene.
      *
      * @param index index of the element to return
+     *
      * @return the element at the specified position in this scene
-     * @throws IndexOutOfBoundsException if the index is out of range
-     *         ({@code index < 0 || index >= size()})
+     * @throws IndexOutOfBoundsException if the index is out of range ({@code
+     *                                   index < 0 || index >= size()})
      */
     public Entity get(final int index) {
         return entities.get(index);
@@ -190,8 +195,9 @@ public class Scene implements Renderable {
      * Replaces the element at the specified position in this scene with the
      * specified element (optional operation).
      *
-     * @param index index of the element to replace
+     * @param index   index of the element to replace
      * @param element element to be stored at the specified position
+     *
      * @return the element previously at the specified position
      */
     public Entity set(final int index, final Entity element) {
@@ -200,11 +206,11 @@ public class Scene implements Renderable {
 
     /**
      * Inserts the specified element at the specified position in this scene
-     * (optional operation).  Shifts the element currently at that position
-     * (if any) and any subsequent elements to the right (adds one to their
+     * (optional operation).  Shifts the element currently at that position (if
+     * any) and any subsequent elements to the right (adds one to their
      * indices).
      *
-     * @param index index at which the specified element is to be inserted
+     * @param index   index at which the specified element is to be inserted
      * @param element element to be inserted
      */
     public void add(final int index, final Entity element) {
@@ -218,6 +224,7 @@ public class Scene implements Renderable {
      * scene.
      *
      * @param index the index of the element to be removed
+     *
      * @return the element previously at the specified position
      */
     public Entity remove(final int index) {
@@ -225,15 +232,15 @@ public class Scene implements Renderable {
     }
 
     /**
-     * Returns the index of the first occurrence of the specified element
-     * in this scene, or -1 if this scene does not contain the element.
-     * More formally, returns the lowest index {@code i} such that
-     * {@code Objects.equals(o, get(i))},
-     * or -1 if there is no such index.
+     * Returns the index of the first occurrence of the specified element in
+     * this scene, or -1 if this scene does not contain the element. More
+     * formally, returns the lowest index {@code i} such that {@code
+     * Objects.equals(o, get(i))}, or -1 if there is no such index.
      *
      * @param o element to search for
+     *
      * @return the index of the first occurrence of the specified element in
-     *         this scene, or -1 if this scene does not contain the element
+     * this scene, or -1 if this scene does not contain the element
      */
     public int indexOf(final Object o) {
         return entities.indexOf(o);
@@ -245,7 +252,8 @@ public class Scene implements Renderable {
      * the predicate are relayed to the caller.
      *
      * @param filter a predicate which returns {@code true} for elements to be
-     *        removed
+     *               removed
+     *
      * @return {@code true} if any elements were removed
      * @since 1.8
      */
@@ -254,25 +262,23 @@ public class Scene implements Renderable {
     }
 
     /**
-     * Performs the given action for each element of the {@code Iterable}
-     * until all elements have been processed or the action throws an
-     * exception.  Actions are performed in the order of iteration, if that
-     * order is specified.  Exceptions thrown by the action are relayed to the
-     * caller.
+     * Performs the given action for each element of the {@code Iterable} until
+     * all elements have been processed or the action throws an exception.
+     * Actions are performed in the order of iteration, if that order is
+     * specified.  Exceptions thrown by the action are relayed to the caller.
      * <p>
      * The behavior of this method is unspecified if the action performs
      * side-effects that modify the underlying source of elements, unless an
      * overriding class has specified a concurrent modification policy.
      *
-     * @implSpec
-     * <p>The default implementation behaves as if:
+     * @param action The action to be performed for each element
+     *
+     * @throws NullPointerException if the specified action is null
+     * @implSpec <p>The default implementation behaves as if:
      * <pre>{@code
      *     for (T t : this)
      *         action.accept(t);
      * }</pre>
-     *
-     * @param action The action to be performed for each element
-     * @throws NullPointerException if the specified action is null
      * @since 1.8
      */
     public void forEach(final Consumer<? super Entity> action) {
