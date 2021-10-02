@@ -19,25 +19,37 @@ package de.sanj0.kopfkino;
 
 import de.sanj0.kopfkino.graphics.EntityRenderer;
 import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
+import de.sanj0.kopfkino.graphics.RectangleEntityRenderer;
+import de.sanj0.kopfkino.graphics.Renderable;
 
 /**
  * An entity in a game.
  */
-public class Entity {
+public class Entity implements Renderable {
     private BoundingBox boundingBox;
     private EntityRenderer renderer;
 
+    public Entity(final BoundingBox boundingBox, final EntityRenderer renderer) {
+        this.boundingBox = boundingBox;
+        this.renderer = renderer;
+    }
+
     public Entity(final BoundingBox boundingBox) {
         this.boundingBox = boundingBox;
+        this.renderer = new RectangleEntityRenderer(this).withArc(5, 5);
     }
 
     /**
-     * Renders this Entity.
+     * Renders this Entity and calls the update methods {@link #updateBefore()}
+     * and {@link #updateAfter()}.
      */
+    @Override
     public final void render(final KopfkinoGraphics graphics) {
+        updateBefore();
         renderBefore(graphics);
         renderer.render(graphics);
         renderAfter(graphics);
+        updateAfter();
     }
 
     /**
@@ -48,10 +60,17 @@ public class Entity {
     }
 
     /**
-     * Is called every frame.
+     * Is called every time before this entity is rendered.
      * <p>Base implementation empty.
      */
-    public void update() {
+    public void updateBefore() {
+    }
+
+    /**
+     * Is called every time after this entity is rendered.
+     * <p>Base implementation empty.
+     */
+    public void updateAfter() {
     }
 
     /**
