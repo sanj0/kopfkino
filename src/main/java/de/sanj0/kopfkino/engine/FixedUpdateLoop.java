@@ -17,8 +17,12 @@
 
 package de.sanj0.kopfkino.engine;
 
+import de.sanj0.kopfkino.Entity;
+import de.sanj0.kopfkino.Game;
+
 public class FixedUpdateLoop implements Runnable {
     @Override
     public void run() {
+        Game.getInstance().getCurrentScene().forEach(Entity::fixedUpdate);
     }
 }

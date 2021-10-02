@@ -25,8 +25,7 @@ import de.sanj0.kopfkino.Vector2f;
 /**
  * Renders a rectangle.
  * <p>Rounded corners are controlled using {@link #arcWidth} and {@link
- * #arcHeight};
- * default value is 0 for both.
+ * #arcHeight}; default value is 0 for both.
  */
 public class RectangleEntityRenderer extends PrimitiveEntityRenderer {
 
