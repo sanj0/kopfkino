@@ -45,6 +45,12 @@ public class RectangleEntityRenderer extends PrimitiveEntityRenderer {
         super(subject);
     }
 
+    public RectangleEntityRenderer withArc(final float arcWidth, final float arcHeight) {
+        this.arcWidth = arcWidth;
+        this.arcHeight = arcHeight;
+        return this;
+    }
+
     @Override
     protected void renderShape(final KopfkinoGraphics graphics, final BoundingBox bb, final boolean fill) {
         if (fill) {
