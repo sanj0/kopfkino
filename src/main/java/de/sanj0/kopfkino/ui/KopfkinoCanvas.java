@@ -45,6 +45,7 @@ public class KopfkinoCanvas extends JPanel {
         g2d.clearRect(0, 0, getWidth(), getHeight());
 
         final KopfkinoGraphics graphics = new KopfkinoGraphics(g2d);
+        Game.getInstance().getCurrentScene().render(graphics);
 
         panelGraphics.drawImage(canvas, 0, 0, null);
         panelGraphics.dispose();

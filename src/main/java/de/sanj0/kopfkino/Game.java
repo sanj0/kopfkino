@@ -19,6 +19,8 @@ package de.sanj0.kopfkino;
 
 import de.sanj0.kopfkino.engine.FixedUpdateLoop;
 import de.sanj0.kopfkino.engine.RenderLoop;
+import de.sanj0.kopfkino.scene.EmptyScene;
+import de.sanj0.kopfkino.scene.Scene;
 import de.sanj0.kopfkino.ui.KopfkinoWindow;
 
 import java.awt.*;
@@ -29,10 +31,10 @@ import java.util.concurrent.TimeUnit;
 public class Game {
 
     private static Game instance = null;
-
     private final int resolutionW;
     private final int resolutionH;
     private final String name;
+    private Scene currentScene = new EmptyScene();
     private Color backgroundColor;
     private long fixedUpdatePeriod;
     private KopfkinoWindow window;
@@ -57,7 +59,8 @@ public class Game {
         instance = new Game(resolutionW, resolutionH, name, Color.BLACK);
     }
 
-    public static void start(final long fixedUpdatePeriod, final int cappedFPS) {
+    public static void start(final Scene currentScene, final long fixedUpdatePeriod, final int cappedFPS) {
+        instance.currentScene = currentScene;
         instance.fixedUpdatePeriod = fixedUpdatePeriod;
         instance.window = new KopfkinoWindow(instance.resolutionW, instance.resolutionH, instance.name);
         instance.window.setVisible(true);
@@ -74,6 +77,24 @@ public class Game {
 
     public static Game getInstance() {
         return instance;
+    }
+
+    /**
+     * Gets {@link #currentScene}.
+     *
+     * @return the value of {@link #currentScene}
+     */
+    public Scene getCurrentScene() {
+        return currentScene;
+    }
+
+    /**
+     * Sets {@link #currentScene}.
+     *
+     * @param currentScene the new value of {@link #currentScene}
+     */
+    public void setCurrentScene(final Scene currentScene) {
+        this.currentScene = currentScene;
     }
 
     /**
