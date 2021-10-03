@@ -15,10 +15,36 @@
  *
  */
 
+import de.***REMOVED***.kopfkino.BoundingBox;
+import de.***REMOVED***.kopfkino.Entity;
+import de.***REMOVED***.kopfkino.Input;
+import de.***REMOVED***.kopfkino.Vector2f;
+import de.***REMOVED***.kopfkino.graphics.KopfkinoGraphics;
 import de.***REMOVED***.kopfkino.scene.Scene;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class TestScene extends Scene {
     public TestScene() {
+        add(new Entity(new BoundingBox(160, 90, 25, 25)) {
+            @Override
+            public void renderAfter(final KopfkinoGraphics graphics) {
+                if (Input.mouseDown(MouseEvent.BUTTON1)) {
+                    graphics.setColor(Color.RED);
+                } else if (Input.mouseDown(MouseEvent.BUTTON3)) {
+                    graphics.setColor(Color.BLUE);
+                } else {
+                    graphics.setColor(Color.GREEN);
+                }
 
+                graphics.drawPoint(Input.cursorPosition(), 50);
+            }
+
+            @Override
+            public void fixedUpdate() {
+                getPosition().add(Input.direction().times(Vector2f.num(.5f)));
+            }
+        });
     }
 }
