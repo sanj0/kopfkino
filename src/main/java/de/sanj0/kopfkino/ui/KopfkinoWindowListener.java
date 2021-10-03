@@ -15,13 +15,40 @@
  *
  */
 
-package de.***REMOVED***.kopfkino.engine;
+package de.***REMOVED***.kopfkino.ui;
 
 import de.***REMOVED***.kopfkino.Game;
 
-public class FixedUpdateLoop implements Runnable {
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+public class KopfkinoWindowListener implements WindowListener {
     @Override
-    public void run() {
-        Game.getInstance().getCurrentScene().fixedUpdate();
+    public void windowOpened(final WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosing(final WindowEvent e) {
+        Game.exit();
+    }
+
+    @Override
+    public void windowClosed(final WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified(final WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeiconified(final WindowEvent e) {
+    }
+
+    @Override
+    public void windowActivated(final WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeactivated(final WindowEvent e) {
     }
 }

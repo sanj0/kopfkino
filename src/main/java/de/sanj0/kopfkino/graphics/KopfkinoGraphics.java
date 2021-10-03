@@ -50,8 +50,8 @@ public class KopfkinoGraphics {
      * @param diameter the diameter of the circle around the given point
      */
     public void drawPoint(final Vector2f point, final float diameter) {
-        g2d.drawOval(Math.round(point.getX() - diameter * .5f),
-                Math.round(point.getX() - diameter * .5f),
+        g2d.fillOval(Math.round(point.getX() - diameter * .5f),
+                Math.round(point.getY() - diameter * .5f),
                 Math.round(diameter), Math.round(diameter));
     }
 

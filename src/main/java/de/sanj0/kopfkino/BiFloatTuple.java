@@ -76,7 +76,7 @@ public abstract class BiFloatTuple<T> {
      * components of {@link this} and {@code b}.
      */
     public T times(final BiFloatTuple o) {
-        return createInstance(a + o.a, b * o.b);
+        return createInstance(a * o.a, b * o.b);
     }
 
     /**
