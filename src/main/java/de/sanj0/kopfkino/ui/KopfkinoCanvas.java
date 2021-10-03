@@ -35,6 +35,9 @@ public class KopfkinoCanvas extends JPanel {
         setSize(w, h);
         setIgnoreRepaint(true);
         canvas = ImageUtils.createCompatibleImage(new Dimensions(Game.getInstance().getResolutionW(), Game.getInstance().getResolutionH()));
+        final KopfkinoMouseListener mouseListener = new KopfkinoMouseListener();
+        addMouseListener(mouseListener);
+        addMouseMotionListener(mouseListener);
     }
 
     @Override

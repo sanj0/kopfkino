@@ -40,6 +40,10 @@ public class Scene implements Renderable {
         entities.forEach(e -> e.render(graphics));
     }
 
+    public void fixedUpdate() {
+        entities.forEach(Entity::fixedUpdate);
+    }
+
     /**
      * Returns the number of elements in this scene.  If this scene contains
      * more than {@code Integer.MAX_VALUE} elements, returns {@code
@@ -151,10 +155,9 @@ public class Scene implements Renderable {
      * equal elements.
      *
      * <p>All elements in this scene must be <i>mutually comparable</i> using
-     * the
-     * specified comparator (that is, {@code c.compare(e1, e2)} must not throw a
-     * {@code ClassCastException} for any elements {@code e1} and {@code e2} in
-     * the scene).
+     * the specified comparator (that is, {@code c.compare(e1, e2)} must not
+     * throw a {@code ClassCastException} for any elements {@code e1} and {@code
+     * e2} in the scene).
      *
      * <p>If the specified comparator is {@code null} then all elements in this
      * scene must implement the {@link Comparable} interface and the elements'
