@@ -15,13 +15,25 @@
  *
  */
 
-package de.sanj0.kopfkino.engine;
+package de.sanj0.kopfkino.ui;
 
-import de.sanj0.kopfkino.Game;
+import de.sanj0.kopfkino.Input;
 
-public class FixedUpdateLoop implements Runnable {
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+public class KopfkinoKeyListener implements KeyListener {
     @Override
-    public void run() {
-        Game.getInstance().getCurrentScene().fixedUpdate();
+    public void keyTyped(final KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(final KeyEvent e) {
+        Input.PRESSED_KEYS.add(e.getKeyCode());
+    }
+
+    @Override
+    public void keyReleased(final KeyEvent e) {
+        Input.PRESSED_KEYS.remove(e.getKeyCode());
     }
 }

@@ -30,12 +30,15 @@ public class KopfkinoWindow extends JFrame {
     public KopfkinoWindow(final int w, final int h, final String gameName) throws HeadlessException {
         super(gameName + " (kopfkino engine)");
 
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLayout(null);
         setSize(w, h);
         setLocationRelativeTo(null);
 
         canvas = new KopfkinoCanvas(w, h);
         add(canvas);
+        addKeyListener(new KopfkinoKeyListener());
+        addWindowListener(new KopfkinoWindowListener());
     }
 
     /**
