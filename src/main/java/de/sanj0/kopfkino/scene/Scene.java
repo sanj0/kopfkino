@@ -37,7 +37,7 @@ public class Scene implements Renderable {
 
     @Override
     public void render(final KopfkinoGraphics graphics) {
-        entities.forEach(e -> e.render(graphics));
+        entities.forEach(e -> e.render(graphics.copy()));
     }
 
     public void fixedUpdate() {
