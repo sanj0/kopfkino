@@ -45,11 +45,19 @@ public class Input {
     }
 
     public static Vector2f cursorPosition() {
+        return Game.getInstance().getCurrentScene().getCamera().transformPoint(new Vector2f(KopfkinoMouseListener.cursorPosition));
+    }
+
+    public static Vector2f absoluteCursorPosition() {
         return new Vector2f(KopfkinoMouseListener.cursorPosition);
     }
 
     public static BoundingBox cursor() {
         return new BoundingBox(cursorPosition(), Dimensions.one());
+    }
+
+    public static BoundingBox absoluteCursor() {
+        return new BoundingBox(absoluteCursorPosition(), Dimensions.one());
     }
 
     /**
