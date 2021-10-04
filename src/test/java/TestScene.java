@@ -32,8 +32,10 @@ public class TestScene extends Scene {
             public void renderAfter(final KopfkinoGraphics graphics) {
                 if (Input.mouseDown(MouseEvent.BUTTON1)) {
                     graphics.setColor(Color.RED);
+                    getCamera().getPosition().add(new Vector2f(1, 0));
                 } else if (Input.mouseDown(MouseEvent.BUTTON3)) {
                     graphics.setColor(Color.BLUE);
+                    getCamera().getPosition().add(new Vector2f(-1, 0));
                 } else {
                     graphics.setColor(Color.GREEN);
                 }

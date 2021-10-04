@@ -28,13 +28,10 @@ import java.awt.image.BufferedImage;
 
 public class KopfkinoCanvas extends JPanel {
 
-    private final BufferedImage canvas;
-
     public KopfkinoCanvas(final int w, final int h) {
         super(true);
         setSize(w, h);
         setIgnoreRepaint(true);
-        canvas = ImageUtils.createCompatibleImage(new Dimensions(Game.getInstance().getResolutionW(), Game.getInstance().getResolutionH()));
         final KopfkinoMouseListener mouseListener = new KopfkinoMouseListener();
         addMouseListener(mouseListener);
         addMouseMotionListener(mouseListener);
@@ -43,15 +40,7 @@ public class KopfkinoCanvas extends JPanel {
     @Override
     protected void paintComponent(final Graphics g) {
         final Graphics2D panelGraphics = (Graphics2D) g;
-        final Graphics2D g2d = canvas.createGraphics();
-        g2d.setBackground((Game.getInstance().getBackgroundColor()));
-        g2d.clearRect(0, 0, getWidth(), getHeight());
-
-        final KopfkinoGraphics graphics = new KopfkinoGraphics(g2d);
-        Game.getInstance().getCurrentScene().render(graphics);
-
-        panelGraphics.drawImage(canvas, 0, 0, null);
+        panelGraphics.drawImage(Game.getInstance().getCurrentScene().getCamera().render(Game.getInstance().getCurrentScene()), 0, 0, null);
         panelGraphics.dispose();
-        g2d.dispose();
     }
 }

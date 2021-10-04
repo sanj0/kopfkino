@@ -17,9 +17,11 @@
 
 package de.sanj0.kopfkino.scene;
 
+import de.sanj0.kopfkino.BoundingBox;
+import de.sanj0.kopfkino.Dimensions;
 import de.sanj0.kopfkino.Entity;
-import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
-import de.sanj0.kopfkino.graphics.Renderable;
+import de.sanj0.kopfkino.Game;
+import de.sanj0.kopfkino.graphics.*;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -30,6 +32,8 @@ import java.util.function.Predicate;
  */
 public class Scene implements Renderable {
 
+    private Camera camera = new Camera2D(new BoundingBox(0, 0, Game.getInstance().getResolutionW(), Game.getInstance().getResolutionH()),
+            new Dimensions(Game.getInstance().getResolutionW(), Game.getInstance().getResolutionH()), 1.0f);
     private final List<Entity> entities = Collections.synchronizedList(new ArrayList<>());
 
     public Scene() {
@@ -37,11 +41,30 @@ public class Scene implements Renderable {
 
     @Override
     public void render(final KopfkinoGraphics graphics) {
+        graphics.setRenderingHints(DefaultRenderingHints.getHints());
         entities.forEach(e -> e.render(graphics.copy()));
     }
 
     public void fixedUpdate() {
         entities.forEach(Entity::fixedUpdate);
+    }
+
+    /**
+     * Gets {@link #camera}.
+     *
+     * @return the value of {@link #camera}
+     */
+    public Camera getCamera() {
+        return camera;
+    }
+
+    /**
+     * Sets {@link #camera}.
+     *
+     * @param camera the new value of {@link #camera}
+     */
+    public void setCamera(final Camera camera) {
+        this.camera = camera;
     }
 
     /**
