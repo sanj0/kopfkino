@@ -34,7 +34,7 @@ public class Game {
     private final int resolutionW;
     private final int resolutionH;
     private final String name;
-    private Scene currentScene = new EmptyScene();
+    private Scene currentScene = null;
     private Color backgroundColor;
     private long fixedUpdatePeriod;
     private KopfkinoWindow window;

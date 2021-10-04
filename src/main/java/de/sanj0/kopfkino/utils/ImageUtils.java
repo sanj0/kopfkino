@@ -42,4 +42,15 @@ public class ImageUtils {
         renderable.render(graphics);
         graphics.dispose();
     }
+
+    public static BufferedImage resize(final BufferedImage src, final Dimensions newSize, final Object interpolation) {
+        final BufferedImage dst = createCompatibleImage(newSize);
+        final Graphics2D graphics2D = dst.createGraphics();
+
+        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, interpolation);
+        graphics2D.drawImage(src, 0, 0, dst.getWidth(), dst.getHeight(), null);
+        graphics2D.dispose();
+
+        return dst;
+    }
 }
