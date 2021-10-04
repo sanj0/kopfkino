@@ -19,7 +19,6 @@ package de.sanj0.kopfkino;
 
 import de.sanj0.kopfkino.engine.FixedUpdateLoop;
 import de.sanj0.kopfkino.engine.RenderLoop;
-import de.sanj0.kopfkino.scene.EmptyScene;
 import de.sanj0.kopfkino.scene.Scene;
 import de.sanj0.kopfkino.ui.KopfkinoWindow;
 
