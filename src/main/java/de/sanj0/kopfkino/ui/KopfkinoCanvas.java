@@ -17,14 +17,10 @@
 
 package de.sanj0.kopfkino.ui;
 
-import de.sanj0.kopfkino.Dimensions;
 import de.sanj0.kopfkino.Game;
-import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
-import de.sanj0.kopfkino.utils.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class KopfkinoCanvas extends JPanel {
 
