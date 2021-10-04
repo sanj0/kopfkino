@@ -26,7 +26,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Camera2D implements Camera {
-    private BoundingBox boundingBox;
+    private final BoundingBox boundingBox;
     private Dimensions resolution;
     private float scale;
     private Object finalInterpolation = RenderingHints.VALUE_INTERPOLATION_BILINEAR;

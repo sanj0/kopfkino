@@ -27,15 +27,16 @@ import java.awt.image.BufferedImage;
 
 public interface Camera {
     /**
-     * Renders the given Renderable onto a {@link BufferedImage} and returns it.
+     * Renders the given Renderable onto a {@link BufferedImage} and returns
+     * it.
      * <p>
      * The image returned by this method will always have the exact {@link
      * Dimensions} of {@link #getSize()}.
      *
      * @param subject the Renderable to render
      *
-     * @return a visual representation of the given Renderable as this camera sees
-     * it
+     * @return a visual representation of the given Renderable as this camera
+     * sees it
      */
     BufferedImage render(Renderable subject);
 
@@ -140,6 +141,7 @@ public interface Camera {
      * current transform.
      *
      * @param absolutePosition a position
+     *
      * @return the given vector as transformed by this camera
      */
     default Vector2f transformPoint(final Vector2f absolutePosition) {

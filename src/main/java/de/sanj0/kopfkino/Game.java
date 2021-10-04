@@ -19,7 +19,6 @@ package de.***REMOVED***.kopfkino;
 
 import de.***REMOVED***.kopfkino.engine.FixedUpdateLoop;
 import de.***REMOVED***.kopfkino.engine.RenderLoop;
-import de.***REMOVED***.kopfkino.scene.EmptyScene;
 import de.***REMOVED***.kopfkino.scene.Scene;
 import de.***REMOVED***.kopfkino.ui.KopfkinoWindow;
 

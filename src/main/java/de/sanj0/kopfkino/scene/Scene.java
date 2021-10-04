@@ -32,9 +32,9 @@ import java.util.function.Predicate;
  */
 public class Scene implements Renderable {
 
+    private final List<Entity> entities = Collections.synchronizedList(new ArrayList<>());
     private Camera camera = new Camera2D(new BoundingBox(0, 0, Game.getInstance().getResolutionW(), Game.getInstance().getResolutionH()),
             new Dimensions(Game.getInstance().getResolutionW(), Game.getInstance().getResolutionH()), 1.0f);
-    private final List<Entity> entities = Collections.synchronizedList(new ArrayList<>());
 
     public Scene() {
     }
