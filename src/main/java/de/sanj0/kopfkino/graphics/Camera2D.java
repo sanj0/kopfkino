@@ -19,6 +19,7 @@ package de.***REMOVED***.kopfkino.graphics;
 
 import de.***REMOVED***.kopfkino.BoundingBox;
 import de.***REMOVED***.kopfkino.Dimensions;
+import de.***REMOVED***.kopfkino.Game;
 import de.***REMOVED***.kopfkino.Vector2f;
 import de.***REMOVED***.kopfkino.utils.ImageUtils;
 
@@ -40,8 +41,9 @@ public class Camera2D implements Camera {
     @Override
     public BufferedImage render(final Renderable subject) {
         // scaled to the actual size later on
-        final BufferedImage image = ImageUtils.createCompatibleImage(getResolution());
+        final BufferedImage image = ImageUtils.createCompatibleImage(resolution);
         final KopfkinoGraphics graphics = new KopfkinoGraphics(image.createGraphics());
+        graphics.setClip(new BoundingBox(0, 0, resolution));
         graphics.getGraphics2D().setTransform(getAffineTransform());
         subject.render(graphics);
         return ImageUtils.resize(image, resolution, finalInterpolation);
