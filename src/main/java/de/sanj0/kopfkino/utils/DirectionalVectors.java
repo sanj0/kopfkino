@@ -23,7 +23,7 @@ import de.sanj0.kopfkino.Vector2f;
 import java.util.Map;
 
 /**
- * A small collection of directional Vectors.
+ * Converts {@link Directions} into a vector.
  */
 public class DirectionalVectors {
     private static final Map<Directions, Vector2f> PRE_BAKED = Map.of(
@@ -36,6 +36,9 @@ public class DirectionalVectors {
             new Directions(Directions.Direction.UP, Directions.Direction.LEFT), new Vector2f(-1, -1).normalise(),
             new Directions(Directions.Direction.DOWN, Directions.Direction.LEFT), new Vector2f(-1, 1).normalise()
     );
+
+    private DirectionalVectors() {
+    }
 
     public static Vector2f getDirectionalVector(final Directions directions) {
         final Vector2f baked = PRE_BAKED.get(directions);
