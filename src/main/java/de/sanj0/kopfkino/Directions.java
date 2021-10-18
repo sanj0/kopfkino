@@ -17,6 +17,8 @@
 
 package de.***REMOVED***.kopfkino;
 
+import de.***REMOVED***.kopfkino.utils.DirectionalVectors;
+
 import java.util.*;
 
 public class Directions {
@@ -25,6 +27,10 @@ public class Directions {
     public Directions(final Direction... directions) {
         this.directionSet = EnumSet.noneOf(Direction.class);
         directionSet.addAll(Arrays.asList(directions));
+    }
+
+    public Vector2f toVector() {
+        return DirectionalVectors.getDirectionalVector(this);
     }
 
     public boolean removeAll(final Collection<Direction> c) {
