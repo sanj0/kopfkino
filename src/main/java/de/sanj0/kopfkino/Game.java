@@ -19,6 +19,8 @@ package de.sanj0.kopfkino;
 
 import de.sanj0.kopfkino.engine.FixedUpdateLoop;
 import de.sanj0.kopfkino.engine.RenderLoop;
+import de.sanj0.kopfkino.graphics.Camera;
+import de.sanj0.kopfkino.graphics.Camera2D;
 import de.sanj0.kopfkino.scene.Scene;
 import de.sanj0.kopfkino.ui.KopfkinoWindow;
 
@@ -76,6 +78,18 @@ public class Game {
 
     public static Game getInstance() {
         return instance;
+    }
+
+    public static Scene currentScene() {
+        return instance.currentScene;
+    }
+
+    public static void setScene(final Scene scene) {
+        instance.currentScene = scene;
+    }
+
+    public static Camera getCamera() {
+        return instance.currentScene.getCamera();
     }
 
     /**
