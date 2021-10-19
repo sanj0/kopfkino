@@ -23,7 +23,7 @@ import de.sanj0.kopfkino.Entity;
 import de.sanj0.kopfkino.Vector2f;
 
 public abstract class EntityRenderer implements Renderable {
-    private final Entity subject;
+    private Entity subject;
     private Vector2f positionOffset;
     private Dimensions sizeOffset;
     private RenderConfig renderConfig;
@@ -63,6 +63,15 @@ public abstract class EntityRenderer implements Renderable {
      */
     public Entity getSubject() {
         return subject;
+    }
+
+    /**
+     * Sets {@link #subject}.
+     *
+     * @param subject the new value of {@link #subject}
+     */
+    public void setSubject(final Entity subject) {
+        this.subject = subject;
     }
 
     /**
