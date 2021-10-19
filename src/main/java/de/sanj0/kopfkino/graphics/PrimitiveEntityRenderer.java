@@ -33,16 +33,16 @@ public abstract class PrimitiveEntityRenderer extends EntityRenderer {
     private boolean fill = true;
     private BufferedImage bakedImage = null;
 
-    public PrimitiveEntityRenderer(final Entity subject, final Vector2f positionOffset, final Dimensions sizeOffset, final RenderConfig renderConfig) {
-        super(subject, positionOffset, sizeOffset, renderConfig);
+    public PrimitiveEntityRenderer(final Vector2f positionOffset, final Dimensions sizeOffset, final RenderConfig renderConfig) {
+        super(positionOffset, sizeOffset, renderConfig);
     }
 
-    public PrimitiveEntityRenderer(final Entity subject, final RenderConfig renderConfig) {
-        super(subject, renderConfig);
+    public PrimitiveEntityRenderer(final RenderConfig renderConfig) {
+        super(renderConfig);
     }
 
-    public PrimitiveEntityRenderer(final Entity subject) {
-        super(subject);
+    public PrimitiveEntityRenderer() {
+        super();
     }
 
     protected abstract void renderShape(final KopfkinoGraphics graphics, final BoundingBox bb, final boolean fill);

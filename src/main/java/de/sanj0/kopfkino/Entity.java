@@ -32,11 +32,11 @@ public class Entity implements Renderable {
     public Entity(final BoundingBox boundingBox, final EntityRenderer renderer) {
         this.boundingBox = boundingBox;
         this.renderer = renderer;
+        renderer.setSubject(this);
     }
 
     public Entity(final BoundingBox boundingBox) {
-        this.boundingBox = boundingBox;
-        this.renderer = new RectangleEntityRenderer(this).withArc(5, 5);
+        this(boundingBox, new RectangleEntityRenderer().withArc(5, 5));
     }
 
     /**
@@ -124,6 +124,7 @@ public class Entity implements Renderable {
      * @param renderer the new value of {@link #renderer}
      */
     public void setRenderer(final EntityRenderer renderer) {
+        renderer.setSubject(this);
         this.renderer = renderer;
     }
 

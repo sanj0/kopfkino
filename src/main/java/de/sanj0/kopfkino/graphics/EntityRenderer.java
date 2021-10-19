@@ -23,25 +23,24 @@ import de.sanj0.kopfkino.Entity;
 import de.sanj0.kopfkino.Vector2f;
 
 public abstract class EntityRenderer implements Renderable {
-    private final Entity subject;
+    private Entity subject;
     private Vector2f positionOffset;
     private Dimensions sizeOffset;
     private RenderConfig renderConfig;
 
-    public EntityRenderer(final Entity subject, final Vector2f positionOffset,
+    public EntityRenderer(final Vector2f positionOffset,
                           final Dimensions sizeOffset, final RenderConfig renderConfig) {
-        this.subject = subject;
         this.positionOffset = positionOffset;
         this.sizeOffset = sizeOffset;
         this.renderConfig = renderConfig;
     }
 
-    public EntityRenderer(final Entity subject, final RenderConfig renderConfig) {
-        this(subject, Vector2f.zero(), Dimensions.zero(), renderConfig);
+    public EntityRenderer(final RenderConfig renderConfig) {
+        this(Vector2f.zero(), Dimensions.zero(), renderConfig);
     }
 
-    public EntityRenderer(final Entity subject) {
-        this(subject, RenderConfig.createDefault());
+    public EntityRenderer() {
+        this(RenderConfig.createDefault());
     }
 
     protected abstract void renderEntity(final KopfkinoGraphics graphics, final BoundingBox bb);
@@ -63,6 +62,15 @@ public abstract class EntityRenderer implements Renderable {
      */
     public Entity getSubject() {
         return subject;
+    }
+
+    /**
+     * Sets {@link #subject}.
+     *
+     * @param subject the new value of {@link #subject}
+     */
+    public void setSubject(final Entity subject) {
+        this.subject = subject;
     }
 
     /**

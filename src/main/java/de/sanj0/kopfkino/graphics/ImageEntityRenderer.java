@@ -27,18 +27,18 @@ import java.awt.image.BufferedImage;
 public class ImageEntityRenderer extends EntityRenderer {
     private BufferedImage image;
 
-    public ImageEntityRenderer(final Entity subject, final Vector2f positionOffset, final Dimensions sizeOffset, final RenderConfig renderConfig, final BufferedImage image) {
-        super(subject, positionOffset, sizeOffset, renderConfig);
+    public ImageEntityRenderer(final Vector2f positionOffset, final Dimensions sizeOffset, final RenderConfig renderConfig, final BufferedImage image) {
+        super(positionOffset, sizeOffset, renderConfig);
         this.image = image;
     }
 
-    public ImageEntityRenderer(final Entity subject, final RenderConfig renderConfig, final BufferedImage image) {
-        super(subject, renderConfig);
+    public ImageEntityRenderer(final RenderConfig renderConfig, final BufferedImage image) {
+        super(renderConfig);
         this.image = image;
     }
 
-    public ImageEntityRenderer(final Entity subject, final BufferedImage image) {
-        super(subject);
+    public ImageEntityRenderer(final BufferedImage image) {
+        super();
         this.image = image;
     }
 
