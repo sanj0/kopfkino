@@ -23,16 +23,16 @@ import de.sanj0.kopfkino.Entity;
 import de.sanj0.kopfkino.Vector2f;
 
 public class OvalEntityRenderer extends PrimitiveEntityRenderer {
-    public OvalEntityRenderer(final Entity subject, final Vector2f positionOffset, final Dimensions sizeOffset, final RenderConfig renderConfig) {
-        super(subject, positionOffset, sizeOffset, renderConfig);
+    public OvalEntityRenderer(final Vector2f positionOffset, final Dimensions sizeOffset, final RenderConfig renderConfig) {
+        super(positionOffset, sizeOffset, renderConfig);
     }
 
-    public OvalEntityRenderer(final Entity subject, final RenderConfig renderConfig) {
-        super(subject, renderConfig);
+    public OvalEntityRenderer(final RenderConfig renderConfig) {
+        super(renderConfig);
     }
 
-    public OvalEntityRenderer(final Entity subject) {
-        super(subject);
+    public OvalEntityRenderer() {
+        super();
     }
 
     @Override
