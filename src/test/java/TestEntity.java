@@ -24,7 +24,7 @@ import java.awt.event.MouseEvent;
 
 public class TestEntity extends Entity {
     public TestEntity(final BoundingBox boundingBox) {
-        super(boundingBox, new ImageEntityRenderer(null, PackagedResources.loadImage("img/LiamNeeson.jpg")));
+        super(boundingBox, new ImageEntityRenderer(PackagedResources.loadImage("img/LiamNeeson.jpg")));
     }
 
     @Override

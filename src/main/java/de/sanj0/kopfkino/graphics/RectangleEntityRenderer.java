@@ -32,16 +32,16 @@ public class RectangleEntityRenderer extends PrimitiveEntityRenderer {
     private float arcWidth = 0;
     private float arcHeight = 0;
 
-    public RectangleEntityRenderer(final Entity subject, final Vector2f positionOffset, final Dimensions sizeOffset, final RenderConfig renderConfig) {
-        super(subject, positionOffset, sizeOffset, renderConfig);
+    public RectangleEntityRenderer(final Vector2f positionOffset, final Dimensions sizeOffset, final RenderConfig renderConfig) {
+        super(positionOffset, sizeOffset, renderConfig);
     }
 
-    public RectangleEntityRenderer(final Entity subject, final RenderConfig renderConfig) {
-        super(subject, renderConfig);
+    public RectangleEntityRenderer(final RenderConfig renderConfig) {
+        super(renderConfig);
     }
 
-    public RectangleEntityRenderer(final Entity subject) {
-        super(subject);
+    public RectangleEntityRenderer() {
+        super();
     }
 
     public RectangleEntityRenderer withArc(final float arcWidth, final float arcHeight) {
