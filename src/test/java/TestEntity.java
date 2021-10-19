@@ -31,10 +31,10 @@ public class TestEntity extends Entity {
     public void renderAfter(final KopfkinoGraphics graphics) {
         if (Input.mouseDown(MouseEvent.BUTTON1)) {
             graphics.setColor(Color.RED);
-            Game.getInstance().getCurrentScene().getCamera().getPosition().add(new Vector2f(1, 0));
+            Game.getCamera().getPosition().add(new Vector2f(1, 0));
         } else if (Input.mouseDown(MouseEvent.BUTTON3)) {
             graphics.setColor(Color.BLUE);
-            Game.getInstance().getCurrentScene().getCamera().getPosition().add(new Vector2f(-1, 0));
+            Game.getCamera().getPosition().add(new Vector2f(-1, 0));
         } else {
             graphics.setColor(Color.GREEN);
         }

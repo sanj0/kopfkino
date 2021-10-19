@@ -19,6 +19,8 @@ package de.***REMOVED***.kopfkino;
 
 import de.***REMOVED***.kopfkino.engine.FixedUpdateLoop;
 import de.***REMOVED***.kopfkino.engine.RenderLoop;
+import de.***REMOVED***.kopfkino.graphics.Camera;
+import de.***REMOVED***.kopfkino.graphics.Camera2D;
 import de.***REMOVED***.kopfkino.scene.Scene;
 import de.***REMOVED***.kopfkino.ui.KopfkinoWindow;
 
@@ -76,6 +78,18 @@ public class Game {
 
     public static Game getInstance() {
         return instance;
+    }
+
+    public static Scene currentScene() {
+        return instance.currentScene;
+    }
+
+    public static void setScene(final Scene scene) {
+        instance.currentScene = scene;
+    }
+
+    public static Camera getCamera() {
+        return instance.currentScene.getCamera();
     }
 
     /**
