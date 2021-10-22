@@ -48,6 +48,14 @@ public class BoundingBox {
         this(new Vector2f(x, y), size);
     }
 
+    public BoundingBox withPosition(final Vector2f position) {
+        return new BoundingBox(position, getSize());
+    }
+
+    public BoundingBox withSize(final Dimensions size) {
+        return new BoundingBox(getPosition(), size);
+    }
+
     /**
      * Returns true if the given bounding box and this intersect.
      *
