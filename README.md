@@ -46,10 +46,11 @@ public class Main {
         // Game is a singleton - Game.getInstance() retrieves the instance
         // ... to for example set the background (frame clear) color
         Game.getInstance().setBackgroundColor(Color.WHITE);
-        // start the game into an empty scene,
+        // start the game after a splash screen of 3 seconds
+        // into an empty scene,
         // with 5 milliseconds between fixed ticks
         // and 60 frames per second
-        Game.start(new EmptyScene(), 5, 60);
+        Game.start(3000, new EmptyScene(), 5, 60);
     }
 }
 ```
