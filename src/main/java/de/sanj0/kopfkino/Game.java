@@ -20,8 +20,8 @@ package de.sanj0.kopfkino;
 import de.sanj0.kopfkino.engine.FixedUpdateLoop;
 import de.sanj0.kopfkino.engine.RenderLoop;
 import de.sanj0.kopfkino.graphics.Camera;
-import de.sanj0.kopfkino.graphics.Camera2D;
 import de.sanj0.kopfkino.scene.Scene;
+import de.sanj0.kopfkino.scene.SplashScene;
 import de.sanj0.kopfkino.ui.KopfkinoWindow;
 
 import java.awt.*;
@@ -60,8 +60,12 @@ public class Game {
         instance = new Game(resolutionW, resolutionH, name, Color.BLACK);
     }
 
-    public static void start(final Scene currentScene, final long fixedUpdatePeriod, final int cappedFPS) {
-        instance.currentScene = currentScene;
+    public static void start(final int splashDuration, final Scene scene, final int fixedUpdatePeriod, final int cappedFPS) {
+        if (splashDuration == -1) {
+            instance.currentScene = scene;
+        } else {
+            instance.currentScene = new SplashScene(scene, splashDuration / fixedUpdatePeriod, PackagedResources.loadImage("img/kopfkino_white_s.png"));
+        }
         instance.fixedUpdatePeriod = fixedUpdatePeriod;
         instance.window = new KopfkinoWindow(instance.resolutionW, instance.resolutionH, instance.name);
         instance.window.setVisible(true);
