@@ -24,6 +24,6 @@ public class TestMain {
     public static void main(String[] args) {
         Game.init(1920, 1080, "Kopfkino Test");
         Game.getInstance().setBackgroundColor(Color.WHITE);
-        Game.start(new TestScene(), 5, 60);
+        Game.start(-1, new TestScene(), 5, 60);
     }
 }
