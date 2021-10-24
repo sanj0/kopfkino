@@ -15,11 +15,47 @@
  *
  */
 
-import de.***REMOVED***.kopfkino.BoundingBox;
+import de.***REMOVED***.kopfkino.*;
+import de.***REMOVED***.kopfkino.collision.CircleHitbox;
+import de.***REMOVED***.kopfkino.collision.Collision;
+import de.***REMOVED***.kopfkino.graphics.KopfkinoGraphics;
+import de.***REMOVED***.kopfkino.graphics.OvalEntityRenderer;
 import de.***REMOVED***.kopfkino.scene.Scene;
+import de.***REMOVED***.kopfkino.utils.Colors;
+
+import java.awt.*;
 
 public class TestScene extends Scene {
     public TestScene() {
         add(new TestEntity(new BoundingBox(160, 90, 150, 100)));
+        add(new Entity(new BoundingBox(0, 0, 50, 50), new OvalEntityRenderer()) {
+            Vector2f lastCollisionVector = Vector2f.zero();
+            @Override
+            public void renderAfter(final KopfkinoGraphics graphics) {
+                graphics.setColor(Colors.ACTIVE_GREEN);
+                graphics.drawPoint(getBoundingBox().getCentre().plus(lastCollisionVector.times(new Vector2f(-100, -100))), 25);
+            }
+
+            @Override
+            public void fixedUpdate() {
+                setPosition(Input.cursorPosition().minus(getSize().divBy(Dimensions.two())));
+            }
+
+            @Override
+            public void collisionStart(final Collision collision) {
+                getRenderer().getRenderConfig().setColor(Color.RED);
+            }
+
+            @Override
+            public void collisionEnd(final Entity partner) {
+                getRenderer().getRenderConfig().setColor(Color.BLACK);
+            }
+
+            @Override
+            public void collision(final Collision collision) {
+                lastCollisionVector = collision.getCollisionVector();
+            }
+        });
+        getEntities().get(1).setHitbox(new CircleHitbox(getEntities().get(1).getBoundingBox()::getCentre, 25f));
     }
 }

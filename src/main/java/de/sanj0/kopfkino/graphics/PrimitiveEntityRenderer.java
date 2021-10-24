@@ -19,7 +19,6 @@ package de.***REMOVED***.kopfkino.graphics;
 
 import de.***REMOVED***.kopfkino.BoundingBox;
 import de.***REMOVED***.kopfkino.Dimensions;
-import de.***REMOVED***.kopfkino.Entity;
 import de.***REMOVED***.kopfkino.Vector2f;
 import de.***REMOVED***.kopfkino.utils.ImageUtils;
 

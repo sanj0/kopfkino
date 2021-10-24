@@ -17,6 +17,7 @@
 
 package de.***REMOVED***.kopfkino;
 
+import de.***REMOVED***.kopfkino.engine.CollisionLoop;
 import de.***REMOVED***.kopfkino.engine.FixedUpdateLoop;
 import de.***REMOVED***.kopfkino.engine.RenderLoop;
 import de.***REMOVED***.kopfkino.graphics.Camera;
@@ -70,9 +71,10 @@ public class Game {
         instance.window = new KopfkinoWindow(instance.resolutionW, instance.resolutionH, instance.name);
         instance.window.setVisible(true);
 
-        instance.executorService = Executors.newScheduledThreadPool(2);
+        instance.executorService = Executors.newScheduledThreadPool(3);
         instance.executorService.scheduleAtFixedRate(new FixedUpdateLoop(), instance.fixedUpdatePeriod, instance.fixedUpdatePeriod, TimeUnit.MILLISECONDS);
-        instance.executorService.scheduleAtFixedRate(new RenderLoop(), 0, cappedFPS, TimeUnit.MILLISECONDS);
+        instance.executorService.scheduleAtFixedRate(new CollisionLoop(), instance.fixedUpdatePeriod, instance.fixedUpdatePeriod, TimeUnit.MILLISECONDS);
+        instance.executorService.scheduleAtFixedRate(new RenderLoop(), 0, (int) (1f / cappedFPS * 1000f), TimeUnit.MILLISECONDS);
     }
 
     public static void exit() {
