@@ -17,21 +17,32 @@
 
 package de.sanj0.kopfkino;
 
+import de.sanj0.kopfkino.collision.AABBHitbox;
+import de.sanj0.kopfkino.collision.Collision;
+import de.sanj0.kopfkino.collision.Hitbox;
 import de.sanj0.kopfkino.graphics.EntityRenderer;
 import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
 import de.sanj0.kopfkino.graphics.RectangleEntityRenderer;
 import de.sanj0.kopfkino.graphics.Renderable;
 
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
 /**
  * An entity in a game.
  */
-public class Entity implements Renderable {
+public class Entity implements EntityFunctionality, Renderable {
     private BoundingBox boundingBox;
     private EntityRenderer renderer;
+    private Hitbox hitbox;
+
+    private Set<Entity> intersectingEntities = new HashSet<>();
 
     public Entity(final BoundingBox boundingBox, final EntityRenderer renderer) {
         this.boundingBox = boundingBox;
         this.renderer = renderer;
+        this.hitbox = new AABBHitbox(this::getBoundingBox);
         renderer.setSubject(this);
     }
 
@@ -56,13 +67,29 @@ public class Entity implements Renderable {
      * Is called every fixed update tick.
      * <p>Base implementation empty.
      */
+    @Override
     public void fixedUpdate() {
+    }
+
+    @Override
+    public void collision(final Collision collision) {
+    }
+
+    @Override
+    public void collisionStart(final Collision collision) {
+
+    }
+
+    @Override
+    public void collisionEnd(final Entity partner) {
+
     }
 
     /**
      * Is called every time before this entity is rendered.
      * <p>Base implementation empty.
      */
+    @Override
     public void updateBefore() {
     }
 
@@ -70,6 +97,7 @@ public class Entity implements Renderable {
      * Is called every time after this entity is rendered.
      * <p>Base implementation empty.
      */
+    @Override
     public void updateAfter() {
     }
 
@@ -79,6 +107,7 @@ public class Entity implements Renderable {
      *
      * @param graphics graphics to render to
      */
+    @Override
     public void renderBefore(final KopfkinoGraphics graphics) {
     }
 
@@ -88,6 +117,7 @@ public class Entity implements Renderable {
      *
      * @param graphics graphics to render to
      */
+    @Override
     public void renderAfter(final KopfkinoGraphics graphics) {
     }
 
@@ -126,6 +156,42 @@ public class Entity implements Renderable {
     public void setRenderer(final EntityRenderer renderer) {
         renderer.setSubject(this);
         this.renderer = renderer;
+    }
+
+    /**
+     * Gets {@link #hitbox}.
+     *
+     * @return the value of {@link #hitbox}
+     */
+    public Hitbox getHitbox() {
+        return hitbox;
+    }
+
+    /**
+     * Sets {@link #hitbox}.
+     *
+     * @param hitbox the new value of {@link #hitbox}
+     */
+    public void setHitbox(final Hitbox hitbox) {
+        this.hitbox = hitbox;
+    }
+
+    /**
+     * Gets {@link #intersectingEntities}.
+     *
+     * @return the value of {@link #intersectingEntities}
+     */
+    public Set<Entity> getIntersectingEntities() {
+        return intersectingEntities;
+    }
+
+    /**
+     * Sets {@link #intersectingEntities}.
+     *
+     * @param intersectingEntities the new value of {@link #intersectingEntities}
+     */
+    public void setIntersectingEntities(final Set<Entity> intersectingEntities) {
+        this.intersectingEntities = intersectingEntities;
     }
 
     /**
@@ -224,5 +290,22 @@ public class Entity implements Renderable {
      */
     public void setHeight(final float height) {
         boundingBox.setHeight(height);
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Entity{" +
+                "boundingBox=" + boundingBox +
+                '}';
     }
 }

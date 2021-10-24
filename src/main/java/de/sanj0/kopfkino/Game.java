@@ -17,6 +17,7 @@
 
 package de.sanj0.kopfkino;
 
+import de.sanj0.kopfkino.engine.CollisionLoop;
 import de.sanj0.kopfkino.engine.FixedUpdateLoop;
 import de.sanj0.kopfkino.engine.RenderLoop;
 import de.sanj0.kopfkino.graphics.Camera;
@@ -70,9 +71,10 @@ public class Game {
         instance.window = new KopfkinoWindow(instance.resolutionW, instance.resolutionH, instance.name);
         instance.window.setVisible(true);
 
-        instance.executorService = Executors.newScheduledThreadPool(2);
+        instance.executorService = Executors.newScheduledThreadPool(3);
         instance.executorService.scheduleAtFixedRate(new FixedUpdateLoop(), instance.fixedUpdatePeriod, instance.fixedUpdatePeriod, TimeUnit.MILLISECONDS);
-        instance.executorService.scheduleAtFixedRate(new RenderLoop(), 0, cappedFPS, TimeUnit.MILLISECONDS);
+        instance.executorService.scheduleAtFixedRate(new CollisionLoop(), instance.fixedUpdatePeriod, instance.fixedUpdatePeriod, TimeUnit.MILLISECONDS);
+        instance.executorService.scheduleAtFixedRate(new RenderLoop(), 0, (int) (1f / cappedFPS * 1000f), TimeUnit.MILLISECONDS);
     }
 
     public static void exit() {
