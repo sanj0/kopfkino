@@ -16,6 +16,7 @@
  */
 
 import de.sanj0.kopfkino.*;
+import de.sanj0.kopfkino.collision.Collision;
 import de.sanj0.kopfkino.graphics.ImageEntityRenderer;
 import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
 
@@ -28,22 +29,19 @@ public class TestEntity extends Entity {
     }
 
     @Override
-    public void renderAfter(final KopfkinoGraphics graphics) {
-        if (Input.mouseDown(MouseEvent.BUTTON1)) {
-            graphics.setColor(Color.RED);
-            Game.getCamera().getPosition().add(new Vector2f(1, 0));
-        } else if (Input.mouseDown(MouseEvent.BUTTON3)) {
-            graphics.setColor(Color.BLUE);
-            Game.getCamera().getPosition().add(new Vector2f(-1, 0));
-        } else {
-            graphics.setColor(Color.GREEN);
-        }
-
-        graphics.drawPoint(Input.cursorPosition(), 50);
+    public void fixedUpdate() {
+        getPosition().add(Input.direction().times(Vector2f.num(.5f)));
     }
 
     @Override
-    public void fixedUpdate() {
-        getPosition().add(Input.direction().times(Vector2f.num(.5f)));
+    public void collision(final Collision collision) {
+    }
+
+    @Override
+    public void collisionStart(final Collision collision) {
+    }
+
+    @Override
+    public void collisionEnd(final Entity partner) {
     }
 }
