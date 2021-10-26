@@ -25,6 +25,7 @@ import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
 import de.sanj0.kopfkino.graphics.RectangleEntityRenderer;
 import de.sanj0.kopfkino.graphics.Renderable;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -37,7 +38,7 @@ public class Entity implements EntityFunctionality, Renderable {
     private EntityRenderer renderer;
     private Hitbox hitbox;
 
-    private Set<Entity> intersectingEntities = new HashSet<>();
+    private Set<Entity> intersectingEntities = Collections.synchronizedSet(new HashSet<>());
 
     public Entity(final BoundingBox boundingBox, final EntityRenderer renderer) {
         this.boundingBox = boundingBox;
