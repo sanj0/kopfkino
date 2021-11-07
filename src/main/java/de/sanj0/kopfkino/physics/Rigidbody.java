@@ -4,14 +4,15 @@ import de.sanj0.kopfkino.Vector2f;
 
 /**
  * A rigid physics body.
- * <p>naming conventions are purposefully aweful as to comply with common pyhsics namings
+ * <p>naming conventions are purposefully awful as to comply with common physics
+ * namings
  */
 public class Rigidbody {
     private float m;
-    private Vector2f F;
-    private Vector2f v;
+    private Vector2f F = Vector2f.zero();
+    private Vector2f v = Vector2f.zero();
 
-    public Rigidbody(float m) {
+    public Rigidbody(final float m) {
         this.m = m;
     }
 
@@ -19,7 +20,7 @@ public class Rigidbody {
         return m;
     }
 
-    public void setM(float m) {
+    public void setM(final float m) {
         this.m = m;
     }
 
@@ -27,7 +28,7 @@ public class Rigidbody {
         return F;
     }
 
-    public void setF(Vector2f f) {
+    public void setF(final Vector2f f) {
         F = f;
     }
 
@@ -35,7 +36,7 @@ public class Rigidbody {
         return v;
     }
 
-    public void setV(Vector2f v) {
+    public void setV(final Vector2f v) {
         this.v = v;
     }
 }
