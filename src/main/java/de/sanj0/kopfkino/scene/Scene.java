@@ -17,11 +17,9 @@
 
 package de.***REMOVED***.kopfkino.scene;
 
-import de.***REMOVED***.kopfkino.BoundingBox;
-import de.***REMOVED***.kopfkino.Dimensions;
-import de.***REMOVED***.kopfkino.Entity;
-import de.***REMOVED***.kopfkino.Game;
+import de.***REMOVED***.kopfkino.*;
 import de.***REMOVED***.kopfkino.graphics.*;
+import de.***REMOVED***.kopfkino.physics.World;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -33,11 +31,13 @@ import java.util.function.Predicate;
 public class Scene implements Renderable {
 
     private final List<Entity> entities = Collections.synchronizedList(new ArrayList<>());
+    private final World physicsWorld;
     private Camera camera;
 
     public Scene() {
         camera = new Camera2D(new BoundingBox(0, 0, Game.getInstance().getResolutionW(), Game.getInstance().getResolutionH()),
                 new Dimensions(Game.getInstance().getResolutionW(), Game.getInstance().getResolutionH()), 1.0f);
+        physicsWorld = new World(this, Vector2f.zero(), World.DEFAULT_FRICTION);
     }
 
     @Override
@@ -47,7 +47,17 @@ public class Scene implements Renderable {
     }
 
     public void fixedUpdate() {
+        physicsWorld.update();
         entities.forEach(Entity::fixedUpdate);
+    }
+
+    /**
+     * Gets {@link #physicsWorld}.
+     *
+     * @return the value of {@link #physicsWorld}
+     */
+    public World getPhysicsWorld() {
+        return physicsWorld;
     }
 
     /**

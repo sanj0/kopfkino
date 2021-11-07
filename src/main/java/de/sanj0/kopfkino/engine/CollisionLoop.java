@@ -28,36 +28,40 @@ import java.util.Map;
 public class CollisionLoop implements Runnable {
     @Override
     public void run() {
-        final List<Entity> entities = Game.getInstance().getCurrentScene().getEntities();
-        final int numEntities = entities.size();
-        for (int i = 0; i < numEntities - 1; i++) {
-            final Entity a = entities.get(i);
-            for (int ii = i + 1; ii < numEntities; ii++) {
-                final Entity b = entities.get(ii);
-                final Map<Entity, Collision> result = Collider.detectStatic(a, b);
-                if (result == null) {
-                    if (a.getIntersectingEntities().contains(b)) {
-                        a.collisionEnd(b);
-                        a.getIntersectingEntities().remove(b);
+        try {
+            final List<Entity> entities = Game.getInstance().getCurrentScene().getEntities();
+            final int numEntities = entities.size();
+            for (int i = 0; i < numEntities - 1; i++) {
+                final Entity a = entities.get(i);
+                for (int ii = i + 1; ii < numEntities; ii++) {
+                    final Entity b = entities.get(ii);
+                    final Map<Entity, Collision> result = Collider.detectStatic(a, b);
+                    if (result == null) {
+                        if (a.getIntersectingEntities().contains(b)) {
+                            a.collisionEnd(b);
+                            a.getIntersectingEntities().remove(b);
+                        }
+                        if (b.getIntersectingEntities().contains(a)) {
+                            b.collisionEnd(a);
+                            b.getIntersectingEntities().remove(a);
+                        }
+                        continue;
                     }
-                    if (b.getIntersectingEntities().contains(a)) {
-                        b.collisionEnd(a);
-                        b.getIntersectingEntities().remove(a);
-                    }
-                    continue;
-                }
 
-                if (!a.getIntersectingEntities().contains(b)) {
-                    a.collisionStart(result.get(a));
-                    a.getIntersectingEntities().add(b);
+                    if (!a.getIntersectingEntities().contains(b)) {
+                        a.collisionStart(result.get(a));
+                        a.getIntersectingEntities().add(b);
+                    }
+                    a.collision(result.get(a));
+                    if (!b.getIntersectingEntities().contains(a)) {
+                        b.collisionStart(result.get(b));
+                        b.getIntersectingEntities().add(a);
+                    }
+                    b.collision(result.get(b));
                 }
-                a.collision(result.get(a));
-                if (!b.getIntersectingEntities().contains(a)) {
-                    b.collisionStart(result.get(b));
-                    b.getIntersectingEntities().add(a);
-                }
-                b.collision(result.get(b));
             }
+        } catch (final Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -15,17 +15,23 @@
  *
  */
 
-package de.***REMOVED***.kopfkino.engine;
+package de.***REMOVED***.kopfkino;
 
-import de.***REMOVED***.kopfkino.Game;
+/**
+ * Static time utilities.
+ */
+public class Time {
+    /**
+     * The amount of milliseconds between each fixed update.
+     */
+    protected static int fixedUpdateRate;
 
-public class FixedUpdateLoop implements Runnable {
-    @Override
-    public void run() {
-        try {
-            Game.getInstance().getCurrentScene().fixedUpdate();
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
+    /**
+     * Gets {@link #fixedUpdateRate}.
+     *
+     * @return the value of {@link #fixedUpdateRate}
+     */
+    public static int getFixedUpdateRate() {
+        return fixedUpdateRate;
     }
 }

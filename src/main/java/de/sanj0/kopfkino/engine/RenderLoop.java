@@ -22,6 +22,10 @@ import de.***REMOVED***.kopfkino.Game;
 public class RenderLoop implements Runnable {
     @Override
     public void run() {
-        Game.getInstance().getWindow().getCanvas().repaint();
+        try {
+            Game.getInstance().getWindow().getCanvas().repaint();
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
     }
 }

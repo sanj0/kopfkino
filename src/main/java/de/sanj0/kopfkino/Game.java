@@ -61,22 +61,32 @@ public class Game {
         instance = new Game(resolutionW, resolutionH, name, Color.BLACK);
     }
 
-    public static void start(final int splashDuration, final Scene scene, final int fixedUpdatePeriod, final int cappedFPS) {
-        if (splashDuration == -1) {
+    public static void start(final int splashDuration, final Scene scene, final int fixedUpdateRate, final int cappedFPS) {
+        if (splashDuration <= 0) {
             instance.currentScene = scene;
         } else {
-            instance.currentScene = new SplashScene(scene, splashDuration / fixedUpdatePeriod, PackagedResources.loadImage("img/kopfkino_white_s.png"));
+            instance.currentScene = new SplashScene(scene, splashDuration / fixedUpdateRate, PackagedResources.loadImage("img/kopfkino_white_s.png"));
         }
-        instance.fixedUpdatePeriod = fixedUpdatePeriod;
+        instance.fixedUpdatePeriod = fixedUpdateRate;
         instance.window = new KopfkinoWindow(instance.resolutionW, instance.resolutionH, instance.name);
         instance.window.setVisible(true);
+
+        Time.fixedUpdateRate = fixedUpdateRate;
 
         instance.executorService = Executors.newScheduledThreadPool(3);
         instance.executorService.scheduleAtFixedRate(new FixedUpdateLoop(), instance.fixedUpdatePeriod, instance.fixedUpdatePeriod, TimeUnit.MILLISECONDS);
         instance.executorService.scheduleAtFixedRate(new CollisionLoop(), instance.fixedUpdatePeriod, instance.fixedUpdatePeriod, TimeUnit.MILLISECONDS);
-        instance.executorService.scheduleAtFixedRate(new RenderLoop(), 0, (int) (1f / cappedFPS * 1000f), TimeUnit.MILLISECONDS);
+        instance.executorService.scheduleAtFixedRate(new RenderLoop(), 0, (int) (1000f / cappedFPS), TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Shuts down the scheduled thread pool running the game loops and exits the
+     * java virtual machine.
+     * <p>This method never returns normally.
+     *
+     * @see ScheduledExecutorService#shutdownNow()
+     * @see System#exit(int)
+     */
     public static void exit() {
         instance.executorService.shutdownNow();
         System.exit(0);

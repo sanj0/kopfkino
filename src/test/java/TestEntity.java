@@ -35,6 +35,7 @@ public class TestEntity extends Entity {
 
     @Override
     public void collision(final Collision collision) {
+        getRigidbody().getF().add(collision.getCollisionVector().times(-100));
     }
 
     @Override
