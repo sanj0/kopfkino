@@ -24,10 +24,10 @@ import de.sanj0.kopfkino.graphics.EntityRenderer;
 import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
 import de.sanj0.kopfkino.graphics.RectangleEntityRenderer;
 import de.sanj0.kopfkino.graphics.Renderable;
+import de.sanj0.kopfkino.physics.Rigidbody;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -37,6 +37,7 @@ public class Entity implements EntityFunctionality, Renderable {
     private BoundingBox boundingBox;
     private EntityRenderer renderer;
     private Hitbox hitbox;
+    private Rigidbody rigidbody;
 
     private Set<Entity> intersectingEntities = Collections.synchronizedSet(new HashSet<>());
 
@@ -45,6 +46,7 @@ public class Entity implements EntityFunctionality, Renderable {
         this.renderer = renderer;
         this.hitbox = new AABBHitbox(this::getBoundingBox);
         renderer.setSubject(this);
+        rigidbody = new Rigidbody(getWidth() * getHeight());
     }
 
     public Entity(final BoundingBox boundingBox) {
@@ -175,6 +177,24 @@ public class Entity implements EntityFunctionality, Renderable {
      */
     public void setHitbox(final Hitbox hitbox) {
         this.hitbox = hitbox;
+    }
+
+    /**
+     * Gets {@link #rigidbody}.
+     *
+     * @return the value of {@link #rigidbody}
+     */
+    public Rigidbody getRigidbody() {
+        return rigidbody;
+    }
+
+    /**
+     * Sets {@link #rigidbody}.
+     *
+     * @param rigidbody the new value of {@link #rigidbody}
+     */
+    public void setRigidbody(final Rigidbody rigidbody) {
+        this.rigidbody = rigidbody;
     }
 
     /**
