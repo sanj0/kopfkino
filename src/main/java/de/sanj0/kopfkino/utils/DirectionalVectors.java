@@ -26,11 +26,16 @@ import java.util.Map;
  * Converts {@link Directions} into a vector.
  */
 public class DirectionalVectors {
+
+    public static final Vector2f UP = new Vector2f(0, -1);
+    public static final Vector2f DOWN = new Vector2f(0, 1);
+    public static final Vector2f RIGHT = new Vector2f(1, 0);
+    public static final Vector2f LEFT = new Vector2f(-1, 0);
     private static final Map<Directions, Vector2f> PRE_BAKED = Map.of(
-            new Directions(Directions.Direction.UP), new Vector2f(0, -1),
-            new Directions(Directions.Direction.DOWN), new Vector2f(0, 1),
-            new Directions(Directions.Direction.LEFT), new Vector2f(-1, 0),
-            new Directions(Directions.Direction.RIGHT), new Vector2f(1, 0),
+            new Directions(Directions.Direction.UP), UP,
+            new Directions(Directions.Direction.DOWN), DOWN,
+            new Directions(Directions.Direction.LEFT), LEFT,
+            new Directions(Directions.Direction.RIGHT), RIGHT,
             new Directions(Directions.Direction.UP, Directions.Direction.RIGHT), new Vector2f(1, -1).normalise(),
             new Directions(Directions.Direction.DOWN, Directions.Direction.RIGHT), new Vector2f(1, 1).normalise(),
             new Directions(Directions.Direction.UP, Directions.Direction.LEFT), new Vector2f(-1, -1).normalise(),

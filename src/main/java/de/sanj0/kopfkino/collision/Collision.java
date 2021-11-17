@@ -23,13 +23,13 @@ import de.sanj0.kopfkino.Vector2f;
 public class Collision {
     private final Entity partner;
     /**
-     * My position minus {@link #partner}s position as a unit vector.
+     * The normal of this collision.
      */
-    private final Vector2f collisionVector;
+    private final Vector2f collisionNormal;
 
-    public Collision(final Entity partner, final Vector2f collisionVector) {
+    public Collision(final Entity partner, final Vector2f collisionNormal) {
         this.partner = partner;
-        this.collisionVector = collisionVector;
+        this.collisionNormal = collisionNormal;
     }
 
     /**
@@ -42,11 +42,11 @@ public class Collision {
     }
 
     /**
-     * Gets {@link #collisionVector}.
+     * Gets {@link #collisionNormal}.
      *
-     * @return the value of {@link #collisionVector}
+     * @return the value of {@link #collisionNormal}
      */
-    public Vector2f getCollisionVector() {
-        return collisionVector;
+    public Vector2f getCollisionNormal() {
+        return collisionNormal;
     }
 }
