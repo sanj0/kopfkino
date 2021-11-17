@@ -53,9 +53,10 @@ public class TestScene extends Scene {
 
             @Override
             public void collision(final Collision collision) {
-                lastCollisionVector = collision.getCollisionVector();
+                lastCollisionVector = collision.getCollisionNormal();
             }
         });
         getEntities().get(1).setHitbox(new CircleHitbox(getEntities().get(1).getBoundingBox()::getCentre, 25f));
+        add(new Entity(new BoundingBox(1000, 0, 20, 500)));
     }
 }

@@ -40,6 +40,7 @@ public class Entity implements EntityFunctionality, Renderable {
     private Rigidbody rigidbody;
 
     private Set<Entity> intersectingEntities = Collections.synchronizedSet(new HashSet<>());
+    private Directions blockedDirections = new Directions();
 
     public Entity(final BoundingBox boundingBox, final EntityRenderer renderer) {
         this.boundingBox = boundingBox;
@@ -213,6 +214,24 @@ public class Entity implements EntityFunctionality, Renderable {
      */
     public void setIntersectingEntities(final Set<Entity> intersectingEntities) {
         this.intersectingEntities = intersectingEntities;
+    }
+
+    /**
+     * Gets {@link #blockedDirections}.
+     *
+     * @return the value of {@link #blockedDirections}
+     */
+    public Directions getBlockedDirections() {
+        return blockedDirections;
+    }
+
+    /**
+     * Sets {@link #blockedDirections}.
+     *
+     * @param blockedDirections the new value of {@link #blockedDirections}
+     */
+    public void setBlockedDirections(final Directions blockedDirections) {
+        this.blockedDirections = blockedDirections;
     }
 
     /**
