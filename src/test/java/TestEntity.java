@@ -16,12 +16,9 @@
  */
 
 import de.sanj0.kopfkino.*;
+import de.sanj0.kopfkino.collision.CircleHitbox;
 import de.sanj0.kopfkino.collision.Collision;
 import de.sanj0.kopfkino.graphics.ImageEntityRenderer;
-import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
-
-import java.awt.*;
-import java.awt.event.MouseEvent;
 
 public class TestEntity extends Entity {
     public TestEntity(final BoundingBox boundingBox) {
@@ -30,12 +27,14 @@ public class TestEntity extends Entity {
 
     @Override
     public void fixedUpdate() {
-        getPosition().add(Input.direction().times(Vector2f.num(.5f)));
+        getRigidbody().getV().set(Input.input().toVector().times(2));
     }
 
     @Override
     public void collision(final Collision collision) {
-        getRigidbody().getF().add(collision.getCollisionVector().times(-100));
+        if (collision.getPartner().getHitbox() instanceof CircleHitbox) {
+            getRigidbody().getF().add(collision.getCollisionNormal().times(-100));
+        }
     }
 
     @Override

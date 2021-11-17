@@ -17,13 +17,12 @@
 
 package de.sanj0.kopfkino.engine;
 
+import de.sanj0.kopfkino.Directions;
 import de.sanj0.kopfkino.Entity;
 import de.sanj0.kopfkino.Game;
 import de.sanj0.kopfkino.collision.Collider;
-import de.sanj0.kopfkino.collision.Collision;
 
 import java.util.List;
-import java.util.Map;
 
 public class CollisionLoop implements Runnable {
     @Override
@@ -33,32 +32,35 @@ public class CollisionLoop implements Runnable {
             final int numEntities = entities.size();
             for (int i = 0; i < numEntities - 1; i++) {
                 final Entity a = entities.get(i);
+                final Directions blockedDirections = new Directions();
                 for (int ii = i + 1; ii < numEntities; ii++) {
                     final Entity b = entities.get(ii);
-                    final Map<Entity, Collision> result = Collider.detectStatic(a, b);
+                    final Collider.Collisions result = Collider.detectStatic(a, b);
                     if (result == null) {
                         if (a.getIntersectingEntities().contains(b)) {
                             a.collisionEnd(b);
                             a.getIntersectingEntities().remove(b);
-                        }
-                        if (b.getIntersectingEntities().contains(a)) {
                             b.collisionEnd(a);
                             b.getIntersectingEntities().remove(a);
                         }
                         continue;
                     }
-
-                    if (!a.getIntersectingEntities().contains(b)) {
-                        a.collisionStart(result.get(a));
-                        a.getIntersectingEntities().add(b);
+                    // collision happened
+                    final Directions.Direction dir = a.getBoundingBox().collisionDirection(b.getBoundingBox());
+                    if (dir != null) {
+                        blockedDirections.add(a.getBoundingBox().collisionDirection(b.getBoundingBox()));
                     }
-                    a.collision(result.get(a));
-                    if (!b.getIntersectingEntities().contains(a)) {
-                        b.collisionStart(result.get(b));
+                    if (!a.getIntersectingEntities().contains(b)) {
+                        Game.getInstance().getCurrentScene().getPhysicsWorld().handleCollision(a, result.getA());
+                        a.collisionStart(result.getA());
+                        a.getIntersectingEntities().add(b);
+                        b.collisionStart(result.getB());
                         b.getIntersectingEntities().add(a);
                     }
-                    b.collision(result.get(b));
+                    a.collision(result.getA());
+                    b.collision(result.getB());
                 }
+                a.setBlockedDirections(blockedDirections);
             }
         } catch (final Exception e) {
             e.printStackTrace();

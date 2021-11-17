@@ -23,8 +23,6 @@ import de.sanj0.kopfkino.Entity;
 import de.sanj0.kopfkino.Vector2f;
 import de.sanj0.kopfkino.utils.MathUtils;
 
-import java.util.Map;
-
 /**
  * Static functions to detect collisions
  */
@@ -32,11 +30,14 @@ public class Collider {
     // detects a static collision.
     // returns null if no collision was detected and a map containing collision
     // events for both entities.
-    public static Map<Entity, Collision> detectStatic(final Entity a, final Entity b) {
+    public static Collisions detectStatic(final Entity a, final Entity b) {
         final Hitbox aBox = a.getHitbox();
         final Hitbox bBox = b.getHitbox();
+        Vector2f collisionNormalA;
+        Vector2f collisionNormalB;
 
         if (aBox instanceof AABBHitbox) {
+
             if (bBox instanceof AABBHitbox) {
                 if (!AABBtoAABB((AABBHitbox) aBox, (AABBHitbox) bBox))
                     return null;
@@ -54,7 +55,7 @@ public class Collider {
             }
         }
         final Vector2f collisionVectorAtoB = bBox.getBoundingBox().getCentre().minus(aBox.getBoundingBox().getCentre()).normalise();
-        return Map.of(a, new Collision(b, collisionVectorAtoB), b, new Collision(a, collisionVectorAtoB.times(Vector2f.negOne())));
+        return new Collisions(new Collision(b, collisionVectorAtoB), new Collision(a, collisionVectorAtoB.times(Vector2f.negOne())));
     }
 
     private static boolean AABBtoAABB(final AABBHitbox a, final AABBHitbox b) {
@@ -76,5 +77,33 @@ public class Collider {
 
     private static boolean circleToCircle(final CircleHitbox a, CircleHitbox b) {
         return a.getCentreSupplier().get().minus(b.getCentreSupplier().get()).magnitude() <= a.getRadiusSupplier().get() + b.getRadiusSupplier().get();
+    }
+
+    public static class Collisions {
+        private final Collision a;
+        private final Collision b;
+
+        public Collisions(final Collision a, final Collision b) {
+            this.a = a;
+            this.b = b;
+        }
+
+        /**
+         * Gets {@link #a}.
+         *
+         * @return the value of {@link #a}
+         */
+        public Collision getA() {
+            return a;
+        }
+
+        /**
+         * Gets {@link #b}.
+         *
+         * @return the value of {@link #b}
+         */
+        public Collision getB() {
+            return b;
+        }
     }
 }
