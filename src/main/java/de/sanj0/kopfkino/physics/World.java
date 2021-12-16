@@ -8,6 +8,7 @@ import de.sanj0.kopfkino.collision.AABBHitbox;
 import de.sanj0.kopfkino.collision.CircleHitbox;
 import de.sanj0.kopfkino.collision.Collision;
 import de.sanj0.kopfkino.scene.Scene;
+import static de.sanj0.kopfkino.Directions.Direction;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class World {
             body.setF(Vector2f.zero());
             v.add(g.times(dt));
             v.subtract(v.times(v).times(new Vector2f(Math.signum(v.getX()), Math.signum(v.getY()))).times(friction));
+            // only move in directions that aren't blocked.
             if (Math.abs(v.getX()) > stoppingThreshold) {
                 if ((v.getX() > 0 && !e.getBlockedDirections().contains(Directions.Direction.RIGHT))
                         || (v.getX() < 0 && !e.getBlockedDirections().contains(Directions.Direction.LEFT))) {
@@ -65,47 +67,65 @@ public class World {
 
     public void handleCollision(final Entity a, final Collision collision) {
         final Entity b = collision.getPartner();
-        final Rigidbody bodyA = a.getRigidbody();
-        final Rigidbody bodyB = b.getRigidbody();
         // circle to x
         if (a.getHitbox() instanceof CircleHitbox) {
             // circle to circle
             if (b.getHitbox() instanceof CircleHitbox) {
-                circle_to_circle(bodyA, bodyB);
+                circle_to_circle(a, b);
                 // circle to aabb
             } else if (b.getHitbox() instanceof AABBHitbox) {
-                circle_to_aabb(bodyA, bodyB);
+                circle_to_aabb(a, b);
             }
         } else if (a.getHitbox() instanceof AABBHitbox) {
             if (b.getHitbox() instanceof CircleHitbox) {
-                circle_to_aabb(bodyB, bodyA);
+                circle_to_aabb(b, a);
             } else if (b.getHitbox() instanceof AABBHitbox) {
                 aabb_to_aabb(a, b);
             }
         }
     }
 
-    private void circle_to_circle(final Rigidbody a, final Rigidbody b) {
-        a.getV().times(Vector2f.num(-b.getBounciness()));
-        a.getF().times(0);
-        b.getV().times(Vector2f.num(-a.getBounciness()));
-        b.getF().times(0);
+    private void circle_to_circle(final Entity a, final Entity b) {
+        /*
+        * final rigidbody ab = a.getRigidbody();
+        * final rigidbody bb = b.getRigidbody();
+        * ab.getV().times(Vector2f.num(-b.getRigidbody().getBounciness()));
+        * ab.getF().times(0);
+        * bb.getV().times(Vector2f.num(-a.getRigidbody().getBounciness()));
+        * bb.getF().times(0);
+        */
+        // for now, just assume aabb_to_aabb
+        aabb_to_aabb(a, b);
     }
 
-    private void circle_to_aabb(final Rigidbody circle, final Rigidbody aabb) {
-
+    private void circle_to_aabb(final Entity circle, final Entity aabb) {
+        // 1. Find the face the circle collides with
+        // 2. ...?
+        // For now tho, just assume aabb_to_aabb
+        aabb_to_aabb(circle, aabb);
     }
 
     private void aabb_to_aabb(final Entity a, final Entity b) {
-        a.getRigidbody().setF(Vector2f.zero());
-        b.getRigidbody().setF(Vector2f.zero());
-        final Vector2f collisionNormalA = a.getHitbox().getBoundingBox().collisionNormal(b.getBoundingBox());
-        if (collisionNormalA.getX() != 0) {
-            a.getRigidbody().getV().setX(-a.getRigidbody().getV().getX() * b.getRigidbody().getBounciness());
-            b.getRigidbody().getV().setX(-b.getRigidbody().getV().getX() * a.getRigidbody().getBounciness());
-        } else {
-            a.getRigidbody().getV().setY(-a.getRigidbody().getV().getY() * b.getRigidbody().getBounciness());
-            b.getRigidbody().getV().setY(-b.getRigidbody().getV().getY() * a.getRigidbody().getBounciness());
+        final Directions.Direction d = a.getHitbox().getBoundingBox().collisionDirection(b.getHitbox().getBoundingBox());
+        final Rigidbody bodyA = a.getRigidbody();
+        final Rigidbody bodyB = b.getRigidbody();
+        switch (d) {
+            case UP: 
+                if (bodyA.getF().getY() < 0) bodyA.getF().setY(0);
+                if (bodyB.getF().getY() > 0) bodyB.getF().setY(0);
+                break;
+            case DOWN:
+                if (bodyA.getF().getY() > 0) bodyA.getF().setY(0);
+                if (bodyB.getF().getY() < 0) bodyB.getF().setY(0);
+                break;
+            case RIGHT:
+                if (bodyA.getF().getX() < 0) bodyA.getF().setX(0);
+                if (bodyB.getF().getX() > 0) bodyB.getF().setX(0);
+                break;
+            case LEFT:
+                if (bodyA.getF().getX() > 0) bodyA.getF().setX(0);
+                if (bodyB.getF().getX() < 0) bodyB.getF().setX(0);
+                break;
         }
     }
 
