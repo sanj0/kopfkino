@@ -20,6 +20,7 @@ import de.***REMOVED***.kopfkino.collision.CircleHitbox;
 import de.***REMOVED***.kopfkino.collision.Collision;
 import de.***REMOVED***.kopfkino.graphics.KopfkinoGraphics;
 import de.***REMOVED***.kopfkino.graphics.OvalEntityRenderer;
+import de.***REMOVED***.kopfkino.physics.World;
 import de.***REMOVED***.kopfkino.scene.Scene;
 import de.***REMOVED***.kopfkino.utils.Colors;
 
@@ -27,6 +28,7 @@ import java.awt.*;
 
 public class TestScene extends Scene {
     public TestScene() {
+        getPhysicsWorld().setG(World.DEFAULT_G);
         add(new TestEntity(new BoundingBox(160, 90, 150, 100)));
         add(new Entity(new BoundingBox(0, 0, 50, 50), new OvalEntityRenderer()) {
             Vector2f lastCollisionVector = Vector2f.zero();
@@ -58,5 +60,11 @@ public class TestScene extends Scene {
         });
         getEntities().get(1).setHitbox(new CircleHitbox(getEntities().get(1).getBoundingBox()::getCentre, 25f));
         add(new Entity(new BoundingBox(1000, 0, 20, 500)));
+        add(new Entity(new BoundingBox(-500, 1000, 3000, 50)){
+            @Override
+            public void fixedUpdate() {
+                getBlockedDirections().add(Directions.Direction.DOWN);
+            }
+        });
     }
 }

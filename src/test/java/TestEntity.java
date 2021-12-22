@@ -27,7 +27,7 @@ public class TestEntity extends Entity {
 
     @Override
     public void fixedUpdate() {
-        getRigidbody().getV().set(Input.input().toVector().times(2));
+        getRigidbody().getV().add(Input.input().toVector().times(2));
     }
 
     @Override

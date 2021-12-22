@@ -32,7 +32,8 @@ public class KopfkinoWindow extends JFrame {
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLayout(null);
-        setSize(w, h);
+        pack();
+        setSize(w, getHeight() - getContentPane().getHeight() + h);
         setLocationRelativeTo(null);
 
         canvas = new KopfkinoCanvas(w, h);
