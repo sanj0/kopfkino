@@ -59,6 +59,7 @@ public class Game {
         System.setProperty("sun.java2d.accthreshold", "0");
         System.setProperty("java.awt.headless", "false");
         instance = new Game(resolutionW, resolutionH, name, Color.BLACK);
+        ExternalResources.init(name);
     }
 
     public static void start(final int splashDuration, final Scene scene, final int fixedUpdatePeriod, final int cappedFPS) {

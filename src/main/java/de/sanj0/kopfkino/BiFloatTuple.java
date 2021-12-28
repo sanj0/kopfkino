@@ -36,6 +36,9 @@ import java.util.Objects;
  * function isn't possible, the past version of the normal function is used (e.g. {@link #absed()})
  */
 public abstract class BiFloatTuple<T> {
+
+    public static final String DEFAULT_DELIMITER = ",";
+
     protected float a;
     protected float b;
 
@@ -45,6 +48,7 @@ public abstract class BiFloatTuple<T> {
     }
 
     protected abstract T createInstance(final float a, final float b);
+
 
     public T set(final BiFloatTuple v) {
         a = v.a;
