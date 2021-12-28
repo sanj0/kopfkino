@@ -19,18 +19,28 @@ import de.sanj0.kopfkino.*;
 import de.sanj0.kopfkino.collision.Collision;
 import de.sanj0.kopfkino.graphics.ImageEntityRenderer;
 import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
+import de.sanj0.kopfkino.serialization.Serializable;
+import de.sanj0.kopfkino.serialization.Serialized;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
+@Serializable
 public class TestEntity extends Entity {
+
+    @Serialized
+    public static String position;
+
     public TestEntity(final BoundingBox boundingBox) {
         super(boundingBox, new ImageEntityRenderer(PackagedResources.loadImage("img/LiamNeeson.jpg")));
+        System.out.println("deserialized position: " + position);
+        if (position != null) setPosition(Vector2f.parseVector2f(position));
     }
 
     @Override
     public void fixedUpdate() {
         getPosition().add(Input.direction().times(Vector2f.num(.5f)));
+        position = getX() + ", " + getY();
     }
 
     @Override
