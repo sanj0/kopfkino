@@ -30,6 +30,11 @@ public class Vector2f extends BiFloatTuple<Vector2f> {
         this(v.getX(), v.getY());
     }
 
+    public static Vector2f parseVector2f(final String s, final String... delimiter) {
+        final String[] parts = s.split(delimiter.length == 0 ? DEFAULT_DELIMITER : delimiter[0], 2);
+        return new Vector2f(Float.parseFloat(parts[0].trim()), Float.parseFloat(parts[1].trim()));
+    }
+
     /**
      * Returns a new instance with x and y equal to the given float.
      *
