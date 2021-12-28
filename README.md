@@ -1,6 +1,10 @@
+<div align="center">
+      <img src="https://github.com/sanj0/kopfkino/blob/main/logos/grayish/kopfkino_grayish_xs.png" alt="kopfkino" align="center">
+</div>
+
 # kopfkino
 ![kopfkino logo](logos/grayish/kopfkino_grayish_xs.png)
-> _kopkino_ (noun) processes, events that take place only or mainly in the imagination, in one's own power of imagination  
+> _kopkino_ (noun) processes, events that take place only or mainly in the imagination, in one's own power of imagination.
 > (translated from https://www.duden.de/rechtschreibung/Kopfkino)
 
 Kopfkino is a java2d game library that benefits from 5+ years of development on
@@ -15,7 +19,6 @@ the project using `mvn clean install`. Now include kopfkino in your own maven
 project by appending the following dependency declaration to your pom.xml:
 
 ```xml
-
 <dependencies>
   <!--...-->
   <dependency>
