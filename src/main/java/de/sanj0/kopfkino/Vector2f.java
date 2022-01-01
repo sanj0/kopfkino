@@ -166,6 +166,23 @@ public class Vector2f extends BiFloatTuple<Vector2f> {
         return this;
     }
 
+    /**
+     * Returns the distance between this and the given point.
+     *
+     * @param point a point
+     *
+     * @return the distance between this and the given point
+     */
+    public float distance(final Vector2f point) {
+        return (float) Math.hypot(Math.abs(point.b - b), Math.abs(point.a - a));
+    }
+
+    public float distanceSquared(final Vector2f point) {
+        final double ac = Math.abs(point.b - b);
+        final double cb = Math.abs(point.a - a);
+        return (float) (ac * ac + cb * cb);
+    }
+
     @Override
     public String toString() {
         return "Vector2f{" +
