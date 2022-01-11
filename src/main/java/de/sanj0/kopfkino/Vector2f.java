@@ -183,6 +183,11 @@ public class Vector2f extends BiFloatTuple<Vector2f> {
         return (float) (ac * ac + cb * cb);
     }
 
+    public void moveTowards(final Vector2f p, final float d) {
+        final double angle = Math.atan2(p.b - b, p.a - a);
+        add(new Vector2f(d * (float) Math.cos(angle), d * (float) Math.sin(angle)));
+    }
+
     @Override
     public String toString() {
         return "Vector2f{" +

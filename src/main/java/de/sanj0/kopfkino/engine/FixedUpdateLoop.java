@@ -22,6 +22,10 @@ import de.***REMOVED***.kopfkino.Game;
 public class FixedUpdateLoop implements Runnable {
     @Override
     public void run() {
-        Game.getInstance().getCurrentScene().fixedUpdate();
+        try {
+            Game.getInstance().getCurrentScene().fixedUpdate();
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
     }
 }

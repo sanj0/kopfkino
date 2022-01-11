@@ -56,6 +56,5 @@ public class TestScene extends Scene {
                 lastCollisionVector = collision.getCollisionVector();
             }
         });
-        getEntities().get(1).setHitbox(new CircleHitbox(getEntities().get(1).getBoundingBox()::getCentre, 25f));
     }
 }
