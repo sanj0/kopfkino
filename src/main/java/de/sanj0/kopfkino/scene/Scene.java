@@ -21,6 +21,8 @@ import de.sanj0.kopfkino.BoundingBox;
 import de.sanj0.kopfkino.Dimensions;
 import de.sanj0.kopfkino.Entity;
 import de.sanj0.kopfkino.Game;
+import de.sanj0.kopfkino.collision.Collider;
+import de.sanj0.kopfkino.collision.Collision;
 import de.sanj0.kopfkino.graphics.*;
 
 import java.util.*;
@@ -32,7 +34,7 @@ import java.util.function.Predicate;
  */
 public class Scene implements Renderable {
 
-    private final List<Entity> entities = Collections.synchronizedList(new ArrayList<>());
+    private final List<Entity> entities = new ArrayList<>();
     private Camera camera;
 
     public Scene() {
@@ -43,11 +45,53 @@ public class Scene implements Renderable {
     @Override
     public void render(final KopfkinoGraphics graphics) {
         graphics.setRenderingHints(DefaultRenderingHints.getHints());
-        entities.forEach(e -> e.render(graphics.copy()));
+        for (int i = 0; i < entities.size(); i++) {
+            // buffer it for thread safety
+            final Entity e = entities.get(i);
+            if (e == null) continue;
+            e.render(graphics.copy());
+        }
     }
 
     public void fixedUpdate() {
-        entities.forEach(Entity::fixedUpdate);
+        for (int i = 0; i < entities.size(); i++) {
+            // buffer it for thread safety
+            final Entity e = entities.get(i);
+            if (e == null) continue;
+            e.fixedUpdate();
+        }
+    }
+
+    public void collisionDetection() {
+        for (int i = 0; i < entities.size() - 1; i++) {
+            final Entity a = entities.get(i);
+            for (int ii = i + 1; ii < entities.size(); ii++) {
+                final Entity b = entities.get(ii);
+                final Map<Entity, Collision> result = Collider.detectStatic(a, b);
+                if (result == null) {
+                    if (a.getIntersectingEntities().contains(b)) {
+                        a.collisionEnd(b);
+                        a.getIntersectingEntities().remove(b);
+                    }
+                    if (b.getIntersectingEntities().contains(a)) {
+                        b.collisionEnd(a);
+                        b.getIntersectingEntities().remove(a);
+                    }
+                    continue;
+                }
+
+                if (!a.getIntersectingEntities().contains(b)) {
+                    a.collisionStart(result.get(a));
+                    a.getIntersectingEntities().add(b);
+                }
+                a.collision(result.get(a));
+                if (!b.getIntersectingEntities().contains(a)) {
+                    b.collisionStart(result.get(b));
+                    b.getIntersectingEntities().add(a);
+                }
+                b.collision(result.get(b));
+            }
+        }
     }
 
     /**
@@ -119,21 +163,8 @@ public class Scene implements Renderable {
         return entities.add(entity);
     }
 
-    /**
-     * Removes the first occurrence of the specified element from this scene, if
-     * it is present (optional operation).  If this scene does not contain the
-     * element, it is unchanged.  More formally, removes the element with the
-     * lowest index {@code i} such that {@code Objects.equals(o, get(i))} (if
-     * such an element exists).  Returns {@code true} if this scene contained
-     * the specified element (or equivalently, if this scene changed as a result
-     * of the call).
-     *
-     * @param o element to be removed from this scene, if present
-     *
-     * @return {@code true} if this scene contained the specified element
-     */
-    public boolean remove(final Object o) {
-        return entities.remove(o);
+    public void remove(final Entity e) {
+        entities.remove(e);
     }
 
     /**
@@ -232,19 +263,6 @@ public class Scene implements Renderable {
     }
 
     /**
-     * Inserts the specified element at the specified position in this scene
-     * (optional operation).  Shifts the element currently at that position (if
-     * any) and any subsequent elements to the right (adds one to their
-     * indices).
-     *
-     * @param index   index at which the specified element is to be inserted
-     * @param element element to be inserted
-     */
-    public void add(final int index, final Entity element) {
-        entities.add(index, element);
-    }
-
-    /**
      * Removes the element at the specified position in this scene (optional
      * operation).  Shifts any subsequent elements to the left (subtracts one
      * from their indices).  Returns the element that was removed from the
@@ -313,11 +331,13 @@ public class Scene implements Renderable {
     }
 
     /**
-     * Gets {@link #entities}.
+     * Gets a snapshot copy of {@link #entities}.
+     * <p>No direct reference to the {@link Entity} list is
+     * disclosed due to thread safety.
      *
-     * @return the value of {@link #entities}
+     * @return a snapshot copy of {@link #entities}
      */
-    public List<Entity> getEntities() {
-        return entities;
+    public List<Entity> entitySnapshot() {
+        return new ArrayList<>(entities);
     }
 }
