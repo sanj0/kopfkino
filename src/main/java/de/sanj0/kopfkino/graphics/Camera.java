@@ -25,6 +25,10 @@ import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
+/**
+ * A camera is a movable, scalable and otherwise transformable projector that
+ * renders a {@link Renderable} onto a {@link BufferedImage}.
+ */
 public interface Camera {
     /**
      * Renders the given Renderable onto a {@link BufferedImage} and returns
