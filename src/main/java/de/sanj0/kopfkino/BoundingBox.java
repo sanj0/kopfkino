@@ -17,6 +17,8 @@
 
 package de.sanj0.kopfkino;
 
+import de.sanj0.kopfkino.utils.DirectionalVectors;
+
 import java.util.Objects;
 
 /**
@@ -70,6 +72,64 @@ public class BoundingBox {
                 b.getY() + b.getHeight() > getY() &&
                 b.getX() < getX() + getWidth() &&
                 b.getY() < getY() + getHeight();
+    }
+
+    /**
+     * Returns the collision normal between this and the other given
+     * BoundingBox. Only works properly if the two BoundingBoxes {@link
+     * #intersects(BoundingBox) intersect}.
+     * <p>Top edge would return Vector2f(0, -1), right edge Vector (1, 0)
+     * etc.
+     *
+     * @param other another BoundingBox
+     *
+     * @return the collision normal between this and the given other BoundingBox
+     * @see DirectionalVectors
+     */
+    public Vector2f collisionNormal(final BoundingBox other) {
+        final float bottomCollision = other.getMaxY() - getY();
+        final float topCollision = getMaxY() - other.getY();
+        final float leftCollision = getMaxX() - other.getX();
+        final float rightCollision = other.getMaxX() - getX();
+        if (topCollision < bottomCollision && topCollision < leftCollision && topCollision < rightCollision) {
+            return DirectionalVectors.DOWN;
+        } else if (bottomCollision < topCollision && bottomCollision < leftCollision && bottomCollision < rightCollision) {
+            return DirectionalVectors.UP;
+        } else if (rightCollision < leftCollision && rightCollision < topCollision && rightCollision < bottomCollision) {
+            return DirectionalVectors.LEFT;
+        } else if (leftCollision < rightCollision && leftCollision < bottomCollision && leftCollision < topCollision) {
+            return DirectionalVectors.RIGHT;
+        }
+        return Vector2f.zero();
+    }
+
+    /**
+     * Returns the collision normal between this and the other given
+     * BoundingBox. Only works properly if the two BoundingBoxes {@link
+     * #intersects(BoundingBox) intersect}.
+     * <p>Top edge would return Vector2f(0, -1), right edge Vector (1, 0)
+     * etc.
+     *
+     * @param other another BoundingBox
+     *
+     * @return the collision normal between this and the given other BoundingBox
+     * @see DirectionalVectors
+     */
+    public Directions.Direction collisionDirection(final BoundingBox other) {
+        final float bottomCollision = other.getMaxY() - getY();
+        final float topCollision = getMaxY() - other.getY();
+        final float leftCollision = getMaxX() - other.getX();
+        final float rightCollision = other.getMaxX() - getX();
+        if (topCollision < bottomCollision && topCollision < leftCollision && topCollision < rightCollision) {
+            return Directions.Direction.DOWN;
+        } else if (bottomCollision < topCollision && bottomCollision < leftCollision && bottomCollision < rightCollision) {
+            return Directions.Direction.UP;
+        } else if (rightCollision < leftCollision && rightCollision < topCollision && rightCollision < bottomCollision) {
+            return Directions.Direction.LEFT;
+        } else if (leftCollision < rightCollision && leftCollision < bottomCollision && leftCollision < topCollision) {
+            return Directions.Direction.RIGHT;
+        }
+        return null;
     }
 
     /**

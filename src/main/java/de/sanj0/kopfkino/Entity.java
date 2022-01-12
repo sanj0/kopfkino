@@ -24,9 +24,10 @@ import de.sanj0.kopfkino.graphics.EntityRenderer;
 import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
 import de.sanj0.kopfkino.graphics.RectangleEntityRenderer;
 import de.sanj0.kopfkino.graphics.Renderable;
+import de.sanj0.kopfkino.physics.Rigidbody;
 
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -36,14 +37,18 @@ public class Entity implements EntityFunctionality, Renderable {
     private BoundingBox boundingBox;
     private EntityRenderer renderer;
     private Hitbox hitbox;
+    private Rigidbody rigidbody;
+    private boolean affectedByPhysics = true;
 
-    private Set<Entity> intersectingEntities = new HashSet<>();
+    private Set<Entity> intersectingEntities = Collections.synchronizedSet(new HashSet<>());
+    private Directions blockedDirections = new Directions();
 
     public Entity(final BoundingBox boundingBox, final EntityRenderer renderer) {
         this.boundingBox = boundingBox;
         this.renderer = renderer;
         this.hitbox = new AABBHitbox(this::getBoundingBox);
         renderer.setSubject(this);
+        rigidbody = new Rigidbody(getWidth() * getHeight());
     }
 
     public Entity(final BoundingBox boundingBox) {
@@ -177,6 +182,42 @@ public class Entity implements EntityFunctionality, Renderable {
     }
 
     /**
+     * Gets {@link #rigidbody}.
+     *
+     * @return the value of {@link #rigidbody}
+     */
+    public Rigidbody getRigidbody() {
+        return rigidbody;
+    }
+
+    /**
+     * Sets {@link #rigidbody}.
+     *
+     * @param rigidbody the new value of {@link #rigidbody}
+     */
+    public void setRigidbody(final Rigidbody rigidbody) {
+        this.rigidbody = rigidbody;
+    }
+
+    /**
+     * Gets {@link #affectedByPhysics}.
+     *
+     * @return the value of {@link #affectedByPhysics}
+     */
+    public boolean isAffectedByPhysics() {
+        return affectedByPhysics;
+    }
+
+    /**
+     * Sets {@link #affectedByPhysics}.
+     *
+     * @param affectedByPhysics the new value of {@link #affectedByPhysics}
+     */
+    public void setAffectedByPhysics(final boolean affectedByPhysics) {
+        this.affectedByPhysics = affectedByPhysics;
+    }
+
+    /**
      * Gets {@link #intersectingEntities}.
      *
      * @return the value of {@link #intersectingEntities}
@@ -192,6 +233,24 @@ public class Entity implements EntityFunctionality, Renderable {
      */
     public void setIntersectingEntities(final Set<Entity> intersectingEntities) {
         this.intersectingEntities = intersectingEntities;
+    }
+
+    /**
+     * Gets {@link #blockedDirections}.
+     *
+     * @return the value of {@link #blockedDirections}
+     */
+    public Directions getBlockedDirections() {
+        return blockedDirections;
+    }
+
+    /**
+     * Sets {@link #blockedDirections}.
+     *
+     * @param blockedDirections the new value of {@link #blockedDirections}
+     */
+    public void setBlockedDirections(final Directions blockedDirections) {
+        this.blockedDirections = blockedDirections;
     }
 
     /**
