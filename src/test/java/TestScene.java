@@ -20,6 +20,7 @@ import de.sanj0.kopfkino.collision.CircleHitbox;
 import de.sanj0.kopfkino.collision.Collision;
 import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
 import de.sanj0.kopfkino.graphics.OvalEntityRenderer;
+import de.sanj0.kopfkino.physics.World;
 import de.sanj0.kopfkino.scene.Scene;
 import de.sanj0.kopfkino.utils.Colors;
 
@@ -27,8 +28,11 @@ import java.awt.*;
 
 public class TestScene extends Scene {
     public TestScene() {
-        add(new TestEntity(new BoundingBox(160, 90, 150, 100)));
+        getPhysicsWorld().setFriction(0.008f);
+        getPhysicsWorld().setStoppingThreshold(.1f);
+        add(new TestEntity(new BoundingBox(160, 90, 100, 100)));
         add(new Entity(new BoundingBox(0, 0, 50, 50), new OvalEntityRenderer()) {
+            {setAffectedByPhysics(false);}
             Vector2f lastCollisionVector = Vector2f.zero();
             @Override
             public void renderAfter(final KopfkinoGraphics graphics) {
@@ -53,8 +57,17 @@ public class TestScene extends Scene {
 
             @Override
             public void collision(final Collision collision) {
-                lastCollisionVector = collision.getCollisionVector();
+                lastCollisionVector = collision.getCollisionNormal();
             }
         });
+        entitySnapshot().get(1).setHitbox(new CircleHitbox(entitySnapshot().get(1).getBoundingBox()::getCentre, 25f));
+        add(new Entity(new BoundingBox(-500, 1030, 3000, 50)){{
+                setAffectedByPhysics(false);}});
+        add(new Entity(new BoundingBox(-500, 0, 3000, 50)){{
+            setAffectedByPhysics(false);}});
+        add(new Entity(new BoundingBox(0, 0, 50, 3000)){{
+            setAffectedByPhysics(false);}});
+        add(new Entity(new BoundingBox(1870, 0, 50, 3000)){{
+            setAffectedByPhysics(false);}});
     }
 }

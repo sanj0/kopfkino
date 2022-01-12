@@ -17,13 +17,10 @@
 
 package de.sanj0.kopfkino.scene;
 
-import de.sanj0.kopfkino.BoundingBox;
-import de.sanj0.kopfkino.Dimensions;
-import de.sanj0.kopfkino.Entity;
-import de.sanj0.kopfkino.Game;
+import de.sanj0.kopfkino.*;
 import de.sanj0.kopfkino.collision.Collider;
-import de.sanj0.kopfkino.collision.Collision;
 import de.sanj0.kopfkino.graphics.*;
+import de.sanj0.kopfkino.physics.World;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -35,11 +32,13 @@ import java.util.function.Predicate;
 public class Scene implements Renderable {
 
     private final List<Entity> entities = new ArrayList<>();
+    private final World physicsWorld;
     private Camera camera;
 
     public Scene() {
         camera = new Camera2D(new BoundingBox(0, 0, Game.getInstance().getResolutionW(), Game.getInstance().getResolutionH()),
                 new Dimensions(Game.getInstance().getResolutionW(), Game.getInstance().getResolutionH()), 1.0f);
+        physicsWorld = new World(this, Vector2f.zero(), World.DEFAULT_FRICTION);
     }
 
     @Override
@@ -65,33 +64,46 @@ public class Scene implements Renderable {
     public void collisionDetection() {
         for (int i = 0; i < entities.size() - 1; i++) {
             final Entity a = entities.get(i);
+            final Directions blockedDirections = new Directions();
             for (int ii = i + 1; ii < entities.size(); ii++) {
                 final Entity b = entities.get(ii);
-                final Map<Entity, Collision> result = Collider.detectStatic(a, b);
+                final Collider.Collisions result = Collider.detectStatic(a, b);
                 if (result == null) {
                     if (a.getIntersectingEntities().contains(b)) {
                         a.collisionEnd(b);
                         a.getIntersectingEntities().remove(b);
-                    }
-                    if (b.getIntersectingEntities().contains(a)) {
                         b.collisionEnd(a);
                         b.getIntersectingEntities().remove(a);
                     }
                     continue;
                 }
-
-                if (!a.getIntersectingEntities().contains(b)) {
-                    a.collisionStart(result.get(a));
-                    a.getIntersectingEntities().add(b);
+                // collision happened
+                final Directions.Direction dir = a.getBoundingBox().collisionDirection(b.getBoundingBox());
+                if (dir != null) {
+                    blockedDirections.add(a.getBoundingBox().collisionDirection(b.getBoundingBox()));
                 }
-                a.collision(result.get(a));
-                if (!b.getIntersectingEntities().contains(a)) {
-                    b.collisionStart(result.get(b));
+                if (!a.getIntersectingEntities().contains(b)) {
+                    Game.getInstance().getCurrentScene().getPhysicsWorld().handleCollision(a, result.getA());
+                    a.collisionStart(result.getA());
+                    a.getIntersectingEntities().add(b);
+                    b.collisionStart(result.getB());
                     b.getIntersectingEntities().add(a);
                 }
-                b.collision(result.get(b));
+                a.collision(result.getA());
+                b.collision(result.getB());
             }
+            a.setBlockedDirections(blockedDirections);
         }
+        physicsWorld.update();
+    }
+
+    /**
+     * Gets {@link #physicsWorld}.
+     *
+     * @return the value of {@link #physicsWorld}
+     */
+    public World getPhysicsWorld() {
+        return physicsWorld;
     }
 
     /**
@@ -163,8 +175,21 @@ public class Scene implements Renderable {
         return entities.add(entity);
     }
 
-    public void remove(final Entity e) {
-        entities.remove(e);
+    /**
+     * Removes the first occurrence of the specified element from this scene, if
+     * it is present (optional operation).  If this scene does not contain the
+     * element, it is unchanged.  More formally, removes the element with the
+     * lowest index {@code i} such that {@code Objects.equals(o, get(i))} (if
+     * such an element exists).  Returns {@code true} if this scene contained
+     * the specified element (or equivalently, if this scene changed as a result
+     * of the call).
+     *
+     * @param o element to be removed from this scene, if present
+     *
+     * @return {@code true} if this scene contained the specified element
+     */
+    public boolean remove(final Object o) {
+        return entities.remove(o);
     }
 
     /**
@@ -221,8 +246,6 @@ public class Scene implements Renderable {
      * @param c the {@code Comparator} used to compare scene elements. A {@code
      *          null} value indicates that the elements' {@linkplain Comparable
      *          natural ordering} should be used
-     *
-     * @since 1.8
      */
     public void sort(final Comparator<? super Entity> c) {
         entities.sort(c);
@@ -263,6 +286,19 @@ public class Scene implements Renderable {
     }
 
     /**
+     * Inserts the specified element at the specified position in this scene
+     * (optional operation).  Shifts the element currently at that position (if
+     * any) and any subsequent elements to the right (adds one to their
+     * indices).
+     *
+     * @param index   index at which the specified element is to be inserted
+     * @param element element to be inserted
+     */
+    public void add(final int index, final Entity element) {
+        entities.add(index, element);
+    }
+
+    /**
      * Removes the element at the specified position in this scene (optional
      * operation).  Shifts any subsequent elements to the left (subtracts one
      * from their indices).  Returns the element that was removed from the
@@ -300,34 +336,24 @@ public class Scene implements Renderable {
      *               removed
      *
      * @return {@code true} if any elements were removed
-     * @since 1.8
      */
     public boolean removeIf(final Predicate<? super Entity> filter) {
         return entities.removeIf(filter);
     }
 
     /**
-     * Performs the given action for each element of the {@code Iterable} until
-     * all elements have been processed or the action throws an exception.
-     * Actions are performed in the order of iteration, if that order is
-     * specified.  Exceptions thrown by the action are relayed to the caller.
-     * <p>
-     * The behavior of this method is unspecified if the action performs
-     * side-effects that modify the underlying source of elements, unless an
-     * overriding class has specified a concurrent modification policy.
+     * Performs the given action for each element of the {@code Iterable}
      *
      * @param action The action to be performed for each element
-     *
-     * @throws NullPointerException if the specified action is null
-     * @implSpec <p>The default implementation behaves as if:
-     * <pre>{@code
-     *     for (T t : this)
-     *         action.accept(t);
-     * }</pre>
-     * @since 1.8
      */
     public void forEach(final Consumer<? super Entity> action) {
-        entities.forEach(action);
+        // make it weird for thread safety by tolerance of
+        // potential one frame semantic lags
+        for (int i = 0; i < entities.size(); i++) {
+            final Entity e = entities.get(i);
+            if (e == null) continue;
+            action.accept(e);
+        }
     }
 
     /**
