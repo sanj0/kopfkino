@@ -28,18 +28,18 @@ public abstract class EntityRenderer implements Renderable {
     private Dimensions sizeOffset;
     private RenderConfig renderConfig;
 
-    public EntityRenderer(final Vector2f positionOffset,
-                          final Dimensions sizeOffset, final RenderConfig renderConfig) {
+    protected EntityRenderer(final Vector2f positionOffset,
+                             final Dimensions sizeOffset, final RenderConfig renderConfig) {
         this.positionOffset = positionOffset;
         this.sizeOffset = sizeOffset;
         this.renderConfig = renderConfig;
     }
 
-    public EntityRenderer(final RenderConfig renderConfig) {
+    protected EntityRenderer(final RenderConfig renderConfig) {
         this(Vector2f.zero(), Dimensions.zero(), renderConfig);
     }
 
-    public EntityRenderer() {
+    protected EntityRenderer() {
         this(RenderConfig.createDefault());
     }
 
