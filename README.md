@@ -3,8 +3,6 @@
 </div>
 
 # kopfkino
-<<<<<<<<< Temporary merge branch 1
-![kopfkino logo](logos/grayish/kopfkino_grayish_xs.png)
 > _kopkino_ (noun) processes, events that take place only or mainly in the imagination, in one's own power of imagination.
 > (translated from https://www.duden.de/rechtschreibung/Kopfkino)
 
