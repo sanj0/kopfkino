@@ -25,6 +25,10 @@ import de.sanj0.kopfkino.utils.ImageUtils;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * The default {@link Camera} implementation that allows for translation and
+ * scaling of the output image.
+ */
 public class Camera2D implements Camera {
     private final BoundingBox boundingBox;
     private Dimensions resolution;
