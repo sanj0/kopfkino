@@ -70,6 +70,19 @@ public abstract class BiFloatTuple<T> {
     }
 
     /**
+     * Multiplies a and b of this tuple with the given float and returns {@code this}.
+     *
+     * @param f a float
+     *
+     * @return {@code this}
+     */
+    public T multiply(final float f) {
+        a *= f;
+        b *= f;
+        return (T) this;
+    }
+
+    /**
      * Returns a new tuple with a and b being the product of the xs and ys of
      * this and the given tuple, respectively.
      * <p>Doesn't change this, nor the given tuple.
@@ -84,6 +97,20 @@ public abstract class BiFloatTuple<T> {
     }
 
     /**
+     * Returns a new tuple with a and b being the product of the given float
+     * and a and b of this tuple.
+     * <p>Doesn't change {@code this}
+     *
+     * @param f a float
+     *
+     * @return a BiFloatTuple whose components are the product of the respective
+     * components of {@link this} and the given float
+     */
+    public T times(final float f) {
+        return createInstance(a * f, b * f);
+    }
+
+    /**
      * Divides this.x by b.x and this.y by b.y and returns {@code this}.
      *
      * @param o another tuple
@@ -93,6 +120,19 @@ public abstract class BiFloatTuple<T> {
     public T divide(final BiFloatTuple o) {
         a /= o.a;
         b /= o.b;
+        return (T) this;
+    }
+
+    /**
+     * Divides this.x and this.y the given float and returns {@code this}.
+     *
+     * @param f a float
+     *
+     * @return {@code this}
+     */
+    public T divide(final float f) {
+        a /= f;
+        b /= f;
         return (T) this;
     }
 
@@ -111,15 +151,42 @@ public abstract class BiFloatTuple<T> {
     }
 
     /**
+     * Returns a new tuple with a and b being the quotient of the given float
+     * and a and b of this tuple.
+     * <p>Doesn't change {@code this}
+     *
+     * @param f a float
+     *
+     * @return a BiFloatTuple whose components are the quotient of the respective
+     * components of {@link this} and the given float
+     */
+    public T divBy(final float f) {
+        return createInstance(a / f, b / f);
+    }
+
+    /**
      * Adds b.x to this.x and b.y to this.y and returns {@code this}.
-     * <p>
-     * param o another tuple
+     *
+     * @param o another tuple
      *
      * @return {@code this}
      */
     public T add(final BiFloatTuple o) {
         a += o.a;
         b += o.b;
+        return (T) this;
+    }
+
+    /**
+     * Adds the given float to this.x and this.y and returns {@code this}.
+     *
+     * @param f a float
+     *
+     * @return {@code this}
+     */
+    public T add(final float f) {
+        a += f;
+        b += f;
         return (T) this;
     }
 
@@ -138,15 +205,42 @@ public abstract class BiFloatTuple<T> {
     }
 
     /**
+     * Returns a new tuple with a and b being the sum of the given float
+     * and a and b of this tuple.
+     * <p>Doesn't change {@code this}
+     *
+     * @param f a float
+     *
+     * @return a BiFloatTuple whose components are the sum of the respective
+     * components of {@link this} and the given float
+     */
+    public T plus(final float f) {
+        return createInstance(a + f, b + f);
+    }
+
+    /**
      * Subtracts b.x from this.x and b.y from this.y and returns {@code this}.
-     * <p>
-     * param o another tuple
+     *
+     * @param o another tuple
      *
      * @return {@code this}
      */
     public T subtract(final BiFloatTuple o) {
         a -= o.a;
         b -= o.b;
+        return (T) this;
+    }
+
+    /**
+     * Subtracts the given float from this.x and this.y and returns {@code this}.
+     *
+     * @param f a float
+     *
+     * @return {@code this}
+     */
+    public T subtract(final float f) {
+        a -= f;
+        b -= f;
         return (T) this;
     }
 
@@ -162,6 +256,20 @@ public abstract class BiFloatTuple<T> {
      */
     public T minus(final BiFloatTuple o) {
         return createInstance(a - o.a, b - o.b);
+    }
+
+    /**
+     * Returns a new tuple with a and b being the difference between the given float
+     * and a and b of this tuple.
+     * <p>Doesn't change {@code this}
+     *
+     * @param f a float
+     *
+     * @return a BiFloatTuple whose components are the difference between the respective
+     * components of {@link this} and the given float
+     */
+    public T minus(final float f) {
+        return createInstance(a - f, b - f);
     }
 
     /**

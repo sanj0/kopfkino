@@ -16,13 +16,18 @@
  */
 
 import de.***REMOVED***.kopfkino.*;
+import de.***REMOVED***.kopfkino.collision.CircleHitbox;
 import de.***REMOVED***.kopfkino.collision.Collision;
 import de.***REMOVED***.kopfkino.graphics.ImageEntityRenderer;
 import de.***REMOVED***.kopfkino.graphics.KopfkinoGraphics;
+import de.***REMOVED***.kopfkino.graphics.OvalEntityRenderer;
+import de.***REMOVED***.kopfkino.graphics.RenderConfig;
 import de.***REMOVED***.kopfkino.serialization.Serializable;
 import de.***REMOVED***.kopfkino.serialization.Serialized;
+import de.***REMOVED***.kopfkino.utils.Colors;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 @Serializable
@@ -32,19 +37,25 @@ public class TestEntity extends Entity {
     public static String position;
 
     public TestEntity(final BoundingBox boundingBox) {
-        super(boundingBox, new ImageEntityRenderer(PackagedResources.loadImage("img/LiamNeeson.jpg")));
+        super(boundingBox, new OvalEntityRenderer(RenderConfig.builder().withColor(Colors.ACTIVE_GREEN).build()));
+        setHitbox(new CircleHitbox(getBoundingBox()::getCentre, getWidth() / 2f));
         System.out.println("deserialized position: " + position);
-        if (position != null) setPosition(Vector2f.parseVector2f(position));
     }
 
     @Override
     public void fixedUpdate() {
-        getPosition().add(Input.direction().times(Vector2f.num(.5f)));
         position = getX() + ", " + getY();
+        getRigidbody().getV().add(Input.input().toVector().times(2));
     }
 
     @Override
     public void collision(final Collision collision) {
+        final int f = -9000;
+        if (collision.getPartner().getHitbox() instanceof CircleHitbox) {
+            getRigidbody().getF().add(collision.getCollisionVector().times(f));
+        } else {
+            getRigidbody().getV().add(collision.getCollisionNormal().times(f / 10000f));
+        }
     }
 
     @Override

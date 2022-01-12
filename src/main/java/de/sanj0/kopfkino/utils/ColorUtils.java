@@ -54,17 +54,19 @@ public class ColorUtils {
 
     /**
      * Blends the two given colors by the given ratio.
+     * <p>The ratio is between 0 and 1, inclusively.
+     * <br>0 would return a copy of the first color, 1 a copy of the second.
+     * <br>Everything in between mixes the two just as one would expect.
      *
      * @param color1 the first color
      * @param color2 the second color
-     * @param ratio  the blend ratio - 1 means "fully mix in color2", 0 returns
-     *               an effective copy of color1
+     * @param ratio  the blend ratio between 0 and 1, inclusively.
      *
      * @return a blend between the two colors by the given ratio
      */
     public static Color blend(final Color color1, final Color color2, float ratio) {
         if (ratio > 1 || ratio < 0) {
-            throw new IllegalArgumentException("blend ratio must be > 0 and < 1");
+            throw new IllegalArgumentException("blend ratio must be => 0 and =< 1");
         }
 
         final float invRatio = 1 - ratio;
@@ -78,8 +80,8 @@ public class ColorUtils {
      * Returns the given color with the given alpha value. The value goes from 0
      * to 255, 0 meaning complete transparency, 255 meaning full visibility.
      *
-     * @param color the {@link Color} to return
-     * @param alpha the alpha value of the color
+     * @param color the {@link Color} to return with adjusted alpha
+     * @param alpha the new alpha value for the color
      *
      * @return the given color with the given alpha value
      */
@@ -91,14 +93,12 @@ public class ColorUtils {
      * Returns the given color with the given alpha value. The value goes from
      * 0f to 1f, 0f meaning complete transparency, 1f meaning full visibility.
      *
-     * @param color the {@link Color} to return
-     * @param alpha the alpha value of the color
+     * @param color the {@link Color} to return with adjusted alpha
+     * @param alpha the new alpha value for the color
      *
      * @return the given color with the given alpha value
      */
     public static Color withAlpha(final Color color, final float alpha) {
         return withAlpha(color, (int) (alpha * 255f));
     }
-
-
 }
