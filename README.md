@@ -10,8 +10,8 @@ Kopfkino is a java2d game library that benefits from 5+ years of development on
 its predecessor, [Salty Engine](https://www.github.com/sanj0/salty-engine).
 
 ## Get started
-
-### 1. How to use Kopfkino Engine
+For information on how to use the engnie, consider taking a look at the [github wiki](https://github.com/sanj0/kopfkino/wiki)
+### 1. How to get Kopfkino Engine
 
 Kopfkino engine is built using maven. After cloning the repository, simply build
 the project using `mvn clean install`. Now include kopfkino in your own maven
