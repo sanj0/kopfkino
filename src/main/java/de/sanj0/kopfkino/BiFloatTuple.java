@@ -90,7 +90,7 @@ public abstract class BiFloatTuple<T> {
      * @param o another tuple
      *
      * @return a BiFloatTuple whose components are the product of the respective
-     * components of {@link this} and {@code b}.
+     * components of {@code this} and {@code b}.
      */
     public T times(final BiFloatTuple o) {
         return createInstance(a * o.a, b * o.b);
@@ -104,7 +104,7 @@ public abstract class BiFloatTuple<T> {
      * @param f a float
      *
      * @return a BiFloatTuple whose components are the product of the respective
-     * components of {@link this} and the given float
+     * components of {@code this} and the given float
      */
     public T times(final float f) {
         return createInstance(a * f, b * f);
@@ -144,7 +144,7 @@ public abstract class BiFloatTuple<T> {
      * param o another tuple
      *
      * @return a BiFloatTuple whose components are the quotient of the
-     * respective components of {@link this} and {@code b}.
+     * respective components of {@code this} and {@code b}.
      */
     public T divBy(final BiFloatTuple o) {
         return createInstance(a / o.a, b / o.b);
@@ -158,7 +158,7 @@ public abstract class BiFloatTuple<T> {
      * @param f a float
      *
      * @return a BiFloatTuple whose components are the quotient of the respective
-     * components of {@link this} and the given float
+     * components of {@code this} and the given float
      */
     public T divBy(final float f) {
         return createInstance(a / f, b / f);
@@ -198,7 +198,7 @@ public abstract class BiFloatTuple<T> {
      * param o another tuple
      *
      * @return a BiFloatTuple whose components are the sum of the respective
-     * components of {@link this} and {@code b}.
+     * components of {@code this} and {@code b}.
      */
     public T plus(final BiFloatTuple o) {
         return createInstance(a + o.a, b + o.b);
@@ -212,7 +212,7 @@ public abstract class BiFloatTuple<T> {
      * @param f a float
      *
      * @return a BiFloatTuple whose components are the sum of the respective
-     * components of {@link this} and the given float
+     * components of {@code this} and the given float
      */
     public T plus(final float f) {
         return createInstance(a + f, b + f);
@@ -252,7 +252,7 @@ public abstract class BiFloatTuple<T> {
      * param o another tuple
      *
      * @return a BiFloatTuple whose components are the difference between the
-     * respective components of {@link this} and {@code b}.
+     * respective components of {@code this} and {@code b}.
      */
     public T minus(final BiFloatTuple o) {
         return createInstance(a - o.a, b - o.b);
@@ -266,7 +266,7 @@ public abstract class BiFloatTuple<T> {
      * @param f a float
      *
      * @return a BiFloatTuple whose components are the difference between the respective
-     * components of {@link this} and the given float
+     * components of {@code this} and the given float
      */
     public T minus(final float f) {
         return createInstance(a - f, b - f);
@@ -288,7 +288,7 @@ public abstract class BiFloatTuple<T> {
      * and y, respectively.
      * <p>Doesn't change {@code this}
      *
-     * @return a new tuple which is the absolute version of {@link this}
+     * @return a new tuple which is the absolute version of {@code this}
      */
     public T absed() {
         return createInstance(Math.abs(a), Math.abs(b));
