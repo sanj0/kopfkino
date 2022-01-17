@@ -33,6 +33,10 @@ public class Camera2D implements Camera {
     private final BoundingBox boundingBox;
     private Dimensions resolution;
     private float scale;
+    /**
+     * Auto clip render graphics to screen resolution?
+     */
+    private boolean autoClip = false;
     private Object finalInterpolation = RenderingHints.VALUE_INTERPOLATION_BILINEAR;
 
     public Camera2D(final BoundingBox boundingBox, final Dimensions resolution, final float scale) {
@@ -46,7 +50,9 @@ public class Camera2D implements Camera {
         // scaled to the actual size later on
         final BufferedImage image = ImageUtils.createCompatibleImage(resolution);
         final KopfkinoGraphics graphics = new KopfkinoGraphics(image.createGraphics());
-        graphics.setClip(new BoundingBox(0, 0, resolution));
+        if (autoClip) {
+            graphics.setClip(new BoundingBox(0, 0, resolution));
+        }
         graphics.getGraphics2D().setTransform(getAffineTransform());
         subject.render(graphics);
         return ImageUtils.resize(image, resolution, finalInterpolation);
@@ -90,6 +96,24 @@ public class Camera2D implements Camera {
     @Override
     public void setScale(final float scale) {
         this.scale = scale;
+    }
+
+    /**
+     * Gets {@link #autoClip}.
+     *
+     * @return the value of {@link #autoClip}
+     */
+    public boolean isAutoClip() {
+        return autoClip;
+    }
+
+    /**
+     * Sets {@link #autoClip}.
+     *
+     * @param autoClip the new value of {@link #autoClip}
+     */
+    public void setAutoClip(final boolean autoClip) {
+        this.autoClip = autoClip;
     }
 
     /**
