@@ -45,19 +45,13 @@ public class Scene implements Renderable {
     public void render(final KopfkinoGraphics graphics) {
         graphics.setRenderingHints(DefaultRenderingHints.getHints());
         for (int i = 0; i < entities.size(); i++) {
-            // buffer it for thread safety
-            final Entity e = entities.get(i);
-            if (e == null) continue;
-            e.render(graphics.copy());
+            entities.get(i).render(graphics.copy());
         }
     }
 
     public void fixedUpdate() {
         for (int i = 0; i < entities.size(); i++) {
-            // buffer it for thread safety
-            final Entity e = entities.get(i);
-            if (e == null) continue;
-            e.fixedUpdate();
+            entities.get(i).fixedUpdate();
         }
     }
 
