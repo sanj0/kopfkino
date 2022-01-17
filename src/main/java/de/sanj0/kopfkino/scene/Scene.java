@@ -23,7 +23,10 @@ import de.sanj0.kopfkino.ecs.EntityComponent;
 import de.sanj0.kopfkino.graphics.*;
 import de.sanj0.kopfkino.physics.World;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -72,8 +75,10 @@ public class Scene implements Renderable {
                 if (result == null) {
                     if (a.getIntersectingEntities().contains(b)) {
                         a.collisionEnd(b);
+                        a.foreachComponent(c -> c.collisionEnd(b));
                         a.getIntersectingEntities().remove(b);
                         b.collisionEnd(a);
+                        b.foreachComponent(c -> c.collisionEnd(a));
                         b.getIntersectingEntities().remove(a);
                     }
                     continue;
@@ -86,12 +91,16 @@ public class Scene implements Renderable {
                 if (!a.getIntersectingEntities().contains(b)) {
                     Game.getInstance().getCurrentScene().getPhysicsWorld().handleCollision(a, result.getA());
                     a.collisionStart(result.getA());
+                    a.foreachComponent(c -> c.collisionStart(result.getA()));
                     a.getIntersectingEntities().add(b);
                     b.collisionStart(result.getB());
+                    b.foreachComponent(c -> c.collisionStart(result.getB()));
                     b.getIntersectingEntities().add(a);
                 }
                 a.collision(result.getA());
+                a.foreachComponent(c -> c.collision(result.getA()));
                 b.collision(result.getB());
+                b.foreachComponent(c -> c.collision(result.getB()));
             }
             a.setBlockedDirections(blockedDirections);
         }
