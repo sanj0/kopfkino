@@ -20,15 +20,15 @@ package de.sanj0.kopfkino;
 import de.sanj0.kopfkino.collision.AABBHitbox;
 import de.sanj0.kopfkino.collision.Collision;
 import de.sanj0.kopfkino.collision.Hitbox;
+import de.sanj0.kopfkino.ecs.EntityComponent;
 import de.sanj0.kopfkino.graphics.EntityRenderer;
 import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
 import de.sanj0.kopfkino.graphics.RectangleEntityRenderer;
 import de.sanj0.kopfkino.graphics.Renderable;
 import de.sanj0.kopfkino.physics.Rigidbody;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * An entity in a game.
@@ -42,6 +42,8 @@ public class Entity implements EntityFunctionality, Renderable {
 
     private Set<Entity> intersectingEntities = Collections.synchronizedSet(new HashSet<>());
     private Directions blockedDirections = new Directions();
+
+    private final List<EntityComponent> components = new ArrayList<>(5);
 
     public Entity(final BoundingBox boundingBox, final EntityRenderer renderer) {
         this.boundingBox = boundingBox;
@@ -64,6 +66,11 @@ public class Entity implements EntityFunctionality, Renderable {
         updateBefore();
         renderBefore(graphics);
         renderer.render(graphics);
+        for (int i = 0; i < components.size(); i++) {
+            final EntityComponent ec = components.get(i);
+            ec.renderAfter(graphics);
+            ec.updateAfter();
+        }
         renderAfter(graphics);
         updateAfter();
     }
@@ -82,12 +89,10 @@ public class Entity implements EntityFunctionality, Renderable {
 
     @Override
     public void collisionStart(final Collision collision) {
-
     }
 
     @Override
     public void collisionEnd(final Entity partner) {
-
     }
 
     /**
@@ -124,6 +129,12 @@ public class Entity implements EntityFunctionality, Renderable {
      */
     @Override
     public void renderAfter(final KopfkinoGraphics graphics) {
+    }
+
+    public void foreachComponent(final Consumer<EntityComponent> action) {
+        for (int i = 0; i < components.size(); i++) {
+            action.accept(components.get(i));
+        }
     }
 
     /**
@@ -251,6 +262,27 @@ public class Entity implements EntityFunctionality, Renderable {
      */
     public void setBlockedDirections(final Directions blockedDirections) {
         this.blockedDirections = blockedDirections;
+    }
+
+    /**
+     * Gets {@link #components}.
+     *
+     * @return the value of {@link #components}
+     */
+    public List<EntityComponent> getComponents() {
+        return components;
+    }
+
+    public boolean addComponent(final EntityComponent entityComponent) {
+        return components.add(entityComponent);
+    }
+
+    public boolean removeComponent(final EntityComponent c) {
+        return components.remove(c);
+    }
+
+    public void clearComponents() {
+        components.clear();
     }
 
     /**
