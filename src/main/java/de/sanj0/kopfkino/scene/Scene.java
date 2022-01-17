@@ -19,6 +19,7 @@ package de.***REMOVED***.kopfkino.scene;
 
 import de.***REMOVED***.kopfkino.*;
 import de.***REMOVED***.kopfkino.collision.Collider;
+import de.***REMOVED***.kopfkino.ecs.EntityComponent;
 import de.***REMOVED***.kopfkino.graphics.*;
 import de.***REMOVED***.kopfkino.physics.World;
 
@@ -51,8 +52,14 @@ public class Scene implements Renderable {
 
     public void fixedUpdate() {
         for (int i = 0; i < entities.size(); i++) {
-            entities.get(i).fixedUpdate();
+            final Entity e = entities.get(i);
+            e.fixedUpdate();
+            final List<EntityComponent> components = e.getComponents();
+            for (int ii = 0; ii < components.size(); ii++) {
+                components.get(ii).fixedUpdate();
+            }
         }
+        physicsWorld.update();
     }
 
     public void collisionDetection() {
@@ -88,7 +95,6 @@ public class Scene implements Renderable {
             }
             a.setBlockedDirections(blockedDirections);
         }
-        physicsWorld.update();
     }
 
     /**
