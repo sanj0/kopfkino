@@ -25,7 +25,7 @@ import java.io.IOException;
 public class TestMain {
 
     public static void main(String[] args) throws IOException, IllegalAccessException {
-        Game.init(1920, 1080, "Kopfkino Test");
+        Game.init(1400, 800, "Kopfkino Test");
         SerializationManager.deserializeStatic(ExternalResources.getFile("save0.sj"));
         Game.getInstance().setBackgroundColor(Color.WHITE);
         Game.start(-1, new TestScene(), 5, 60);
