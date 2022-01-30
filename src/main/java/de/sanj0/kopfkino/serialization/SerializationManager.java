@@ -17,80 +17,58 @@
 
 package de.sanj0.kopfkino.serialization;
 
-import de.edgelord.sanjo.SJClass;
-import de.edgelord.sanjo.SJValue;
-import de.edgelord.sanjo.SanjoFile;
-import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
-import org.reflections.scanners.TypeAnnotationsScanner;
-import org.reflections.util.ClasspathHelper;
-import org.reflections.util.ConfigurationBuilder;
+import de.sanj0.sanjo.SJClass;
+import de.sanj0.sanjo.SJValue;
+import de.sanj0.sanjo.SanjoFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.*;
+import java.util.Map.Entry;
 
 public class SerializationManager {
-    private static final Map<String, List<Field>> serializedFields = new HashMap<>();
 
-    public static void deserializeStatic(final File sourceFile) throws IOException, IllegalAccessException {
-        final SanjoFile file = new SanjoFile(sourceFile.getAbsolutePath());
-        if (!file.exists()) {
-            file.createNewFile();
-        }
-        serializedFields.clear();
-        final SJClass dataRoot = file.parser().parse();
-        final Reflections reflections = new Reflections(new ConfigurationBuilder().
-                setUrls(ClasspathHelper.forJavaClassPath()).setScanners(
-                        new SubTypesScanner(), new TypeAnnotationsScanner()));
-        final Set<Class<?>> serializables = reflections.getTypesAnnotatedWith(Serializable.class);
-        for (final Class<?> clazz : serializables) {
-            String id = clazz.getAnnotation(Serializable.class).id();
-            if (id.isEmpty()) id = clazz.getName();
-            final Optional<SJClass> classDataOpt = dataRoot.getChild(id);
-            final SJClass classData;
-            if (classDataOpt.isPresent()) {
-                classData = classDataOpt.get();
-            } else {
-                System.out.println("no serialized data present for " + clazz.getName() + "@id=" + id);
-                classData = new SJClass("");
-            }
-            final List<Field> serializedFieldsList = new ArrayList<>();
-            for (final Field field : clazz.getDeclaredFields()) {
-                if (Modifier.isStatic(field.getModifiers()) && field.isAnnotationPresent(Serialized.class)) {
-                    serializedFieldsList.add(field);
-                    String key = field.getAnnotation(Serialized.class).key();
-                    if (key.isEmpty()) key = field.getName();
-                    final Optional<SJValue> fieldDataOpt = classData.getValue(key);
-                    if (fieldDataOpt.isPresent()) {
-                        field.set(null, fieldDataOpt.get().getValue());
-                    } else {
-                        System.out.println("no serialized data present for " + field.getName() + "@key=" + key);
-                    }
-                }
-            }
-            serializedFields.put(id, serializedFieldsList);
-        }
+    private SerializationManager() {
     }
 
-    public static void serializeStatic(final File file) throws IOException, IllegalAccessException {
-        if (serializedFields.isEmpty()) {
-            System.out.println("no fields indexed to serialize!");
-            return;
+    /**
+     * Writes the contents of {@link PersistentStorage#DATA} into the given file
+     * for it to later be {@link #read(String)} again.
+     *
+     * @param path path to the file to write to
+     */
+    public static void write(final String path) throws IOException {
+        final SJClass root = SJClass.defaultClass();
+        for (final Entry<String, Object> entry : PersistentStorage.DATA.entrySet()) {
+            root.addValue(entry.getKey(), entry.getValue());
         }
-        final SJClass dataRoot = SJClass.defaultClass();
-        for (final Map.Entry<String, List<Field>> clazz : serializedFields.entrySet()) {
-            final SJClass clazzData = dataRoot.addChild(clazz.getKey());
-            for (final Field f : clazz.getValue()) {
-                String key = f.getAnnotation(Serialized.class).key();
-                if (key.isEmpty()) key = f.getName();
-                clazzData.addValue(key, f.get(null));
+
+        // writes the PersistentFields and in the process, overwrites previous
+        // , most likely wrong, writes from the DATA map (because the initial read
+        // value of each field still exists within that storage
+        for (final PersistentField<?> field : PersistentStorage.PERSISTENT_FIELDS) {
+            root.addValue(field.getKey(), field.write());
+        }
+
+        Files.write(new File(path).toPath(), root.write().getBytes(StandardCharsets.UTF_8));
+    }
+
+    /**
+     * Reads the sanjo data from the the given path and stores the parsed
+     * objects (refer to sanjo docs) in {@link PersistentStorage#DATA}.
+     *
+     * @param path the file to read from
+     */
+    public static void read(final String path) throws IOException {
+        final SanjoFile f = new SanjoFile(path);
+        final SJClass root = f.parser().parse();
+        for (final Entry<String, SJValue> val : root.getValues().entrySet()) {
+            if (PersistentStorage.put(val.getKey(), val.getValue().getValue()) != null) {
+                System.out.println("warning: upon reading serialized data, '" +
+                        val.getKey() + "', which was read from " + path + ", was already in" +
+                        " the storage and thus overrode existing data.");
             }
         }
-        Files.write(file.toPath(), dataRoot.write().getBytes(StandardCharsets.UTF_8));
     }
 }
