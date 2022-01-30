@@ -34,6 +34,11 @@ public class Dimensions extends BiFloatTuple<Dimensions> {
         return new Dimensions(Float.parseFloat(parts[0].trim()), Float.parseFloat(parts[1].trim()));
     }
 
+    public static String writeDimensions(final Dimensions dimensions, final String... delimiter) {
+        final String d = delimiter.length == 0 ? BiFloatTuple.DEFAULT_DELIMITER : delimiter[0];
+        return dimensions.getWidth() + d + dimensions.getHeight();
+    }
+
     /**
      * Returns a new instance with x and y equal to the given float.
      *

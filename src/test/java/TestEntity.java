@@ -18,33 +18,23 @@
 import de.***REMOVED***.kopfkino.*;
 import de.***REMOVED***.kopfkino.collision.CircleHitbox;
 import de.***REMOVED***.kopfkino.collision.Collision;
-import de.***REMOVED***.kopfkino.graphics.ImageEntityRenderer;
-import de.***REMOVED***.kopfkino.graphics.KopfkinoGraphics;
 import de.***REMOVED***.kopfkino.graphics.OvalEntityRenderer;
 import de.***REMOVED***.kopfkino.graphics.RenderConfig;
-import de.***REMOVED***.kopfkino.serialization.Serializable;
-import de.***REMOVED***.kopfkino.serialization.Serialized;
+import de.***REMOVED***.kopfkino.serialization.PersistentField;
 import de.***REMOVED***.kopfkino.utils.Colors;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-
-@Serializable
 public class TestEntity extends Entity {
-
-    @Serialized
-    public static String position;
+    private PersistentField<Vector2f> position = PersistentField.loadVec2f("te-pos", new Vector2f(100, 100));
 
     public TestEntity(final BoundingBox boundingBox) {
         super(boundingBox, new OvalEntityRenderer(RenderConfig.builder().withColor(Colors.ACTIVE_GREEN).build()));
         setHitbox(new CircleHitbox(getBoundingBox()::getCentre, getWidth() / 2f));
-        System.out.println("deserialized position: " + position);
+        setPosition(position.get());
     }
 
     @Override
     public void fixedUpdate() {
-        position = getX() + ", " + getY();
+        position.set(getPosition());
         getRigidbody().getV().add(Input.input().toVector().times(2));
     }
 
