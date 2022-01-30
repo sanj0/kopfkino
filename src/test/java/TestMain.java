@@ -15,28 +15,15 @@
  *
  */
 
-import de.sanj0.kopfkino.ExternalResources;
 import de.sanj0.kopfkino.Game;
-import de.sanj0.kopfkino.serialization.SerializationManager;
 
 import java.awt.*;
-import java.io.IOException;
 
 public class TestMain {
 
-    public static void main(String[] args) throws IOException, IllegalAccessException {
+    public static void main(String[] args) {
         Game.init(1920, 1080, "Kopfkino Test");
-        SerializationManager.deserializeStatic(ExternalResources.getFile("save0.sj"));
         Game.getInstance().setBackgroundColor(Color.WHITE);
         Game.start(-1, new TestScene(), 5, 60);
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            try {
-                SerializationManager.serializeStatic(ExternalResources.getFile("save0.sj"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }));
     }
 }

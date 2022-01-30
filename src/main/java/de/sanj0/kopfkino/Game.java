@@ -23,15 +23,16 @@ import de.sanj0.kopfkino.engine.RenderLoop;
 import de.sanj0.kopfkino.graphics.Camera;
 import de.sanj0.kopfkino.scene.Scene;
 import de.sanj0.kopfkino.scene.SplashScene;
+import de.sanj0.kopfkino.serialization.SerializationManager;
 import de.sanj0.kopfkino.ui.KopfkinoWindow;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Game {
-
     private static Game instance = null;
     private final int resolutionW;
     private final int resolutionH;
@@ -60,6 +61,18 @@ public class Game {
         System.setProperty("java.awt.headless", "false");
         instance = new Game(resolutionW, resolutionH, name, Color.BLACK);
         ExternalResources.init(name);
+        try {
+            SerializationManager.read(ExternalResources.getFile("save0").getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                SerializationManager.write(ExternalResources.getFile("save0").getAbsolutePath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }));
     }
 
     public static void start(final int splashDuration, final Scene scene, final int fixedUpdateRate, final int cappedFPS) {
