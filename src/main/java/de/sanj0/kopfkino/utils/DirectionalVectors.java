@@ -20,6 +20,7 @@ package de.sanj0.kopfkino.utils;
 import de.sanj0.kopfkino.Directions;
 import de.sanj0.kopfkino.Vector2f;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -31,16 +32,16 @@ public class DirectionalVectors {
     public static final Vector2f DOWN = new Vector2f(0, 1);
     public static final Vector2f RIGHT = new Vector2f(1, 0);
     public static final Vector2f LEFT = new Vector2f(-1, 0);
-    private static final Map<Directions, Vector2f> PRE_BAKED = Map.of(
-            new Directions(Directions.Direction.UP), UP,
-            new Directions(Directions.Direction.DOWN), DOWN,
-            new Directions(Directions.Direction.LEFT), LEFT,
-            new Directions(Directions.Direction.RIGHT), RIGHT,
-            new Directions(Directions.Direction.UP, Directions.Direction.RIGHT), new Vector2f(1, -1).normalise(),
-            new Directions(Directions.Direction.DOWN, Directions.Direction.RIGHT), new Vector2f(1, 1).normalise(),
-            new Directions(Directions.Direction.UP, Directions.Direction.LEFT), new Vector2f(-1, -1).normalise(),
-            new Directions(Directions.Direction.DOWN, Directions.Direction.LEFT), new Vector2f(-1, 1).normalise()
-    );
+    private static final Map<Directions, Vector2f> PRE_BAKED = new HashMap<>(8) {{
+        put(new Directions(Directions.Direction.UP), UP);
+        put(new Directions(Directions.Direction.DOWN), DOWN);
+        put(new Directions(Directions.Direction.LEFT), LEFT);
+        put(new Directions(Directions.Direction.RIGHT), RIGHT);
+        put(new Directions(Directions.Direction.UP, Directions.Direction.RIGHT), new Vector2f(1, -1).normalise());
+        put(new Directions(Directions.Direction.DOWN, Directions.Direction.RIGHT), new Vector2f(1, 1).normalise());
+        put(new Directions(Directions.Direction.UP, Directions.Direction.LEFT), new Vector2f(-1, -1).normalise());
+        put(new Directions(Directions.Direction.DOWN, Directions.Direction.LEFT), new Vector2f(-1, 1).normalise());
+    }};
 
     private DirectionalVectors() {
     }
