@@ -43,6 +43,23 @@ public class ImageUtils {
         graphics.dispose();
     }
 
+    /**
+     * Creates a new compatible image with the given size and calls the given
+     * {@link Renderable}'s {@code render()} method with an instance of {@link
+     * KopfkinoGraphics} derived from the created image's graphics.
+     *
+     * @param size       the size of the new image
+     * @param renderable a Renderable
+     *
+     * @return a new BufferedImage with the given Renderable drawn onto
+     * @see #createCompatibleImage(Dimensions)
+     */
+    public static BufferedImage renderImage(final Dimensions size, final Renderable renderable) {
+        final BufferedImage img = createCompatibleImage(size);
+        renderable.render(new KopfkinoGraphics(img.createGraphics()));
+        return img;
+    }
+
     public static BufferedImage resize(final BufferedImage src, final Dimensions newSize, final Object interpolation) {
         final BufferedImage dst = createCompatibleImage(newSize);
         final Graphics2D graphics2D = dst.createGraphics();
