@@ -70,6 +70,17 @@ public class RenderConfig {
     }
 
     /**
+     * Creates and returns a new instance that has only its {@link #color}
+     * changed from the default, to the given one.
+     *
+     * @param c a color
+     * @return a new instance that only has the color differ from the default
+     */
+    public static RenderConfig forColor(final Color c) {
+        return new RenderConfigBuilder().withColor(c).build();
+    }
+
+    /**
      * Convenience-method for {@code RenderConfig.builder().build()}.
      *
      * @return a new default RenderConfig
