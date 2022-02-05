@@ -109,6 +109,17 @@ public class Vector2f extends BiFloatTuple<Vector2f> {
     }
 
     /**
+     * Returns the magnitude of this vector, squared. This is preferable
+     * in all situations where the squared value is enough, as computing
+     * the square root of a number is quite expensive.
+     *
+     * @return the magnitude of this vector, squared.
+     */
+    public float magnitudeSquared() {
+        return a * a + b * b;
+    }
+
+    /**
      * Returns the magnitude of this vector using {@link Math#hypot(double,
      * double)}.
      *

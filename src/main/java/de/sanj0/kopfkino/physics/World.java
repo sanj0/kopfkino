@@ -29,7 +29,8 @@ public class World {
      */
     private float friction;
     /**
-     * Velocity that falls below this threshold will not be applied
+     * If the velocity of an entity squared falls below this value, it is reset
+     * to 0|0.
      */
     private float stoppingThreshold = .03f;
 
@@ -49,14 +50,14 @@ public class World {
             body.setF(Vector2f.zero());
             v.add(g.times(dt));
             v.subtract(v.times(v).times(new Vector2f(Math.signum(v.getX()), Math.signum(v.getY()))).times(friction));
-            // only move in directions that aren't blocked.
-            if (Math.abs(v.getX()) > stoppingThreshold) {
+            if (v.magnitudeSquared() < stoppingThreshold) {
+                v.set(Vector2f.zero());
+            } else {
+                // only move in directions that aren't blocked.
                 if ((v.getX() > 0 && !e.getBlockedDirections().contains(Directions.Direction.RIGHT))
                         || (v.getX() < 0 && !e.getBlockedDirections().contains(Directions.Direction.LEFT))) {
                     e.setX(e.getX() + v.getX());
                 }
-            }
-            if (Math.abs(v.getY()) > stoppingThreshold) {
                 if ((v.getY() > 0 && !e.getBlockedDirections().contains(Directions.Direction.DOWN))
                         || (v.getY() < 0 && !e.getBlockedDirections().contains(Directions.Direction.UP))) {
                     e.setY(e.getY() + v.getY());
