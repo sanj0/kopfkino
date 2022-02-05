@@ -28,7 +28,6 @@ import java.awt.image.BufferedImage;
  * A bake-able primitive renderer.
  */
 public abstract class PrimitiveEntityRenderer extends EntityRenderer {
-
     private boolean fill = true;
     private BufferedImage bakedImage = null;
 

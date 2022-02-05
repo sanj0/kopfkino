@@ -20,7 +20,6 @@ import de.sanj0.kopfkino.Game;
 import java.awt.*;
 
 public class TestMain {
-
     public static void main(String[] args) {
         Game.init(1920, 1080, "Kopfkino Test");
         Game.getInstance().setBackgroundColor(Color.WHITE);
