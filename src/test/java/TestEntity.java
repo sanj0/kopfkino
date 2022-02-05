@@ -18,18 +18,30 @@
 import de.sanj0.kopfkino.*;
 import de.sanj0.kopfkino.collision.CircleHitbox;
 import de.sanj0.kopfkino.collision.Collision;
-import de.sanj0.kopfkino.graphics.OvalEntityRenderer;
-import de.sanj0.kopfkino.graphics.RenderConfig;
+import de.sanj0.kopfkino.graphics.EmptyEntityRenderer;
+import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
+import de.sanj0.kopfkino.graphics.SpriteAnimation;
+import de.sanj0.kopfkino.graphics.Spritesheet;
 import de.sanj0.kopfkino.serialization.PersistentField;
 import de.sanj0.kopfkino.utils.Colors;
+import de.sanj0.kopfkino.utils.ImageUtils;
 
 public class TestEntity extends Entity {
     private PersistentField<Vector2f> position = PersistentField.loadVec2f("te-pos", new Vector2f(100, 100));
+    private SpriteAnimation animation;
 
     public TestEntity(final BoundingBox boundingBox) {
-        super(boundingBox, new OvalEntityRenderer(RenderConfig.builder().withColor(Colors.ACTIVE_GREEN).build()));
+        super(boundingBox, new EmptyEntityRenderer());
         setHitbox(new CircleHitbox(getBoundingBox()::getCentre, getWidth() / 2f));
         setPosition(position.get());
+        animation = new Spritesheet(ImageUtils.renderImage(new Dimensions(300, 100), g -> {
+            g.setColor(Colors.CADET_BLUE);
+            g.drawOval(new BoundingBox(0, 0, 100, 100));
+            g.setColor(Colors.DEEP_PINK);
+            g.drawPolygon(new Vector2f(100, 100), new Vector2f(150, 0), new Vector2f(200, 100));
+            g.setColor(Colors.CHOCOLATE_BROWN);
+            g.drawRect(new BoundingBox(200, 0, 100, 100));
+        }), new Dimensions(100, 100)).animation(true, 0, 0, 1, 0, 2, 0);
     }
 
     @Override
@@ -46,6 +58,11 @@ public class TestEntity extends Entity {
         } else {
             getRigidbody().getV().add(collision.getCollisionNormal().times(f / 10000f));
         }
+    }
+
+    @Override
+    public void renderAfter(final KopfkinoGraphics graphics) {
+        graphics.drawImage(animation.currentFrame(), getBoundingBox());
     }
 
     @Override
