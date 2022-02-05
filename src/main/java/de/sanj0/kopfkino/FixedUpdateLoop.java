@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 ***REMOVED*** ***REMOVED***
+ *    Copyright 2022 ***REMOVED*** ***REMOVED***
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,13 +15,15 @@
  *
  */
 
-package de.***REMOVED***.kopfkino.engine;
-
-import de.***REMOVED***.kopfkino.Game;
+package de.***REMOVED***.kopfkino;
 
 public class FixedUpdateLoop implements Runnable {
+    private long lastInvoke = System.currentTimeMillis();
     @Override
     public void run() {
+        final long t = System.currentTimeMillis();
+        Time.fixedUpdateTime = t - lastInvoke;
+        lastInvoke = t;
         try {
             Game.getInstance().getCurrentScene().fixedUpdate();
         } catch (final Exception e) {
