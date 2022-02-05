@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 Malte Dostal
+ *    Copyright 2022 Malte Dostal
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,13 +15,15 @@
  *
  */
 
-package de.sanj0.kopfkino.engine;
-
-import de.sanj0.kopfkino.Game;
+package de.sanj0.kopfkino;
 
 public class RenderLoop implements Runnable {
+    private long lastInvoke = System.currentTimeMillis();
     @Override
     public void run() {
+        final long t = System.currentTimeMillis();
+        Time.renderTime = t - lastInvoke;
+        lastInvoke = t;
         try {
             Game.getInstance().getWindow().getCanvas().repaint();
         } catch (final Exception e) {

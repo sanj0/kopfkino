@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 Malte Dostal
+ *    Copyright 2022 Malte Dostal
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,15 +15,17 @@
  *
  */
 
-package de.sanj0.kopfkino.engine;
+package de.sanj0.kopfkino;
 
-import de.sanj0.kopfkino.Game;
-
-public class CollisionLoop implements Runnable {
+public class FixedUpdateLoop implements Runnable {
+    private long lastInvoke = System.currentTimeMillis();
     @Override
     public void run() {
+        final long t = System.currentTimeMillis();
+        Time.fixedUpdateTime = t - lastInvoke;
+        lastInvoke = t;
         try {
-            Game.currentScene().collisionDetection();
+            Game.getInstance().getCurrentScene().fixedUpdate();
         } catch (final Exception e) {
             e.printStackTrace();
         }
