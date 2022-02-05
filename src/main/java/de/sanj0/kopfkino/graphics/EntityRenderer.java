@@ -22,6 +22,9 @@ import de.sanj0.kopfkino.Dimensions;
 import de.sanj0.kopfkino.Entity;
 import de.sanj0.kopfkino.Vector2f;
 
+/**
+ * Renders an Entity.
+ */
 public abstract class EntityRenderer implements Renderable {
     private Entity subject;
     private Vector2f positionOffset;
