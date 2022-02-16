@@ -15,10 +15,12 @@
  *
  */
 
-package de.sanj0.kopfkino.graphics;
+package de.sanj0.kopfkino.animation;
 
 import de.sanj0.kopfkino.BoundingBox;
 import de.sanj0.kopfkino.Time;
+import de.sanj0.kopfkino.graphics.EntityRenderer;
+import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
 
 /**
  * An {@link EntityRenderer} that renders a {@link SpriteAnimation} with a fixed

@@ -15,7 +15,9 @@
  *
  */
 
-package de.sanj0.kopfkino.graphics;
+package de.sanj0.kopfkino.animation;
+
+import de.sanj0.kopfkino.graphics.Spritesheet;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
