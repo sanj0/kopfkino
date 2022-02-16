@@ -16,6 +16,8 @@
  */
 
 import de.***REMOVED***.kopfkino.*;
+import de.***REMOVED***.kopfkino.animation.SpriteAnimation;
+import de.***REMOVED***.kopfkino.animation.SpriteAnimationRenderer;
 import de.***REMOVED***.kopfkino.collision.CircleHitbox;
 import de.***REMOVED***.kopfkino.collision.Collision;
 import de.***REMOVED***.kopfkino.graphics.*;

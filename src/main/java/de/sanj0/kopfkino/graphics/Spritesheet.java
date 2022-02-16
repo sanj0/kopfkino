@@ -18,6 +18,7 @@
 package de.***REMOVED***.kopfkino.graphics;
 
 import de.***REMOVED***.kopfkino.Dimensions;
+import de.***REMOVED***.kopfkino.animation.SpriteAnimation;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

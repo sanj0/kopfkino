@@ -15,7 +15,9 @@
  *
  */
 
-package de.***REMOVED***.kopfkino.graphics;
+package de.***REMOVED***.kopfkino.animation;
+
+import de.***REMOVED***.kopfkino.graphics.Spritesheet;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
