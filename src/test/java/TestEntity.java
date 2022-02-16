@@ -16,6 +16,8 @@
  */
 
 import de.sanj0.kopfkino.*;
+import de.sanj0.kopfkino.animation.SpriteAnimation;
+import de.sanj0.kopfkino.animation.SpriteAnimationRenderer;
 import de.sanj0.kopfkino.collision.CircleHitbox;
 import de.sanj0.kopfkino.collision.Collision;
 import de.sanj0.kopfkino.graphics.*;
