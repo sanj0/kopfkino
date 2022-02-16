@@ -18,10 +18,7 @@
 import de.sanj0.kopfkino.*;
 import de.sanj0.kopfkino.collision.CircleHitbox;
 import de.sanj0.kopfkino.collision.Collision;
-import de.sanj0.kopfkino.graphics.EmptyEntityRenderer;
-import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
-import de.sanj0.kopfkino.graphics.SpriteAnimation;
-import de.sanj0.kopfkino.graphics.Spritesheet;
+import de.sanj0.kopfkino.graphics.*;
 import de.sanj0.kopfkino.serialization.PersistentField;
 import de.sanj0.kopfkino.utils.Colors;
 import de.sanj0.kopfkino.utils.ImageUtils;
@@ -42,6 +39,7 @@ public class TestEntity extends Entity {
             g.setColor(Colors.CHOCOLATE_BROWN);
             g.drawRect(new BoundingBox(200, 0, 100, 100));
         }), new Dimensions(100, 100)).animation(true, 0, 0, 1, 0, 2, 0);
+        setRenderer(new SpriteAnimationRenderer(animation, 5));
     }
 
     @Override
@@ -62,7 +60,6 @@ public class TestEntity extends Entity {
 
     @Override
     public void renderAfter(final KopfkinoGraphics graphics) {
-        graphics.drawImage(animation.currentFrame(), getBoundingBox());
     }
 
     @Override
