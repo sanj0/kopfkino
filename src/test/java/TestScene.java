@@ -69,5 +69,6 @@ public class TestScene extends Scene {
             setAffectedByPhysics(false);}});
         add(new Entity(new BoundingBox(1870, 0, 50, 3000)){{
             setAffectedByPhysics(false);}});
+        add(new KeyframeAnimationShowcase());
     }
 }
