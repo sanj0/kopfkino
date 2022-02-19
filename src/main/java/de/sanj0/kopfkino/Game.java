@@ -135,6 +135,24 @@ public class Game {
     }
 
     /**
+     * Convenience method for {@code Game.getInstance().getResolutionW()}
+     *
+     * @return the resolution width of the game
+     */
+    public static int resolutionWidth() {
+        return instance.getResolutionW();
+    }
+
+    /**
+     * Convenience method for {@code Game.getInstance().getResolutionH()}
+     *
+     * @return the resolution height of the game
+     */
+    public static int resolutionHeight() {
+        return instance.getResolutionH();
+    }
+
+    /**
      * Gets {@link #currentScene}.
      *
      * @return the value of {@link #currentScene}
@@ -234,7 +252,6 @@ public class Game {
     }
 
     public enum ScaleMethod {
-        LETTER_BOX,
-        PLAIN
+        LETTER_BOX
     }
 }

@@ -17,16 +17,23 @@
 
 package de.sanj0.kopfkino.ui;
 
+import de.sanj0.kopfkino.Game;
 import de.sanj0.kopfkino.Input;
 import de.sanj0.kopfkino.Vector2f;
+import de.sanj0.kopfkino.utils.MathUtils;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 public class KopfkinoMouseListener implements MouseListener, MouseMotionListener {
-
     public static Vector2f cursorPosition = Vector2f.zero();
+
+    private final KopfkinoCanvas container;
+
+    public KopfkinoMouseListener(final KopfkinoCanvas container) {
+        this.container = container;
+    }
 
     @Override
     public void mouseClicked(final MouseEvent e) {
@@ -61,6 +68,9 @@ public class KopfkinoMouseListener implements MouseListener, MouseMotionListener
     }
 
     private void updateCursor(final MouseEvent e) {
-        cursorPosition = new Vector2f(e.getX(), e.getY());
+        final Vector2f cursor = new Vector2f(e.getX(), e.getY()).subtract(container.getContentOffset()).divide(container.getContentScale());
+        cursor.setX(MathUtils.clamp(cursor.getX(), 0, Game.resolutionWidth()));
+        cursor.setY(MathUtils.clamp(cursor.getY(), 0, Game.resolutionHeight()));
+        cursorPosition = cursor;
     }
 }
