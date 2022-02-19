@@ -24,7 +24,6 @@ import java.awt.*;
  * The window the game is rendered in.
  */
 public class KopfkinoWindow extends JFrame {
-
     private final KopfkinoCanvas canvas;
 
     public KopfkinoWindow(final int w, final int h, final String gameName) throws HeadlessException {

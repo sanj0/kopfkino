@@ -23,7 +23,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class KopfkinoCanvas extends JPanel {
-
     public KopfkinoCanvas(final int w, final int h) {
         super(true);
         setSize(w, h);
