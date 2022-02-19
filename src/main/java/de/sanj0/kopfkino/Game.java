@@ -31,9 +31,11 @@ import java.util.concurrent.TimeUnit;
 
 public class Game {
     private static Game instance = null;
+
     private final int resolutionW;
     private final int resolutionH;
     private final String name;
+    private ScaleMethod scaleMethod = ScaleMethod.LETTER_BOX;
     private Scene currentScene = null;
     private Color backgroundColor;
     private long fixedUpdatePeriod;
@@ -53,9 +55,7 @@ public class Game {
             System.err.println("game already initialised");
             System.exit(1);
         }
-        System.setProperty("sun.java2d.opengl", "True");
-        System.setProperty("sun.java2d.accthreshold", "0");
-        System.setProperty("java.awt.headless", "false");
+        initHardwareAcceleration();
         instance = new Game(resolutionW, resolutionH, name, Color.BLACK);
         ExternalResources.init(name);
         try {
@@ -70,6 +70,21 @@ public class Game {
                 e.printStackTrace();
             }
         }));
+    }
+
+    private static void initHardwareAcceleration() {
+        final String os = System.getProperty("os.name").toLowerCase();
+        if (os.contentEquals("windows")) {
+            System.setProperty("sun.java2d.d3d", "True");
+            System.setProperty("sun.java2d.transaccel", "True");
+            System.setProperty("sun.java2d.ddforcevram", "True");
+        } else if (os.contentEquals("mac")) {
+            System.setProperty("sun.java2d.metal", "True");
+        } else {
+            System.setProperty("sun.java2d.opengl", "True");
+        }
+        System.setProperty("sun.java2d.accthreshold", "0");
+        System.setProperty("java.awt.headless", "false");
     }
 
     public static void start(final int splashDuration, final Scene scene, final int fixedUpdateRate, final int cappedFPS) {
@@ -156,6 +171,24 @@ public class Game {
     }
 
     /**
+     * Gets {@link #scaleMethod}.
+     *
+     * @return the value of {@link #scaleMethod}
+     */
+    public ScaleMethod getScaleMethod() {
+        return scaleMethod;
+    }
+
+    /**
+     * Sets {@link #scaleMethod}.
+     *
+     * @param scaleMethod the new value of {@link #scaleMethod}
+     */
+    public void setScaleMethod(final ScaleMethod scaleMethod) {
+        this.scaleMethod = scaleMethod;
+    }
+
+    /**
      * Gets {@link #fixedUpdatePeriod}.
      *
      * @return the value of {@link #fixedUpdatePeriod}
@@ -198,5 +231,10 @@ public class Game {
      */
     public KopfkinoWindow getWindow() {
         return window;
+    }
+
+    public enum ScaleMethod {
+        LETTER_BOX,
+        PLAIN
     }
 }
