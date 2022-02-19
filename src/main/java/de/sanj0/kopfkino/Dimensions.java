@@ -86,6 +86,10 @@ public class Dimensions extends BiFloatTuple<Dimensions> {
         return new Dimensions(-1, -1);
     }
 
+    public static Dimensions resolution() {
+        return new Dimensions(Game.resolutionWidth(), Game.resolutionHeight());
+    }
+
     @Override
     public Dimensions createInstance(final float a, final float b) {
         return new Dimensions(a, b);

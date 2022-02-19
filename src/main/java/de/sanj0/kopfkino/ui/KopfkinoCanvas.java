@@ -17,17 +17,25 @@
 
 package de.sanj0.kopfkino.ui;
 
+import de.sanj0.kopfkino.Dimensions;
 import de.sanj0.kopfkino.Game;
+import de.sanj0.kopfkino.Vector2f;
+import de.sanj0.kopfkino.utils.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class KopfkinoCanvas extends JPanel {
+    private BufferedImage render = ImageUtils.createCompatibleImage(Dimensions.resolution());
+    private Vector2f contentOffset = Vector2f.zero();
+    private Vector2f contentScale = Vector2f.one();
+
     public KopfkinoCanvas(final int w, final int h) {
         super(true);
         setSize(w, h);
         setIgnoreRepaint(true);
-        final KopfkinoMouseListener mouseListener = new KopfkinoMouseListener();
+        final KopfkinoMouseListener mouseListener = new KopfkinoMouseListener(this);
         addMouseListener(mouseListener);
         addMouseMotionListener(mouseListener);
     }
@@ -35,7 +43,49 @@ public class KopfkinoCanvas extends JPanel {
     @Override
     protected void paintComponent(final Graphics g) {
         final Graphics2D panelGraphics = (Graphics2D) g;
-        panelGraphics.drawImage(Game.getInstance().getCurrentScene().getCamera().render(Game.getInstance().getCurrentScene()), 0, 0, null);
+        final BufferedImage render = Game.getInstance().getCurrentScene().getCamera().render(Game.getInstance().getCurrentScene());
+        this.render = render;
+        if (Game.getInstance().getScaleMethod() == Game.ScaleMethod.LETTER_BOX) {
+            final float contentScale = Math.min((float) getWidth() / Game.resolutionWidth(),
+                    (float) getHeight() / Game.resolutionHeight());
+            final int contentWidth = (int) (Game.resolutionWidth() * contentScale);
+            final int contentHeight = (int) (Game.resolutionHeight() * contentScale);
+            this.contentScale = Vector2f.num(contentScale);
+            contentOffset = new Vector2f(getWidth() / 2 - contentWidth / 2,
+                    Math.max(getHeight() / 2f - contentHeight / 2f, 0));
+            panelGraphics.drawImage(render, (int) contentOffset.getX(),
+                    (int) contentOffset.getY(),
+                    contentWidth, contentHeight, null);
+        } else {
+            panelGraphics.drawImage(render, 0, 0, getWidth(), getHeight(), null);
+        }
         panelGraphics.dispose();
+    }
+
+    /**
+     * Gets {@link #render}.
+     *
+     * @return the value of {@link #render}
+     */
+    public BufferedImage getRender() {
+        return render;
+    }
+
+    /**
+     * Gets {@link #contentOffset}.
+     *
+     * @return the value of {@link #contentOffset}
+     */
+    public Vector2f getContentOffset() {
+        return contentOffset;
+    }
+
+    /**
+     * Gets {@link #contentScale}.
+     *
+     * @return the value of {@link #contentScale}
+     */
+    public Vector2f getContentScale() {
+        return contentScale;
     }
 }

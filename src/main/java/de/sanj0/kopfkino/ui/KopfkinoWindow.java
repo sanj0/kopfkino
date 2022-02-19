@@ -19,6 +19,8 @@ package de.sanj0.kopfkino.ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 /**
  * The window the game is rendered in.
@@ -39,6 +41,12 @@ public class KopfkinoWindow extends JFrame {
         add(canvas);
         addKeyListener(new KopfkinoKeyListener());
         addWindowListener(new KopfkinoWindowListener());
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(final ComponentEvent e) {
+                canvas.setSize(getContentPane().getSize());
+            }
+        });
     }
 
     /**
