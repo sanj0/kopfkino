@@ -51,7 +51,7 @@ public class KopfkinoCanvas extends JPanel {
             final int contentWidth = (int) (Game.resolutionWidth() * contentScale);
             final int contentHeight = (int) (Game.resolutionHeight() * contentScale);
             this.contentScale = Vector2f.num(contentScale);
-            contentOffset = new Vector2f(getWidth() / 2 - contentWidth / 2,
+            contentOffset = new Vector2f(getWidth() / 2f - contentWidth / 2f,
                     Math.max(getHeight() / 2f - contentHeight / 2f, 0));
             panelGraphics.drawImage(render, (int) contentOffset.getX(),
                     (int) contentOffset.getY(),
