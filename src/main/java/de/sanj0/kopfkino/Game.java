@@ -153,6 +153,17 @@ public class Game {
     }
 
     /**
+     * Returns the game's resolution.
+     *
+     * @return the resolution of the game
+     * @throws NullPointerException if {@link Game#init(int, int, String)}
+     *                              hasn't been called before
+     */
+    public static Dimensions getResolution() {
+        return new Dimensions(instance.resolutionW, instance.resolutionH);
+    }
+
+    /**
      * Gets {@link #currentScene}.
      *
      * @return the value of {@link #currentScene}
