@@ -45,6 +45,8 @@ public class KopfkinoCanvas extends JPanel {
         final Graphics2D panelGraphics = (Graphics2D) g;
         final BufferedImage render = Game.getInstance().getCurrentScene().getCamera().render(Game.getInstance().getCurrentScene());
         this.render = render;
+        panelGraphics.setColor(Game.getInstance().getBackgroundColor());
+        panelGraphics.fillRect(0, 0, getWidth(), getHeight());
         if (Game.getInstance().getScaleMethod() == Game.ScaleMethod.LETTER_BOX) {
             final float contentScale = Math.min((float) getWidth() / Game.resolutionWidth(),
                     (float) getHeight() / Game.resolutionHeight());

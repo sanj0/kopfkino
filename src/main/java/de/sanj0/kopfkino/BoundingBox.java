@@ -50,6 +50,14 @@ public class BoundingBox {
         this(new Vector2f(x, y), size);
     }
 
+    /**
+     * Returns a new BoundingBox with the given size located in the centre of the given other BoundbingBox.
+     */
+    public static BoundingBox inTheCentreOf(final Dimensions size, final BoundingBox container) {
+        Vector2f centre = container.getCentre();
+        return new BoundingBox(centre.minus(size.times(0.5f)), size);
+    }
+
     public BoundingBox withPosition(final Vector2f position) {
         return new BoundingBox(position, getSize());
     }
