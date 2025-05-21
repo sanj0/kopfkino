@@ -34,7 +34,6 @@ import java.util.function.Predicate;
  * Defines what the game currently shows and "plays with".
  */
 public class Scene implements Renderable {
-
     private final List<Entity> entities = new ArrayList<>();
     private final World physicsWorld;
     private Camera camera;
@@ -53,6 +52,10 @@ public class Scene implements Renderable {
         }
     }
 
+    /**
+     * Is called every fixed tick and updates all entites and their components accordingly.
+     * May be overwritten (calling super!) in order to add Scene-wide functionality.
+     */
     public void fixedUpdate() {
         for (int i = 0; i < entities.size(); i++) {
             final Entity e = entities.get(i);

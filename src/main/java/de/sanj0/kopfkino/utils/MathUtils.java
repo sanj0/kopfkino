@@ -17,6 +17,7 @@
 
 package de.sanj0.kopfkino.utils;
 
+import java.util.List;
 import java.security.SecureRandom;
 
 /**
@@ -30,6 +31,10 @@ public class MathUtils {
     private static final SecureRandom RNG = new SecureRandom();
 
     private MathUtils() {
+    }
+
+    public static<T> T pickRandom(List<T> xs) {
+        return xs.get(randomInt(0, xs.size() - 1));
     }
 
     /**

@@ -134,6 +134,10 @@ public class Game {
         return instance.currentScene.getCamera();
     }
 
+    public static BoundingBox getDisplayBounds() {
+        return new BoundingBox(Vector2f.zero(), getResolution());
+    }
+
     /**
      * Convenience method for {@code Game.getInstance().getResolutionW()}
      *

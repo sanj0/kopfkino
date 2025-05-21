@@ -22,15 +22,17 @@ import de.sanj0.kopfkino.Dimensions;
 import de.sanj0.kopfkino.Game;
 import de.sanj0.kopfkino.Vector2f;
 import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
+import de.sanj0.kopfkino.Input;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 /**
- * A splash screen scene.
+ * A splash screen scene that may be shown before the game when the according parameter in {@link Game#start(int, Scene, int, int)}
+ * is greater than 0.
  */
 public class SplashScene extends Scene {
-
     public static final int DEFAULT_DURATION = 3000;
 
     private final Scene next;
@@ -65,7 +67,7 @@ public class SplashScene extends Scene {
     public void fixedUpdate() {
         Game.getCamera().setPosition(Vector2f.zero());
         ticks++;
-        if (ticks >= duration) {
+        if (ticks >= duration || Input.mouseDown(1) || Input.keyDown(KeyEvent.VK_SPACE)) {
             Game.setScene(next);
         }
     }
