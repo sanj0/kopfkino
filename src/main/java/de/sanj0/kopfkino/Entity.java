@@ -57,6 +57,10 @@ public class Entity implements EntityFunctionality, Renderable {
         this(boundingBox, new RectangleEntityRenderer().withArc(5, 5));
     }
 
+    public final void removeFromScene() {
+        Game.currentScene().remove(this);
+    }
+
     /**
      * Renders this Entity and calls the update methods {@link #updateBefore()}
      * and {@link #updateAfter()}.
@@ -77,7 +81,8 @@ public class Entity implements EntityFunctionality, Renderable {
 
     /**
      * Is called every fixed update tick.
-     * <p>Base implementation empty.
+     * <p>
+     * Base implementation empty.
      */
     @Override
     public void fixedUpdate() {
@@ -97,7 +102,8 @@ public class Entity implements EntityFunctionality, Renderable {
 
     /**
      * Is called every time before this entity is rendered.
-     * <p>Base implementation empty.
+     * <p>
+     * Base implementation empty.
      */
     @Override
     public void updateBefore() {
@@ -105,7 +111,8 @@ public class Entity implements EntityFunctionality, Renderable {
 
     /**
      * Is called every time after this entity is rendered.
-     * <p>Base implementation empty.
+     * <p>
+     * Base implementation empty.
      */
     @Override
     public void updateAfter() {
@@ -113,7 +120,8 @@ public class Entity implements EntityFunctionality, Renderable {
 
     /**
      * Render graphics before this entity's {@link #renderer}.
-     * <p>Base implementation empty.
+     * <p>
+     * Base implementation empty.
      *
      * @param graphics graphics to render to
      */
@@ -123,7 +131,8 @@ public class Entity implements EntityFunctionality, Renderable {
 
     /**
      * Render graphics after this entity's {@link #renderer}.
-     * <p>Base implementation empty.
+     * <p>
+     * Base implementation empty.
      *
      * @param graphics graphics to render to
      */
