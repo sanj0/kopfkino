@@ -21,6 +21,7 @@ import de.sanj0.kopfkino.*;
 import de.sanj0.kopfkino.collision.Collider;
 import de.sanj0.kopfkino.ecs.EntityComponent;
 import de.sanj0.kopfkino.graphics.*;
+import de.sanj0.kopfkino.gui.Gui;
 import de.sanj0.kopfkino.physics.World;
 
 import java.util.ArrayList;
@@ -34,6 +35,11 @@ import java.util.function.Predicate;
  * Defines what the game currently shows and "plays with".
  */
 public class Scene implements Renderable {
+    /**
+     * A potential gui that gets drawn on top of the entites.
+     * May be null in case of no gui.
+     */
+    private Gui gui = null;
     private final List<Entity> entities = new ArrayList<>();
     private final World physicsWorld;
     private Camera camera;
@@ -49,6 +55,9 @@ public class Scene implements Renderable {
         graphics.setRenderingHints(DefaultRenderingHints.getHints());
         for (int i = 0; i < entities.size(); i++) {
             entities.get(i).render(graphics.copy());
+        }
+        if (gui != null) {
+            gui.render(graphics);
         }
     }
 
@@ -107,6 +116,14 @@ public class Scene implements Renderable {
             }
             a.setBlockedDirections(blockedDirections);
         }
+    }
+
+    public Gui getGui() {
+        return gui;
+    }
+
+    public void setGui(Gui gui) {
+        this.gui = gui;
     }
 
     /**
