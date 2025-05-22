@@ -20,6 +20,7 @@ package de.sanj0.kopfkino.ui;
 import de.sanj0.kopfkino.Game;
 import de.sanj0.kopfkino.Input;
 import de.sanj0.kopfkino.Vector2f;
+import de.sanj0.kopfkino.gui.Gui;
 import de.sanj0.kopfkino.utils.MathUtils;
 
 import java.awt.event.MouseEvent;
@@ -41,11 +42,23 @@ public class KopfkinoMouseListener implements MouseListener, MouseMotionListener
 
     @Override
     public void mousePressed(final MouseEvent e) {
+        Gui gui = Game.getInstance().getCurrentScene().getGui();
+        if (gui != null) {
+            if (gui.onMouseDown(getCursor(e))) {
+                return;
+            }
+        }
         Input.PRESSED_MOUSE_BTNS.add(e.getButton());
     }
 
     @Override
     public void mouseReleased(final MouseEvent e) {
+        Gui gui = Game.getInstance().getCurrentScene().getGui();
+        if (gui != null) {
+            if (gui.onMouseUp(getCursor(e))) {
+                return;
+            }
+        }
         Input.PRESSED_MOUSE_BTNS.remove(e.getButton());
     }
 
@@ -67,10 +80,14 @@ public class KopfkinoMouseListener implements MouseListener, MouseMotionListener
         updateCursor(e);
     }
 
-    private void updateCursor(final MouseEvent e) {
+    private Vector2f getCursor(final MouseEvent e) {
         final Vector2f cursor = new Vector2f(e.getX(), e.getY()).subtract(container.getContentOffset()).divide(container.getContentScale());
         cursor.setX(MathUtils.clamp(cursor.getX(), 0, Game.resolutionWidth()));
         cursor.setY(MathUtils.clamp(cursor.getY(), 0, Game.resolutionHeight()));
-        cursorPosition = cursor;
+        return cursor;
+    }
+
+    private void updateCursor(final MouseEvent e) {
+        cursorPosition = getCursor(e);
     }
 }
