@@ -16,18 +16,22 @@
  */
 
 import de.***REMOVED***.kopfkino.*;
-import de.***REMOVED***.kopfkino.collision.CircleHitbox;
-import de.***REMOVED***.kopfkino.collision.Collision;
-import de.***REMOVED***.kopfkino.graphics.KopfkinoGraphics;
-import de.***REMOVED***.kopfkino.graphics.OvalEntityRenderer;
-import de.***REMOVED***.kopfkino.physics.World;
+import de.***REMOVED***.kopfkino.gui.Button;
+import de.***REMOVED***.kopfkino.gui.Gui;
+import de.***REMOVED***.kopfkino.gui.Label;
+import de.***REMOVED***.kopfkino.gui.TextArea;
 import de.***REMOVED***.kopfkino.scene.Scene;
-import de.***REMOVED***.kopfkino.utils.Colors;
 
-import java.awt.*;
+import static de.***REMOVED***.kopfkino.Prelude.*;
 
 public class TestScene extends Scene {
     public TestScene() {
+        setGui(new Gui());
+        getGui().add(new Button(Layouts.centre(dimensions(100, 50)), "Quit.", (cursor) -> Game.exit()));
+        getGui().add(new Label(Layouts.centreOffset(dimensions(300, 50), vecY(100)), "Your name:"));
+        getGui().add(new TextArea(Layouts.centreOffset(dimensions(300, 50), vecY(200)), ""));
+
+        /*
         getPhysicsWorld().setFriction(0.008f);
         getPhysicsWorld().setStoppingThreshold(.1f);
         add(new TestEntity(new BoundingBox(160, 90, 100, 100)));
@@ -70,5 +74,6 @@ public class TestScene extends Scene {
         add(new Entity(new BoundingBox(1870, 0, 50, 3000)){{
             setAffectedByPhysics(false);}});
         add(new KeyframeAnimationShowcase());
+        */
     }
 }

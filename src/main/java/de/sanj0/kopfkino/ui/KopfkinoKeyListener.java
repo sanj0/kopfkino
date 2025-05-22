@@ -17,7 +17,9 @@
 
 package de.***REMOVED***.kopfkino.ui;
 
+import de.***REMOVED***.kopfkino.Game;
 import de.***REMOVED***.kopfkino.Input;
+import de.***REMOVED***.kopfkino.gui.Gui;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -29,11 +31,23 @@ public class KopfkinoKeyListener implements KeyListener {
 
     @Override
     public void keyPressed(final KeyEvent e) {
+        Gui gui = Game.getInstance().getCurrentScene().getGui();
+        if (gui != null) {
+            if (gui.onKeyDown(e)) {
+                return;
+            }
+        }
         Input.PRESSED_KEYS.add(e.getKeyCode());
     }
 
     @Override
     public void keyReleased(final KeyEvent e) {
+        Gui gui = Game.getInstance().getCurrentScene().getGui();
+        if (gui != null) {
+            if (gui.onKeyUp(e)) {
+                return;
+            }
+        }
         Input.PRESSED_KEYS.remove(e.getKeyCode());
     }
 }
