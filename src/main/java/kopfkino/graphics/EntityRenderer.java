@@ -17,7 +17,6 @@
 
 package kopfkino.graphics;
 
-import de.sanj0.kopfkino.*;
 import kopfkino.*;
 
 /**

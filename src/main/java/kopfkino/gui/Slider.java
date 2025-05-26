@@ -1,6 +1,5 @@
 package kopfkino.gui;
 
-import de.sanj0.kopfkino.*;
 import kopfkino.*;
 import kopfkino.utils.MathUtils;
 
