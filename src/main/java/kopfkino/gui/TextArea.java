@@ -1,6 +1,5 @@
 package kopfkino.gui;
 
-import de.sanj0.kopfkino.*;
 import kopfkino.BoundingBox;
 import kopfkino.Dimensions;
 import kopfkino.KopfkinoGraphics;
