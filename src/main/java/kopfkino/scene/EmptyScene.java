@@ -15,14 +15,12 @@
  *
  */
 
-import kopfkino.Game;
+package kopfkino.scene;
 
-import java.awt.*;
+import kopfkino.Scene;
 
-public class TestMain {
-    public static void main(String[] args) {
-        Game.init(1920, 1080, "Kopfkino Test");
-        Game.getInstance().setBackgroundColor(Color.WHITE);
-        Game.start(-1, new TestScene(), 5, 60);
-    }
+/**
+ * An empty scene :O
+ */
+public class EmptyScene extends Scene {
 }

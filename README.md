@@ -35,8 +35,8 @@ project by appending the following dependency declaration to your pom.xml:
 To get the bare minimum kopfkino running, consider the following code.
 
 ```java
-import de.***REMOVED***.kopfkino.Game;
-import de.***REMOVED***.kopfkino.scene.EmptyScene;
+import kopfkino.Game;
+import scene.kopfkino.EmptyScene;
 
 import java.awt.*;
 
