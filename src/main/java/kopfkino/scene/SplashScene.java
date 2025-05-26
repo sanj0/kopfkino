@@ -17,7 +17,6 @@
 
 package kopfkino.scene;
 
-import de.***REMOVED***.kopfkino.*;
 import kopfkino.*;
 
 import java.awt.*;

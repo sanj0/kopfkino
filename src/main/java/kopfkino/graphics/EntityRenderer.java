@@ -17,7 +17,6 @@
 
 package kopfkino.graphics;
 
-import de.***REMOVED***.kopfkino.*;
 import kopfkino.*;
 
 /**

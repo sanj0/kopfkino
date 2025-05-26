@@ -19,7 +19,6 @@ package kopfkino;
 
 import kopfkino.collision.Collider;
 import kopfkino.ecs.EntityComponent;
-import de.***REMOVED***.kopfkino.graphics.*;
 import kopfkino.graphics.Camera;
 import kopfkino.graphics.Camera2D;
 import kopfkino.graphics.DefaultRenderingHints;

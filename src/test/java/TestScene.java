@@ -23,6 +23,7 @@ import kopfkino.gui.*;
 import kopfkino.gui.Button;
 import kopfkino.gui.Label;
 import kopfkino.gui.TextArea;
+import static kopfkino.Prelude.*;
 
 import java.awt.*;
 import java.util.ArrayList;

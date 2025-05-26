@@ -1,6 +1,5 @@
 package kopfkino.gui;
 
-import de.***REMOVED***.kopfkino.*;
 import kopfkino.BoundingBox;
 import kopfkino.Dimensions;
 import kopfkino.KopfkinoGraphics;
