@@ -15,14 +15,21 @@
  *
  */
 
-import kopfkino.Game;
+package kopfkino.collision;
 
-import java.awt.*;
+import kopfkino.BoundingBox;
+import kopfkino.Entity;
 
-public class TestMain {
-    public static void main(String[] args) {
-        Game.init(1920, 1080, "Kopfkino Test");
-        Game.getInstance().setBackgroundColor(Color.WHITE);
-        Game.start(-1, new TestScene(), 5, 60);
-    }
+/**
+ * A hitbox it either a circle or a {@link BoundingBox}.
+ * <p>It is used to determine whether two {@link Entity}s
+ * collide or not.
+ */
+public interface Hitbox {
+    /**
+     * Returns the bounding box containing the hitbox.
+     *
+     * @return the bounding box containing the hitbox
+     */
+    BoundingBox getBoundingBox();
 }

@@ -15,14 +15,10 @@
  *
  */
 
-import kopfkino.Game;
+package kopfkino.graphics;
 
-import java.awt.*;
+import kopfkino.KopfkinoGraphics;
 
-public class TestMain {
-    public static void main(String[] args) {
-        Game.init(1920, 1080, "Kopfkino Test");
-        Game.getInstance().setBackgroundColor(Color.WHITE);
-        Game.start(-1, new TestScene(), 5, 60);
-    }
+public interface Renderable {
+    void render(final KopfkinoGraphics graphics);
 }
