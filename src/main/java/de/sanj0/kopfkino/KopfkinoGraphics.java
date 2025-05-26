@@ -15,12 +15,12 @@
  *
  */
 
-package de.sanj0.kopfkino.graphics;
+package de.sanj0.kopfkino;
 
-import de.sanj0.kopfkino.BoundingBox;
-import de.sanj0.kopfkino.Vector2f;
+import de.sanj0.kopfkino.graphics.RenderConfig;
 
 import java.awt.*;
+import java.awt.font.LineMetrics;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
@@ -28,6 +28,8 @@ import java.util.Map;
  * A convenient {@link java.awt.Graphics2D} delegate.
  */
 public class KopfkinoGraphics {
+    public static final Font DEFAULT_FONT = new Font(null, Font.PLAIN, 20);
+
     private final Graphics2D g2d;
 
     public KopfkinoGraphics(final Graphics2D g2d, final RenderConfig initialRenderConfig) {
@@ -135,26 +137,36 @@ public class KopfkinoGraphics {
     }
 
     public void drawString(final Object o, final Vector2f position, final TextAnchor anchor) {
-        final String string = o.toString();
-        final FontMetrics fontMetrics = g2d.getFontMetrics();
         switch (anchor) {
             case TOP_LEFT_CORNER:
-                g2d.drawString(string, position.getX(), position.getY() + fontMetrics.getAscent());
+                drawString(o, position, new Align(Align.AlignX.LEFT, Align.AlignY.TOP));
                 break;
             case BOTTOM_LEFT_CORNER:
-                g2d.drawString(string, position.getX(), position.getY() - fontMetrics.getDescent());
+                drawString(o, position, new Align(Align.AlignX.LEFT, Align.AlignY.BOTTOM));
                 break;
             case TOP_RIGHT_CORNER:
-                g2d.drawString(string, position.getX() - fontMetrics.stringWidth(string), position.getY() + fontMetrics.getAscent());
+                drawString(o, position, new Align(Align.AlignX.RIGHT, Align.AlignY.TOP));
                 break;
             case BOTTOM_RIGHT_CORNER:
-                g2d.drawString(string, position.getX() - fontMetrics.stringWidth(string), position.getY() - fontMetrics.getDescent());
+                drawString(o, position, new Align(Align.AlignX.RIGHT, Align.AlignY.BOTTOM));
                 break;
             case CENTRE:
-                g2d.drawString(string, position.getX() - fontMetrics.stringWidth(string) * .5f,
-                        position.getY() + fontMetrics.getAscent() - ((fontMetrics.getAscent() + fontMetrics.getDescent()) * .5f));
+                drawString(o, position, new Align(Align.AlignX.CENTRE, Align.AlignY.CENTRE));
                 break;
         }
+    }
+
+    public void drawString(final Object o, final Vector2f position, Align align) {
+        final String string = o.toString();
+        final FontMetrics fontMetrics = g2d.getFontMetrics();
+        final LineMetrics lineMetrics = fontMetrics.getLineMetrics(string, g2d);
+        Dimensions size = new Dimensions(fontMetrics.stringWidth(string), 0);
+        Vector2f pos = align.relativeTo(position, size);
+        g2d.drawString(o.toString(), pos.getX(), pos.getY() + lineMetrics.getDescent());
+    }
+
+    public void rotateAround(Vector2f anchor, double theta) {
+        g2d.rotate(theta, anchor.getX(), anchor.getY());
     }
 
     public void applyConfig(final RenderConfig config) {

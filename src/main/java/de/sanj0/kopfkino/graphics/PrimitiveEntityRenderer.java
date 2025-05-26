@@ -19,6 +19,7 @@ package de.sanj0.kopfkino.graphics;
 
 import de.sanj0.kopfkino.BoundingBox;
 import de.sanj0.kopfkino.Dimensions;
+import de.sanj0.kopfkino.KopfkinoGraphics;
 import de.sanj0.kopfkino.Vector2f;
 import de.sanj0.kopfkino.utils.ImageUtils;
 

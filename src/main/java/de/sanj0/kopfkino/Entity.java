@@ -22,7 +22,6 @@ import de.sanj0.kopfkino.collision.Collision;
 import de.sanj0.kopfkino.collision.Hitbox;
 import de.sanj0.kopfkino.ecs.EntityComponent;
 import de.sanj0.kopfkino.graphics.EntityRenderer;
-import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
 import de.sanj0.kopfkino.graphics.RectangleEntityRenderer;
 import de.sanj0.kopfkino.graphics.Renderable;
 import de.sanj0.kopfkino.physics.Rigidbody;

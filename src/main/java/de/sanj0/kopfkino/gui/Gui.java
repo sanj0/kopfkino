@@ -3,9 +3,8 @@ package de.sanj0.kopfkino.gui;
 import de.sanj0.kopfkino.BoundingBox;
 import de.sanj0.kopfkino.Dimensions;
 import de.sanj0.kopfkino.Vector2f;
-import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
+import de.sanj0.kopfkino.KopfkinoGraphics;
 import de.sanj0.kopfkino.graphics.Renderable;
-import de.sanj0.kopfkino.utils.Colors;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -18,6 +17,7 @@ public class Gui implements Renderable {
     private List<Component> components;
     private Component focus = null;
     private boolean mouseDownOnComponent = false;
+    private boolean drawBounds = false;
 
     public Gui(List<Component> components) {
         this.components = components;
@@ -30,7 +30,11 @@ public class Gui implements Renderable {
     @Override
     public void render(KopfkinoGraphics graphics) {
         for (int i = 0; i < components.size(); i++) {
-            components.get(i).render(graphics);
+            Component component = components.get(i);
+            KopfkinoGraphics g = graphics.copy();
+            g.setStroke(new BasicStroke(3));
+            component.render(g);
+            if (drawBounds) g.outlineRect(components.get(i).getBounds());
         }
     }
 
@@ -49,6 +53,7 @@ public class Gui implements Renderable {
         mouseDownOnComponent = false;
         return false;
     }
+
     public boolean onMouseUp(Vector2f cursorPos) {
         if (mouseDownOnComponent) {
             mouseDownOnComponent = false;
@@ -85,6 +90,18 @@ public class Gui implements Renderable {
 
     public Component getFocus() {
         return focus;
+    }
+
+    public void setFocus(Component focus) {
+        this.focus = focus;
+    }
+
+    public boolean isDrawBounds() {
+        return drawBounds;
+    }
+
+    public void setDrawBounds(boolean drawBounds) {
+        this.drawBounds = drawBounds;
     }
 
     public int size() {

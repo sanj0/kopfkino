@@ -18,7 +18,6 @@
 package de.sanj0.kopfkino;
 
 import de.sanj0.kopfkino.graphics.Camera;
-import de.sanj0.kopfkino.scene.Scene;
 import de.sanj0.kopfkino.scene.SplashScene;
 import de.sanj0.kopfkino.serialization.SerializationManager;
 import de.sanj0.kopfkino.ui.KopfkinoWindow;

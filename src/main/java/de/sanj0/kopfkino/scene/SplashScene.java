@@ -17,12 +17,8 @@
 
 package de.sanj0.kopfkino.scene;
 
-import de.sanj0.kopfkino.BoundingBox;
-import de.sanj0.kopfkino.Dimensions;
-import de.sanj0.kopfkino.Game;
-import de.sanj0.kopfkino.Vector2f;
-import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
-import de.sanj0.kopfkino.Input;
+import de.sanj0.kopfkino.*;
+import de.sanj0.kopfkino.KopfkinoGraphics;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

@@ -21,10 +21,10 @@ import de.sanj0.kopfkino.Game;
 import de.sanj0.kopfkino.Vector2f;
 import de.sanj0.kopfkino.animation.KeyframeAnimation;
 import de.sanj0.kopfkino.animation.TransitionFunction;
-import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
+import de.sanj0.kopfkino.KopfkinoGraphics;
 import de.sanj0.kopfkino.graphics.OvalEntityRenderer;
 import de.sanj0.kopfkino.graphics.RenderConfig;
-import de.sanj0.kopfkino.utils.Colors;
+import de.sanj0.kopfkino.Colors;
 import de.sanj0.kopfkino.utils.MathUtils;
 
 import java.util.ArrayList;

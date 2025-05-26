@@ -17,6 +17,8 @@
 
 package de.sanj0.kopfkino.graphics;
 
+import de.sanj0.kopfkino.KopfkinoGraphics;
+
 public interface Renderable {
     void render(final KopfkinoGraphics graphics);
 }

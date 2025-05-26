@@ -19,7 +19,7 @@ package de.sanj0.kopfkino.ecs;
 
 import de.sanj0.kopfkino.Entity;
 import de.sanj0.kopfkino.EntityFunctionality;
-import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
+import de.sanj0.kopfkino.KopfkinoGraphics;
 
 /**
  * A component for an {@link de.sanj0.kopfkino.Entity}.

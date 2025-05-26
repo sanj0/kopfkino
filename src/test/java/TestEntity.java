@@ -22,7 +22,7 @@ import de.sanj0.kopfkino.collision.CircleHitbox;
 import de.sanj0.kopfkino.collision.Collision;
 import de.sanj0.kopfkino.graphics.*;
 import de.sanj0.kopfkino.serialization.PersistentField;
-import de.sanj0.kopfkino.utils.Colors;
+import de.sanj0.kopfkino.Colors;
 import de.sanj0.kopfkino.utils.ImageUtils;
 
 public class TestEntity extends Entity {

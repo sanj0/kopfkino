@@ -18,7 +18,6 @@
 package de.sanj0.kopfkino;
 
 import de.sanj0.kopfkino.collision.Collision;
-import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
 
 /**
  * Encapsulated entity functionality.

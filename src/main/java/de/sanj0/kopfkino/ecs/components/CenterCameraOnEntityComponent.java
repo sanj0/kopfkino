@@ -22,7 +22,7 @@ import de.sanj0.kopfkino.Game;
 import de.sanj0.kopfkino.Vector2f;
 import de.sanj0.kopfkino.collision.Collision;
 import de.sanj0.kopfkino.ecs.EntityComponent;
-import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
+import de.sanj0.kopfkino.KopfkinoGraphics;
 
 /**
  * Every fixed update, centers the camera on its subject.

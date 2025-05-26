@@ -18,6 +18,7 @@
 package de.sanj0.kopfkino.graphics;
 
 import de.sanj0.kopfkino.BoundingBox;
+import de.sanj0.kopfkino.KopfkinoGraphics;
 
 /**
  * For an {@link de.sanj0.kopfkino.Entity} that renders in a custom way. Either

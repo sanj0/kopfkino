@@ -18,6 +18,7 @@
 package de.sanj0.kopfkino.graphics;
 
 import de.sanj0.kopfkino.BoundingBox;
+import de.sanj0.kopfkino.KopfkinoGraphics;
 
 /**
  * An {@link EntityRenderer} that does absolutely nothing.

@@ -15,7 +15,7 @@
  *
  */
 
-package de.sanj0.kopfkino.utils;
+package de.sanj0.kopfkino;
 
 import java.awt.*;
 
