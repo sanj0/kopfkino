@@ -15,23 +15,18 @@
  *
  */
 
-import de.sanj0.kopfkino.*;
-import de.sanj0.kopfkino.collision.CircleHitbox;
-import de.sanj0.kopfkino.collision.Collision;
-import de.sanj0.kopfkino.KopfkinoGraphics;
-import de.sanj0.kopfkino.graphics.OvalEntityRenderer;
-import de.sanj0.kopfkino.gui.*;
-import de.sanj0.kopfkino.gui.Button;
-import de.sanj0.kopfkino.gui.Label;
-import de.sanj0.kopfkino.gui.TextArea;
-import de.sanj0.kopfkino.Scene;
-import de.sanj0.kopfkino.Colors;
+import kopfkino.*;
+import kopfkino.collision.CircleHitbox;
+import kopfkino.collision.Collision;
+import kopfkino.graphics.OvalEntityRenderer;
+import kopfkino.gui.*;
+import kopfkino.gui.Button;
+import kopfkino.gui.Label;
+import kopfkino.gui.TextArea;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import static de.sanj0.kopfkino.Prelude.*;
 
 public class TestScene extends Scene {
     public TestScene() {

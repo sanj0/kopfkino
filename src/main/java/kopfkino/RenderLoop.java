@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 ***REMOVED*** ***REMOVED***
+ *    Copyright 2022 ***REMOVED*** ***REMOVED***
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -15,14 +15,19 @@
  *
  */
 
-import kopfkino.Game;
+package kopfkino;
 
-import java.awt.*;
-
-public class TestMain {
-    public static void main(String[] args) {
-        Game.init(1920, 1080, "Kopfkino Test");
-        Game.getInstance().setBackgroundColor(Color.WHITE);
-        Game.start(-1, new TestScene(), 5, 60);
+public class RenderLoop implements Runnable {
+    private long lastInvoke = System.currentTimeMillis();
+    @Override
+    public void run() {
+        final long t = System.currentTimeMillis();
+        Time.renderTime = t - lastInvoke;
+        lastInvoke = t;
+        try {
+            Game.getInstance().getWindow().getCanvas().repaint();
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
     }
 }

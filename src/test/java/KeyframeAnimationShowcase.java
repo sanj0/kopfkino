@@ -15,17 +15,17 @@
  *
  */
 
-import de.sanj0.kopfkino.BoundingBox;
-import de.sanj0.kopfkino.Entity;
-import de.sanj0.kopfkino.Game;
-import de.sanj0.kopfkino.Vector2f;
-import de.sanj0.kopfkino.animation.KeyframeAnimation;
-import de.sanj0.kopfkino.animation.TransitionFunction;
-import de.sanj0.kopfkino.KopfkinoGraphics;
-import de.sanj0.kopfkino.graphics.OvalEntityRenderer;
-import de.sanj0.kopfkino.graphics.RenderConfig;
-import de.sanj0.kopfkino.Colors;
-import de.sanj0.kopfkino.utils.MathUtils;
+import kopfkino.BoundingBox;
+import kopfkino.Entity;
+import kopfkino.Game;
+import kopfkino.Vector2f;
+import kopfkino.animation.KeyframeAnimation;
+import kopfkino.animation.TransitionFunction;
+import kopfkino.KopfkinoGraphics;
+import kopfkino.graphics.OvalEntityRenderer;
+import kopfkino.graphics.RenderConfig;
+import kopfkino.Colors;
+import kopfkino.utils.MathUtils;
 
 import java.util.ArrayList;
 import java.util.List;

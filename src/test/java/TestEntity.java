@@ -15,15 +15,15 @@
  *
  */
 
-import de.sanj0.kopfkino.*;
-import de.sanj0.kopfkino.animation.SpriteAnimation;
-import de.sanj0.kopfkino.animation.SpriteAnimationRenderer;
-import de.sanj0.kopfkino.collision.CircleHitbox;
-import de.sanj0.kopfkino.collision.Collision;
-import de.sanj0.kopfkino.graphics.*;
-import de.sanj0.kopfkino.serialization.PersistentField;
-import de.sanj0.kopfkino.Colors;
-import de.sanj0.kopfkino.utils.ImageUtils;
+import kopfkino.*;
+import kopfkino.animation.SpriteAnimation;
+import kopfkino.animation.SpriteAnimationRenderer;
+import kopfkino.collision.CircleHitbox;
+import kopfkino.collision.Collision;
+import kopfkino.graphics.EmptyEntityRenderer;
+import kopfkino.graphics.Spritesheet;
+import kopfkino.serialization.PersistentField;
+import kopfkino.utils.ImageUtils;
 
 public class TestEntity extends Entity {
     private PersistentField<Vector2f> position = PersistentField.loadVec2f("te-pos", new Vector2f(100, 100));
