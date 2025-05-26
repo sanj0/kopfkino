@@ -22,7 +22,6 @@ import de.***REMOVED***.kopfkino.collision.Collision;
 import de.***REMOVED***.kopfkino.collision.Hitbox;
 import de.***REMOVED***.kopfkino.ecs.EntityComponent;
 import de.***REMOVED***.kopfkino.graphics.EntityRenderer;
-import de.***REMOVED***.kopfkino.graphics.KopfkinoGraphics;
 import de.***REMOVED***.kopfkino.graphics.RectangleEntityRenderer;
 import de.***REMOVED***.kopfkino.graphics.Renderable;
 import de.***REMOVED***.kopfkino.physics.Rigidbody;

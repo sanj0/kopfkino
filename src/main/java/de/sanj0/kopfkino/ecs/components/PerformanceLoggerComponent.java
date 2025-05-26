@@ -22,7 +22,7 @@ import de.***REMOVED***.kopfkino.ExternalResources;
 import de.***REMOVED***.kopfkino.Time;
 import de.***REMOVED***.kopfkino.collision.Collision;
 import de.***REMOVED***.kopfkino.ecs.EntityComponent;
-import de.***REMOVED***.kopfkino.graphics.KopfkinoGraphics;
+import de.***REMOVED***.kopfkino.KopfkinoGraphics;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

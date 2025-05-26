@@ -19,7 +19,7 @@ package de.***REMOVED***.kopfkino.ecs;
 
 import de.***REMOVED***.kopfkino.Entity;
 import de.***REMOVED***.kopfkino.EntityFunctionality;
-import de.***REMOVED***.kopfkino.graphics.KopfkinoGraphics;
+import de.***REMOVED***.kopfkino.KopfkinoGraphics;
 
 /**
  * A component for an {@link de.***REMOVED***.kopfkino.Entity}.

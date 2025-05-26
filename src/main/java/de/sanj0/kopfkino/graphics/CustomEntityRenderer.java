@@ -18,6 +18,7 @@
 package de.***REMOVED***.kopfkino.graphics;
 
 import de.***REMOVED***.kopfkino.BoundingBox;
+import de.***REMOVED***.kopfkino.KopfkinoGraphics;
 
 /**
  * For an {@link de.***REMOVED***.kopfkino.Entity} that renders in a custom way. Either

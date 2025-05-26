@@ -20,7 +20,7 @@ package de.***REMOVED***.kopfkino.animation;
 import de.***REMOVED***.kopfkino.BoundingBox;
 import de.***REMOVED***.kopfkino.Time;
 import de.***REMOVED***.kopfkino.graphics.EntityRenderer;
-import de.***REMOVED***.kopfkino.graphics.KopfkinoGraphics;
+import de.***REMOVED***.kopfkino.KopfkinoGraphics;
 
 /**
  * An {@link EntityRenderer} that renders a {@link SpriteAnimation} with a fixed

@@ -15,9 +15,8 @@
  *
  */
 
-package de.***REMOVED***.kopfkino.scene;
+package de.***REMOVED***.kopfkino;
 
-import de.***REMOVED***.kopfkino.*;
 import de.***REMOVED***.kopfkino.collision.Collider;
 import de.***REMOVED***.kopfkino.ecs.EntityComponent;
 import de.***REMOVED***.kopfkino.graphics.*;

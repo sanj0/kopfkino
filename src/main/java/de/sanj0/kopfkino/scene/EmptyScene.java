@@ -17,6 +17,8 @@
 
 package de.***REMOVED***.kopfkino.scene;
 
+import de.***REMOVED***.kopfkino.Scene;
+
 /**
  * An empty scene :O
  */

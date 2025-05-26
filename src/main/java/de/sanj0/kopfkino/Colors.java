@@ -15,7 +15,7 @@
  *
  */
 
-package de.***REMOVED***.kopfkino.utils;
+package de.***REMOVED***.kopfkino;
 
 import java.awt.*;
 

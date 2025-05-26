@@ -22,7 +22,7 @@ import de.***REMOVED***.kopfkino.Game;
 import de.***REMOVED***.kopfkino.Vector2f;
 import de.***REMOVED***.kopfkino.collision.Collision;
 import de.***REMOVED***.kopfkino.ecs.EntityComponent;
-import de.***REMOVED***.kopfkino.graphics.KopfkinoGraphics;
+import de.***REMOVED***.kopfkino.KopfkinoGraphics;
 
 /**
  * Every fixed update, centers the camera on its subject.

@@ -51,11 +51,20 @@ public class BoundingBox {
     }
 
     /**
-     * Returns a new BoundingBox with the given size located in the centre of the given other BoundbingBox.
+     * Returns a new BoundingBox with the given size located relative to the given other BoundbingBox.
      */
-    public static BoundingBox inTheCentreOf(final Dimensions size, final BoundingBox container) {
-        Vector2f centre = container.getCentre();
-        return new BoundingBox(centre.minus(size.times(0.5f)), size);
+    public static BoundingBox relativeTo(final BoundingBox container, final Align align, final Dimensions size) {
+        float anchorX = align.getAlignX() == Align.AlignX.LEFT
+            ? container.getX()
+            : align.getAlignX() == Align.AlignX.RIGHT
+            ? container.getMaxX()
+            : container.getX() + container.getWidth() * 0.5f;
+        float anchorY = align.getAlignY() == Align.AlignY.TOP
+            ? container.getY()
+            : align.getAlignY() == Align.AlignY.BOTTOM
+            ? container.getMaxY()
+            : container.getY() + container.getHeight() * 0.5f;
+        return new BoundingBox(align.relativeTo(new Vector2f(anchorX, anchorY), size), size);
     }
 
     public BoundingBox withPosition(final Vector2f position) {

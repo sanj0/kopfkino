@@ -4,16 +4,18 @@ import de.***REMOVED***.kopfkino.BoundingBox;
 import de.***REMOVED***.kopfkino.Game;
 import de.***REMOVED***.kopfkino.Vector2f;
 import de.***REMOVED***.kopfkino.graphics.Renderable;
-import de.***REMOVED***.kopfkino.utils.Colors;
+import de.***REMOVED***.kopfkino.Colors;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.function.Consumer;
 
 public abstract class Component implements Renderable {
     private BoundingBox bounds;
     private Color backgroundColor = Colors.TEAL_BLUE_COLOR;
     private Color foregroundColor = Colors.BLACK;
     private Font font = null;
+    private Consumer<Component> onAction;
 
     public Component(BoundingBox bounds) {
         this.bounds = bounds;
@@ -73,5 +75,13 @@ public abstract class Component implements Renderable {
 
     public void setFont(Font font) {
         this.font = font;
+    }
+
+    public Consumer<Component> getOnAction() {
+        return onAction;
+    }
+
+    public void setOnAction(Consumer<Component> onAction) {
+        this.onAction = onAction;
     }
 }

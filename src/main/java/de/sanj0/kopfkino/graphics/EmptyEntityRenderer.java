@@ -18,6 +18,7 @@
 package de.***REMOVED***.kopfkino.graphics;
 
 import de.***REMOVED***.kopfkino.BoundingBox;
+import de.***REMOVED***.kopfkino.KopfkinoGraphics;
 
 /**
  * An {@link EntityRenderer} that does absolutely nothing.

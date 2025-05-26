@@ -18,7 +18,6 @@
 package de.***REMOVED***.kopfkino;
 
 import de.***REMOVED***.kopfkino.graphics.Camera;
-import de.***REMOVED***.kopfkino.scene.Scene;
 import de.***REMOVED***.kopfkino.scene.SplashScene;
 import de.***REMOVED***.kopfkino.serialization.SerializationManager;
 import de.***REMOVED***.kopfkino.ui.KopfkinoWindow;

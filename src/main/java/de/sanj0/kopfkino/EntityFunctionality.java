@@ -18,7 +18,6 @@
 package de.***REMOVED***.kopfkino;
 
 import de.***REMOVED***.kopfkino.collision.Collision;
-import de.***REMOVED***.kopfkino.graphics.KopfkinoGraphics;
 
 /**
  * Encapsulated entity functionality.

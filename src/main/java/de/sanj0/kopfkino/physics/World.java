@@ -7,13 +7,7 @@ import de.***REMOVED***.kopfkino.Vector2f;
 import de.***REMOVED***.kopfkino.collision.AABBHitbox;
 import de.***REMOVED***.kopfkino.collision.CircleHitbox;
 import de.***REMOVED***.kopfkino.collision.Collision;
-import de.***REMOVED***.kopfkino.scene.Scene;
-
-import javax.management.ObjectName;
-
-import static de.***REMOVED***.kopfkino.Directions.Direction;
-
-import java.util.List;
+import de.***REMOVED***.kopfkino.Scene;
 
 /**
  * A world that houses physics entities, more specifically {@link Rigidbody}s.

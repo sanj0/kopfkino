@@ -17,6 +17,8 @@
 
 package de.***REMOVED***.kopfkino.graphics;
 
+import de.***REMOVED***.kopfkino.KopfkinoGraphics;
+
 public interface Renderable {
     void render(final KopfkinoGraphics graphics);
 }

@@ -1,6 +1,4 @@
-package de.***REMOVED***.kopfkino.utils;
-
-import de.***REMOVED***.kopfkino.Game;
+package de.***REMOVED***.kopfkino;
 
 /**
  * A simple utility class to modulate the fixed update loop.

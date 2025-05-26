@@ -18,7 +18,7 @@
 package de.***REMOVED***.kopfkino.utils;
 
 import de.***REMOVED***.kopfkino.Dimensions;
-import de.***REMOVED***.kopfkino.graphics.KopfkinoGraphics;
+import de.***REMOVED***.kopfkino.KopfkinoGraphics;
 import de.***REMOVED***.kopfkino.graphics.RenderConfig;
 import de.***REMOVED***.kopfkino.graphics.Renderable;
 
