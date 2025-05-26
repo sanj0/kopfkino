@@ -1,37 +1,41 @@
 package de.sanj0.kopfkino.gui;
 
+import de.sanj0.kopfkino.Align;
 import de.sanj0.kopfkino.BoundingBox;
-import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
+import de.sanj0.kopfkino.Vector2f;
+import de.sanj0.kopfkino.KopfkinoGraphics;
 
-public class Label extends Component {
-    private String text;
-    public Label(BoundingBox bounds, String text) {
-        super(bounds);
-        this.text = text;
+public class Label extends AbstractLabel {
+    public Label(BoundingBox bounds, String text, float minWidth, Align.AlignX alignX) {
+        super(bounds, text, minWidth, alignX);
     }
 
-    @Override
-    public boolean keepsFocus() {
-        return false;
+    public Label(float fontSize, String text, Align.AlignX alignX) {
+        super(fontSize, text, alignX);
+    }
+
+    public Label(float fontSize, String text) {
+        super(fontSize, text);
+    }
+
+    public Label(String text) {
+        super(text);
     }
 
     @Override
     public void render(KopfkinoGraphics graphics) {
         if (getFont() != null) {
             graphics.setFont(getFont());
-        } else {
-            graphics.setFont(graphics.getFont().deriveFont(getBounds().getHeight() / 1.5f));
         }
         graphics.setColor(getForegroundColor());
-        graphics.drawString(text, getBounds().getCentre(), KopfkinoGraphics.TextAnchor.CENTRE);
-        graphics.outlineRect(getBounds());
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
+        graphics.setClip(getBounds());
+        Align align = getAlign();
+        float x = align.getAlignX() == Align.AlignX.LEFT ? getBounds().getX()
+            : align.getAlignX() == Align.AlignX.RIGHT ? getBounds().getMaxX()
+            : getBounds().getX() +getBounds().getWidth() * 0.5f;
+        float y = align.getAlignY() == Align.AlignY.TOP ? getBounds().getY()
+            : align.getAlignY() == Align.AlignY.BOTTOM ? getBounds().getMaxY()
+            : getBounds().getY() + getBounds().getHeight() * 0.5f;
+        graphics.drawString(getText(), new Vector2f(x, y), align);
     }
 }

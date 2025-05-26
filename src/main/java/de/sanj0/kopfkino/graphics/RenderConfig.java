@@ -17,6 +17,8 @@
 
 package de.sanj0.kopfkino.graphics;
 
+import de.sanj0.kopfkino.KopfkinoGraphics;
+
 import java.awt.*;
 
 /**
@@ -217,7 +219,7 @@ public class RenderConfig {
         private Color color = Color.BLACK;
         private Stroke stroke = new BasicStroke();
         private Paint paint = null;
-        private Font font = new Font(Font.MONOSPACED, Font.PLAIN, 12);
+        private Font font = KopfkinoGraphics.DEFAULT_FONT;
         private Composite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f);
 
         /**

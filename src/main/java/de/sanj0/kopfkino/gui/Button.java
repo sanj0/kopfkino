@@ -3,35 +3,24 @@ package de.sanj0.kopfkino.gui;
 import de.sanj0.kopfkino.BoundingBox;
 import de.sanj0.kopfkino.Dimensions;
 import de.sanj0.kopfkino.Vector2f;
-import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
+import de.sanj0.kopfkino.KopfkinoGraphics;
 
 import java.util.function.Consumer;
 
-public class Button extends Component {
+/**
+ * A simple button. Renders text inside a rounded rectangle and get brighter when pressed down.
+ */
+public class Button extends AbstractButton {
     private String text;
-    private Consumer<Vector2f> onClick;
+    private float cornerRadius = 10;
+
     public Button(BoundingBox bounds, String text, Consumer<Vector2f> onClick) {
-        super(bounds);
+        super(bounds, onClick);
         this.text = text;
-        this.onClick = onClick;
     }
 
-    @Override
-    public boolean keepsFocus() {
-        return false;
-    }
-
-    @Override
-    public void onMouseUp(Vector2f cursorPos) {
-        setBackgroundColor(getBackgroundColor().brighter());
-        if (getBounds().contains(new BoundingBox(cursorPos, Dimensions.one()))) {
-            onClick.accept(cursorPos);
-        }
-    }
-
-    @Override
-    public void onMouseDown(Vector2f cursorPos) {
-         setBackgroundColor(getBackgroundColor().darker());
+    public Button(Dimensions size, String text, Consumer<Vector2f> onClick) {
+        this(new BoundingBox(Vector2f.zero(), size), text, onClick);
     }
 
     @Override
@@ -42,11 +31,21 @@ public class Button extends Component {
             graphics.setFont(graphics.getFont().deriveFont(getBounds().getHeight() * 0.5f));
         }
         graphics.setColor(getBackgroundColor());
-        graphics.drawRect(getBounds());
+        graphics.drawRoundRect(getBounds(), cornerRadius, cornerRadius);
         graphics.setColor(getForegroundColor());
         graphics.drawString(text, getBounds().getCentre(), KopfkinoGraphics.TextAnchor.CENTRE);
     }
 
+    @Override
+    public void onMouseUp(Vector2f cursorPos) {
+        setBackgroundColor(getBackgroundColor().brighter());
+        super.onMouseUp(cursorPos);
+    }
+
+    @Override
+    public void onMouseDown(Vector2f cursorPos) {
+        setBackgroundColor(getBackgroundColor().darker());
+    }
 
     public String getText() {
         return text;
@@ -54,5 +53,13 @@ public class Button extends Component {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public float getCornerRadius() {
+        return cornerRadius;
+    }
+
+    public void setCornerRadius(float cornerRadius) {
+        this.cornerRadius = cornerRadius;
     }
 }

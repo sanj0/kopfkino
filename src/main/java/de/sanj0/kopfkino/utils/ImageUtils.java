@@ -18,7 +18,7 @@
 package de.sanj0.kopfkino.utils;
 
 import de.sanj0.kopfkino.Dimensions;
-import de.sanj0.kopfkino.graphics.KopfkinoGraphics;
+import de.sanj0.kopfkino.KopfkinoGraphics;
 import de.sanj0.kopfkino.graphics.RenderConfig;
 import de.sanj0.kopfkino.graphics.Renderable;
 

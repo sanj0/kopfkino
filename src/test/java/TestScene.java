@@ -16,22 +16,150 @@
  */
 
 import de.sanj0.kopfkino.*;
+import de.sanj0.kopfkino.collision.CircleHitbox;
+import de.sanj0.kopfkino.collision.Collision;
+import de.sanj0.kopfkino.KopfkinoGraphics;
+import de.sanj0.kopfkino.graphics.OvalEntityRenderer;
+import de.sanj0.kopfkino.gui.*;
 import de.sanj0.kopfkino.gui.Button;
-import de.sanj0.kopfkino.gui.Gui;
 import de.sanj0.kopfkino.gui.Label;
 import de.sanj0.kopfkino.gui.TextArea;
-import de.sanj0.kopfkino.scene.Scene;
+import de.sanj0.kopfkino.Scene;
+import de.sanj0.kopfkino.Colors;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static de.sanj0.kopfkino.Prelude.*;
 
 public class TestScene extends Scene {
     public TestScene() {
         setGui(new Gui());
-        getGui().add(new Button(Layouts.centre(dimensions(100, 50)), "Quit.", (cursor) -> Game.exit()));
-        getGui().add(new Label(Layouts.centreOffset(dimensions(300, 50), vecY(100)), "Your name:"));
-        getGui().add(new TextArea(Layouts.centreOffset(dimensions(300, 50), vecY(200)), ""));
+        Button quitButton = new Button(
+            dimensions(300, 50),
+            "Quit.",
+            (cursor) -> Game.exit()
+        );
+        CheckBox checkBox = new CheckBox(
+            dimensions(25, 25),
+            false,
+            getGui()::setDrawBounds
+        );
+        Label debugDraw = new Label(
+            25,
+            "Debug draw component boounds"
+        );
+        Label yourName = new Label(
+            25,
+            "Your name:"
+        );
+        TextArea nameInput = new TextArea(
+            dimensions(300, 50),
+            ""
+        );
+        Slider slider = new Slider(
+            dimensions(300, 50),
+            0.5f
+        );
+        Label sliderLabel = new Label(
+            50,
+            "0.5",
+            Align.AlignX.LEFT
+        );
+        sliderLabel.setMinWidth(300);
+        ProgressBar sliderBar = new ProgressBar(dimensions(200, 35), 0.5f);
+        sliderLabel.setForegroundColor(Colors.CORN_FLOWER_BLUE);
+        slider.setOnAction(s -> {
+            Slider _slider = (Slider) s;
+            sliderLabel.setText(String.valueOf(_slider.getValue()));
+            sliderBar.setValue(1 - _slider.getValue());
+        });
 
-        /*
+        RadioButton radioA;
+        RadioButton radioB;
+        List<RadioButton> radioGroup = new ArrayList<>();
+        radioA = new RadioButton(
+            dimensions(25, 25),
+            false,
+            a -> sliderLabel.setForegroundColor(Colors.DARK_GREEN_COLOR),
+            radioGroup
+        );
+        radioB = new RadioButton(
+            dimensions(25, 25),
+            true,
+            a -> sliderLabel.setForegroundColor(Colors.CORN_FLOWER_BLUE),
+            radioGroup
+        );
+        radioGroup.add(radioA);
+        radioGroup.add(radioB);
+        Label green = new Label(
+            25,
+            "Green"
+        );
+        Label blue = new Label(
+            25,
+            "Blue"
+        );
+        Label right = new Label(
+            25,
+            "Right"
+        );
+        Label left = new Label(
+            25,
+            "Left"
+        );
+        WaitingIndicator waitingIndicator = new WaitingIndicator(dimensions(50, 50));
+        BarsWaitingIndicator barsWaitingIndicator = new BarsWaitingIndicator(dimensions(100, 50));
+
+        float gap = 50.0f;
+        float vskip = 100.0f;
+        new LineLayoutGenerator(Game.getDisplayBounds(), Align.AlignX.CENTRE)
+            .addGroup(gap / 2f, checkBox, debugDraw)
+            .newLine(vskip, Align.AlignX.CENTRE)
+            .add(yourName)
+            .newLine(vskip / 2f, Align.AlignX.CENTRE)
+            .add(nameInput)
+            .newLine(vskip, Align.AlignX.CENTRE)
+            .add(slider)
+            .alignX(Align.AlignX.LEFT)
+            .gap(gap)
+            .add(sliderLabel)
+            .newLine(vskip, Align.AlignX.CENTRE)
+            .addGroup(List.of(gap / 2, gap, gap / 2), radioA, green, radioB, blue)
+            .newLine(vskip, Align.AlignX.CENTRE)
+            .add(sliderBar)
+            .newLine(vskip * 2f, Align.AlignX.CENTRE)
+            .add(quitButton)
+            .newLine(vskip, Align.AlignX.CENTRE)
+            .addGroup(gap, waitingIndicator, barsWaitingIndicator)
+            .finalAlign(Align.AlignY.CENTRE, 0);
+
+        new LineLayoutGenerator(Game.getDisplayBounds(), Align.AlignX.CENTRE)
+            .newLine(25, Align.AlignX.RIGHT)
+            .add(right)
+            .newLine(0, Align.AlignX.LEFT)
+            .add(left)
+            .finalAlign(Align.AlignY.TOP, 10);
+
+
+        getGui().add(quitButton);
+        getGui().add(checkBox);
+        getGui().add(debugDraw);
+        getGui().add(yourName);
+        getGui().add(nameInput);
+        getGui().add(slider);
+        getGui().add(sliderLabel);
+        getGui().addAll(radioGroup);
+        getGui().add(green);
+        getGui().add(blue);
+        getGui().add(left);
+        getGui().add(right);
+        getGui().add(sliderBar);
+        getGui().add(waitingIndicator);
+        getGui().add(barsWaitingIndicator);
+
+        getGui().setDrawBounds(false);
         getPhysicsWorld().setFriction(0.008f);
         getPhysicsWorld().setStoppingThreshold(.1f);
         add(new TestEntity(new BoundingBox(160, 90, 100, 100)));
@@ -74,6 +202,5 @@ public class TestScene extends Scene {
         add(new Entity(new BoundingBox(1870, 0, 50, 3000)){{
             setAffectedByPhysics(false);}});
         add(new KeyframeAnimationShowcase());
-        */
     }
 }

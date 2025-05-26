@@ -15,9 +15,8 @@
  *
  */
 
-package de.sanj0.kopfkino.scene;
+package de.sanj0.kopfkino;
 
-import de.sanj0.kopfkino.*;
 import de.sanj0.kopfkino.collision.Collider;
 import de.sanj0.kopfkino.ecs.EntityComponent;
 import de.sanj0.kopfkino.graphics.*;

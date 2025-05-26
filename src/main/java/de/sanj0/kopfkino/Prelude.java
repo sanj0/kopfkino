@@ -37,11 +37,11 @@ public class Prelude {
 
     /**
      * Convenience method to instantiate new dimensions. To be statically imported for max comfort.
-     * @param x the x component of the new vector
-     * @param y the y component of the new vector
+     * @param width the x component of the new vector
+     * @param height the y component of the new vector
      * @return new instance with the given x and y values
      */
-    public static Dimensions dimensions(float x, float y) {
-        return new Dimensions(x, y);
+    public static Dimensions dimensions(float width, float height) {
+        return new Dimensions(width, height);
     }
 }

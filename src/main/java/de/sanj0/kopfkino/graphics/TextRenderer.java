@@ -19,13 +19,8 @@ package de.sanj0.kopfkino.graphics;
 
 import de.sanj0.kopfkino.BoundingBox;
 import de.sanj0.kopfkino.Dimensions;
+import de.sanj0.kopfkino.KopfkinoGraphics;
 import de.sanj0.kopfkino.Vector2f;
-import de.sanj0.kopfkino.utils.ImageUtils;
-
-import java.awt.image.BufferedImage;
-import java.awt.Font;
-import java.awt.Color;
-import java.util.Optional;
 
 /**
  * Renders an Entity as text.

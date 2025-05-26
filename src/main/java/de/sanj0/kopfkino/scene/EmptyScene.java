@@ -17,6 +17,8 @@
 
 package de.sanj0.kopfkino.scene;
 
+import de.sanj0.kopfkino.Scene;
+
 /**
  * An empty scene :O
  */

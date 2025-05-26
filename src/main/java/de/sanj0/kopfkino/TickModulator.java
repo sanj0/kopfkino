@@ -1,6 +1,4 @@
-package de.sanj0.kopfkino.utils;
-
-import de.sanj0.kopfkino.Game;
+package de.sanj0.kopfkino;
 
 /**
  * A simple utility class to modulate the fixed update loop.

@@ -66,7 +66,7 @@ public class ColorUtils {
      */
     public static Color blend(final Color color1, final Color color2, float ratio) {
         if (ratio > 1 || ratio < 0) {
-            throw new IllegalArgumentException("blend ratio must be => 0 and =< 1");
+            throw new IllegalArgumentException("blend ratio must be => 0 and =< 1\n\t is " + ratio);
         }
 
         final float invRatio = 1 - ratio;
