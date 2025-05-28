@@ -22,17 +22,16 @@ import kopfkino.collision.CircleHitbox;
 import kopfkino.collision.Collision;
 import kopfkino.graphics.EmptyEntityRenderer;
 import kopfkino.graphics.Spritesheet;
-import kopfkino.serialization.PersistentField;
 import kopfkino.utils.ImageUtils;
 
 public class TestEntity extends Entity {
-    private PersistentField<Vector2f> position = PersistentField.loadVec2f("te-pos", new Vector2f(100, 100));
+    private Vector2f position = new Vector2f(100, 100);
     private SpriteAnimation animation;
 
     public TestEntity(final BoundingBox boundingBox) {
         super(boundingBox, new EmptyEntityRenderer());
         setHitbox(new CircleHitbox(getBoundingBox()::getCentre, getWidth() / 2f));
-        setPosition(position.get());
+        setPosition(position);
         animation = new Spritesheet(ImageUtils.renderImage(new Dimensions(300, 100), g -> {
             g.setColor(Colors.CADET_BLUE);
             g.drawOval(new BoundingBox(0, 0, 100, 100));
@@ -58,17 +57,5 @@ public class TestEntity extends Entity {
         } else {
             getRigidbody().getV().add(collision.getCollisionNormal().times(f / 10000f));
         }
-    }
-
-    @Override
-    public void renderAfter(final KopfkinoGraphics graphics) {
-    }
-
-    @Override
-    public void collisionStart(final Collision collision) {
-    }
-
-    @Override
-    public void collisionEnd(final Entity partner) {
     }
 }

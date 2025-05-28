@@ -1,13 +1,11 @@
 package kopfkino.gui;
 
-import kopfkino.BoundingBox;
-import kopfkino.Dimensions;
-import kopfkino.Vector2f;
-import kopfkino.KopfkinoGraphics;
+import kopfkino.*;
 import kopfkino.graphics.Renderable;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -18,6 +16,7 @@ public class Gui implements Renderable {
     private Component focus = null;
     private boolean mouseDownOnComponent = false;
     private boolean drawBounds = false;
+    private boolean outlineFocus = false;
     private boolean visible = true;
 
     public Gui(List<Component> components) {
@@ -37,7 +36,11 @@ public class Gui implements Renderable {
             KopfkinoGraphics g = graphics.copy();
             g.setStroke(new BasicStroke(3));
             component.render(g);
-            if (drawBounds) g.outlineRect(components.get(i).getBounds());
+            if (drawBounds) graphics.outlineRect(component.getBounds());
+        }
+        if (outlineFocus && focus != null) {
+            graphics.setColor(Colors.RED);
+            graphics.outlineRect(focus.getBounds());
         }
     }
 
@@ -47,10 +50,11 @@ public class Gui implements Renderable {
         for (int i = 0; i < components.size(); i++) {
             Component component = components.get(i);
             if (!component.isVisible()) continue;
-            if (component.getBounds().contains(cursor)) {
-                focus = component;
+            Component focusedComponent;
+            if (component.getBounds().contains(cursor) && (focusedComponent = component.getFocus(cursor)) != null) {
+                focus = focusedComponent;
                 mouseDownOnComponent = true;
-                component.onMouseDown(cursorPos);
+                focusedComponent.onMouseDown(cursorPos);
                 return true;
             }
         }
@@ -75,6 +79,7 @@ public class Gui implements Renderable {
         }
         return false;
     }
+
     public boolean onKeyDown(KeyEvent e) {
         if (!visible) return false;
         if (focus != null && focus.isVisible()) {
@@ -83,6 +88,7 @@ public class Gui implements Renderable {
         }
         return false;
     }
+
     public boolean onKeyUp(KeyEvent e) {
         if (!visible) return false;
         if (focus != null && focus.isVisible()) {
@@ -90,6 +96,16 @@ public class Gui implements Renderable {
             return true;
         }
         return false;
+    }
+
+    public void onScroll(MouseWheelEvent e) {
+        if (!visible) return;
+        for (int i = 0; i < size(); i++) {
+            Component component = get(i);
+            if (!component.isVisible()) continue;
+            if (component.getBounds().contains(Input.cursor()))
+                component.onScroll(e);
+        }
     }
 
     public List<Component> getComponents() {
@@ -182,6 +198,14 @@ public class Gui implements Renderable {
 
     public int lastIndexOf(Object o) {
         return components.lastIndexOf(o);
+    }
+
+    public boolean isOutlineFocus() {
+        return outlineFocus;
+    }
+
+    public void setOutlineFocus(boolean outlineFocus) {
+        this.outlineFocus = outlineFocus;
     }
 
     public boolean isVisible() {

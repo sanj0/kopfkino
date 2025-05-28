@@ -23,11 +23,9 @@ import kopfkino.Vector2f;
 import kopfkino.gui.Gui;
 import kopfkino.utils.MathUtils;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 
-public class KopfkinoMouseListener implements MouseListener, MouseMotionListener {
+public class KopfkinoMouseListener implements MouseListener, MouseMotionListener, MouseWheelListener {
     public static Vector2f cursorPosition = Vector2f.zero();
 
     private final KopfkinoCanvas container;
@@ -89,5 +87,11 @@ public class KopfkinoMouseListener implements MouseListener, MouseMotionListener
 
     private void updateCursor(final MouseEvent e) {
         cursorPosition = getCursor(e);
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        Gui gui = Game.getInstance().getCurrentScene().getGui();
+        if (gui != null) gui.onScroll(e);
     }
 }
