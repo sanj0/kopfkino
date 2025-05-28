@@ -52,7 +52,7 @@ public class Camera2D implements Camera {
         final BufferedImage image = ImageUtils.createCompatibleImage(resolution);
         final KopfkinoGraphics graphics = new KopfkinoGraphics(image.createGraphics());
         if (autoClip) {
-            graphics.setClip(new BoundingBox(0, 0, resolution));
+            graphics.clipRect(new BoundingBox(0, 0, resolution));
         }
         graphics.getGraphics2D().setTransform(getAffineTransform());
         subject.render(graphics);

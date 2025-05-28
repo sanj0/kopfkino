@@ -19,7 +19,6 @@ package kopfkino;
 
 import kopfkino.graphics.Camera;
 import kopfkino.scene.SplashScene;
-import kopfkino.serialization.SerializationManager;
 import kopfkino.ui.KopfkinoWindow;
 
 import java.awt.*;
@@ -58,18 +57,6 @@ public class Game {
         initHardwareAcceleration();
         instance = new Game(resolutionW, resolutionH, name, Color.BLACK);
         ExternalResources.init(name);
-        try {
-            SerializationManager.read(ExternalResources.getFile("save0").getAbsolutePath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            try {
-                SerializationManager.write(ExternalResources.getFile("save0").getAbsolutePath());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }));
     }
 
     private static void initHardwareAcceleration() {

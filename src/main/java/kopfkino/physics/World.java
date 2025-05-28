@@ -12,6 +12,7 @@ import kopfkino.Scene;
 /**
  * A world that houses physics entities, more specifically {@link Rigidbody}s.
  */
+@Deprecated
 public class World {
 
     public static final Vector2f DEFAULT_G = new Vector2f(0, 0.0981f);

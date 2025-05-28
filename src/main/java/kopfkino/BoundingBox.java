@@ -67,6 +67,23 @@ public class BoundingBox {
         return new BoundingBox(align.relativeTo(new Vector2f(anchorX, anchorY), size), size);
     }
 
+    /**
+     * Returns a new BoundingBox with the given size located relative to the given other BoundbingBox offset by given offset.
+     */
+    public static BoundingBox relativeTo(final BoundingBox container, final Align align, final Dimensions size, final Vector2f offset) {
+        float anchorX = align.getAlignX() == Align.AlignX.LEFT
+            ? container.getX()
+            : align.getAlignX() == Align.AlignX.RIGHT
+            ? container.getMaxX()
+            : container.getX() + container.getWidth() * 0.5f;
+        float anchorY = align.getAlignY() == Align.AlignY.TOP
+            ? container.getY()
+            : align.getAlignY() == Align.AlignY.BOTTOM
+            ? container.getMaxY()
+            : container.getY() + container.getHeight() * 0.5f;
+        return new BoundingBox(align.relativeTo(new Vector2f(anchorX, anchorY), size).plus(offset), size);
+    }
+
     public BoundingBox withPosition(final Vector2f position) {
         return new BoundingBox(position, getSize());
     }

@@ -22,6 +22,7 @@ import kopfkino.graphics.OvalEntityRenderer;
 import kopfkino.gui.*;
 import kopfkino.gui.Button;
 import kopfkino.gui.Label;
+import kopfkino.gui.ScrollPane;
 import kopfkino.gui.TextArea;
 import static kopfkino.Prelude.*;
 
@@ -138,6 +139,28 @@ public class TestScene extends Scene {
             .add(left)
             .finalAlign(Align.AlignY.TOP, 10);
 
+        ScrollPane scrollPane = new ScrollPane(
+            BoundingBox.relativeTo(
+                Game.getDisplayBounds(),
+                new Align(Align.AlignX.LEFT, Align.AlignY.TOP),
+                dimensions(200, 100),
+                vec(100, 100)
+            )
+        );
+        LineLayoutGenerator scrollPaneLayout = new LineLayoutGenerator(scrollPane.getBounds(), Align.AlignX.CENTRE);
+        scrollPaneLayout.alignY(Align.AlignY.TOP);
+        for (int i = 0; i < 100; i++) {
+            Label l = new Label(String.valueOf(i));
+            scrollPaneLayout.add(l);
+            scrollPaneLayout.newLine(l.getBounds().getHeight(), Align.AlignX.CENTRE);
+            Block sep = new Block(dimensions(scrollPane.getBounds().getWidth(), 3));
+            scrollPaneLayout.add(sep);
+            scrollPaneLayout.newLine(sep.getBounds().getHeight(), Align.AlignX.CENTRE);
+            scrollPane.add(l);
+            scrollPane.add(sep);
+        }
+        scrollPaneLayout.finalAlign(Align.AlignY.TOP, -50);
+
 
         getGui().add(quitButton);
         getGui().add(checkBox);
@@ -154,8 +177,11 @@ public class TestScene extends Scene {
         getGui().add(sliderBar);
         getGui().add(waitingIndicator);
         getGui().add(barsWaitingIndicator);
+        getGui().add(scrollPane);
 
         getGui().setDrawBounds(false);
+        getGui().setOutlineFocus(true);
+
         getPhysicsWorld().setFriction(0.008f);
         getPhysicsWorld().setStoppingThreshold(.1f);
         add(new TestEntity(new BoundingBox(160, 90, 100, 100)));

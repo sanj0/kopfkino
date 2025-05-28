@@ -214,8 +214,8 @@ public class KopfkinoGraphics {
      *
      * @param box the new clip
      */
-    public void setClip(final BoundingBox box) {
-        g2d.setClip(Math.round(box.getX()), Math.round(box.getY()), Math.round(box.getWidth()), Math.round(box.getHeight()));
+    public void clipRect(final BoundingBox box) {
+        g2d.clipRect(Math.round(box.getX()), Math.round(box.getY()), Math.round(box.getWidth()), Math.round(box.getHeight()));
     }
 
     /**

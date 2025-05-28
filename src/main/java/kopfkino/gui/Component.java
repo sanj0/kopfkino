@@ -8,6 +8,7 @@ import kopfkino.Colors;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseWheelEvent;
 import java.util.function.Consumer;
 
 public abstract class Component implements Renderable {
@@ -29,13 +30,29 @@ public abstract class Component implements Renderable {
      */
     public abstract boolean keepsFocus();
 
+    /**
+     * When the cursor is inside the bounds of this component upon clickign, which component should be focused?
+     * Should return {@code this} for normal components and only a different component if {@code this} is a container.
+     * @param cursor the cursor that clicked
+     * @return the component that should be focused
+     */
+    public Component getFocus(BoundingBox cursor) {
+        return this;
+    }
+
     public void onMouseDown(Vector2f cursorPos) {
     }
+
     public void onMouseUp(Vector2f cursorPos) {
     }
+
     public void onKeyDown(KeyEvent e) {
     }
+
     public void onKeyUp(KeyEvent e) {
+    }
+
+    public void onScroll(MouseWheelEvent e) {
     }
 
     public boolean hasFocus() {
