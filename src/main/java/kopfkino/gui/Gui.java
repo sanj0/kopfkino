@@ -18,6 +18,7 @@ public class Gui implements Renderable {
     private Component focus = null;
     private boolean mouseDownOnComponent = false;
     private boolean drawBounds = false;
+    private boolean visible = true;
 
     public Gui(List<Component> components) {
         this.components = components;
@@ -29,8 +30,10 @@ public class Gui implements Renderable {
 
     @Override
     public void render(KopfkinoGraphics graphics) {
+        if (!visible) return;
         for (int i = 0; i < components.size(); i++) {
             Component component = components.get(i);
+            if (!component.isVisible()) continue;
             KopfkinoGraphics g = graphics.copy();
             g.setStroke(new BasicStroke(3));
             component.render(g);
@@ -39,9 +42,11 @@ public class Gui implements Renderable {
     }
 
     public boolean onMouseDown(Vector2f cursorPos) {
+        if (!visible) return false;
         BoundingBox cursor = new BoundingBox(cursorPos, Dimensions.one());
         for (int i = 0; i < components.size(); i++) {
             Component component = components.get(i);
+            if (!component.isVisible()) continue;
             if (component.getBounds().contains(cursor)) {
                 focus = component;
                 mouseDownOnComponent = true;
@@ -55,7 +60,12 @@ public class Gui implements Renderable {
     }
 
     public boolean onMouseUp(Vector2f cursorPos) {
+        if (!visible) return false;
         if (mouseDownOnComponent) {
+            if (!focus.isVisible()) {
+                focus = null;
+                return false;
+            }
             mouseDownOnComponent = false;
             focus.onMouseUp(cursorPos);
             if (!focus.keepsFocus()) {
@@ -66,14 +76,16 @@ public class Gui implements Renderable {
         return false;
     }
     public boolean onKeyDown(KeyEvent e) {
-        if (focus != null) {
+        if (!visible) return false;
+        if (focus != null && focus.isVisible()) {
             focus.onKeyDown(e);
             return true;
         }
         return false;
     }
     public boolean onKeyUp(KeyEvent e) {
-        if (focus != null) {
+        if (!visible) return false;
+        if (focus != null && focus.isVisible()) {
             focus.onKeyUp(e);
             return true;
         }
@@ -170,5 +182,13 @@ public class Gui implements Renderable {
 
     public int lastIndexOf(Object o) {
         return components.lastIndexOf(o);
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 }
