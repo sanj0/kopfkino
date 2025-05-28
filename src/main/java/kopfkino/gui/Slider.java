@@ -3,6 +3,8 @@ package kopfkino.gui;
 import kopfkino.*;
 import kopfkino.utils.MathUtils;
 
+import java.awt.event.MouseWheelEvent;
+
 public class Slider extends Component {
     private float value;
     private float thickness = 4;
@@ -33,6 +35,14 @@ public class Slider extends Component {
     @Override
     public void onMouseUp(Vector2f cursorPos) {
         dragging = false;
+    }
+
+    @Override
+    public void onScroll(MouseWheelEvent e) {
+        value += e.getPreciseWheelRotation() / 20f;
+        if (getOnAction() != null) {
+            getOnAction().accept(this);
+        }
     }
 
     @Override

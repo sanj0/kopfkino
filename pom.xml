@@ -60,14 +60,6 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>io.github.sanj0</groupId>
-      <artifactId>sanjo</artifactId>
-      <version>0.2.1-SNAPSHOT</version>
-    </dependency>
-  </dependencies>
-
   <build>
     <plugins>
       <plugin>

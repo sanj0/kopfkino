@@ -103,7 +103,7 @@ public abstract class AbstractTextArea extends Component {
     protected void renderText(KopfkinoGraphics graphics) {
         graphics.setColor(getForegroundColor());
         Vector2f textOrigin = new Vector2f(getBounds().getX() + 3, getBounds().getY() + (getBounds().getHeight() * 0.5f));
-        graphics.setClip(getBounds());
+        graphics.clipRect(getBounds());
         graphics.getGraphics2D().translate(-scroll, 0);
         graphics.drawString(text, textOrigin, new Align(Align.AlignX.LEFT, Align.AlignY.CENTRE));
 

@@ -38,6 +38,7 @@ public class KopfkinoCanvas extends JPanel {
         final KopfkinoMouseListener mouseListener = new KopfkinoMouseListener(this);
         addMouseListener(mouseListener);
         addMouseMotionListener(mouseListener);
+        addMouseWheelListener(mouseListener);
     }
 
     @Override
