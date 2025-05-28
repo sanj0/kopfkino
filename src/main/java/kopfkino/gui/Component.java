@@ -16,6 +16,7 @@ public abstract class Component implements Renderable {
     private Color foregroundColor = Colors.BLACK;
     private Font font = null;
     private Consumer<Component> onAction;
+    private boolean visible = true;
 
     public Component(BoundingBox bounds) {
         this.bounds = bounds;
@@ -83,5 +84,13 @@ public abstract class Component implements Renderable {
 
     public void setOnAction(Consumer<Component> onAction) {
         this.onAction = onAction;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 }
