@@ -49,6 +49,9 @@ public abstract class BiFloatTuple<T> {
 
     protected abstract T createInstance(final float a, final float b);
 
+    public T copy() {
+        return createInstance(a, b);
+    }
 
     public T set(final BiFloatTuple v) {
         a = v.a;
