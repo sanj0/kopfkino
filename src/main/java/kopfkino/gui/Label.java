@@ -27,6 +27,8 @@ public class Label extends AbstractLabel {
         if (getFont() != null) {
             graphics.setFont(getFont());
         }
+        graphics.setColor(getBackgroundColor());
+        graphics.drawRect(getBounds());
         graphics.setColor(getForegroundColor());
         graphics.clipRect(getBounds());
         Align align = getAlign();
