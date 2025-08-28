@@ -26,10 +26,7 @@ import kopfkino.graphics.Renderable;
 import kopfkino.gui.Gui;
 import kopfkino.physics.World;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -38,10 +35,9 @@ import java.util.function.Predicate;
  */
 public class Scene implements Renderable {
     /**
-     * A potential gui that gets drawn on top of the entites.
-     * May be null in case of no gui.
+     * A gui that gets drawn on top of the entites.
      */
-    private Gui gui = null;
+    private Gui gui = new Gui();
     private final List<Entity> entities = new ArrayList<>();
     private final World physicsWorld;
     private Camera camera;
@@ -58,9 +54,7 @@ public class Scene implements Renderable {
         for (int i = 0; i < entities.size(); i++) {
             entities.get(i).render(graphics.copy());
         }
-        if (gui != null) {
-            gui.render(graphics);
-        }
+        gui.render(graphics);
     }
 
     /**
@@ -125,7 +119,7 @@ public class Scene implements Renderable {
     }
 
     public void setGui(Gui gui) {
-        this.gui = gui;
+        this.gui = Objects.requireNonNull(gui, "GUI cannot be null");
     }
 
     /**
