@@ -150,7 +150,7 @@ public class TestScene extends Scene {
         LineLayoutGenerator scrollPaneLayout = new LineLayoutGenerator(scrollPane.getBounds(), Align.AlignX.CENTRE);
         scrollPaneLayout.alignY(Align.AlignY.TOP);
         for (int i = 0; i < 100; i++) {
-            Label l = new Label(String.valueOf(i));
+            Button l = new Button(dimensions(200, 20), String.valueOf(i), System.out::println);
             scrollPaneLayout.add(l);
             scrollPaneLayout.newLine(l.getBounds().getHeight(), Align.AlignX.CENTRE);
             Block sep = new Block(dimensions(scrollPane.getBounds().getWidth(), 3));
