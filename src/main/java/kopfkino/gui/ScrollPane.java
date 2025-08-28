@@ -44,7 +44,7 @@ public class ScrollPane extends Container {
             BoundingBox effectiveBounds = new BoundingBox(
                 new Vector2f(
                     component.getBounds().getX(),
-                    component.getBounds().getY() - scroll),
+                    component.getBounds().getY() + scroll),
                 component.getBounds().getSize()
             );
             if (effectiveBounds.contains(cursor))
